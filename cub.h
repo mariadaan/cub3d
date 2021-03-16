@@ -44,9 +44,9 @@ typedef struct s_info
 	char *s_path;
 	char *w_path;
 	char *e_path;
-	char *spr_path;
-	int floor_color;
-	int ceiling_color;
+	char *sprite_path;
+	unsigned int floor_color;
+	unsigned int ceiling_color;
 }				t_info;
 
 // parse.c
@@ -74,5 +74,8 @@ int		destroy_window(t_data *img);
 
 // move.c
 int		move_rect(int keycode, int *x_pos, int *y_pos, t_data *img);
+
+// utils.c
+void	print_info(t_info *info);
 
 #endif
