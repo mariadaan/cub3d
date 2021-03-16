@@ -78,4 +78,22 @@ int		move_rect(int keycode, int *x_pos, int *y_pos, t_data *img);
 // utils.c
 void	print_info(t_info *info);
 
+// color.c
+#include "cub.h"
+
+int	get_t(int trgb);
+
+int	get_r(int trgb);
+
+int	get_g(int trgb);
+
+int	get_b(int trgb);
+
+unsigned int	create_trgb(int t, int r, int g, int b);
+
+void	print_components(int color);
+
+void	gen_darker_color(int color, int factor);
+
+
 #endif

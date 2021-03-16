@@ -29,11 +29,29 @@ int		parse_int(int *size, char *line, int pos)
 	return (0);
 }
 
-int		parse_color(unsigned int *colour, char *line)
+int		parse_color(unsigned int *color, char *line, char c)
 {
 	char **split;
+	int r;
+	int g;
+	int b;
 
-	
+	if (line[0] == c || line[0] == c)
+	{
+		line += 2;
+		split = ft_split(line, ',');
+		// printf("split: %s\n", split[0]);
+		// printf("split: %s\n", split[1]);
+		// printf("split: %s\n", split[2]);
+
+		r = ft_atoi(split[0]);
+		g = ft_atoi(split[1]);
+		b = ft_atoi(split[2]);
+		free2d_array(split, 3);
+		*color = create_trgb(0, r, g, b);
+		return (1);
+	}
+	return (0);
 }
 
 int		parse_map(int fd, t_info *info)
@@ -41,6 +59,7 @@ int		parse_map(int fd, t_info *info)
 	char *line;
 	char **split;
 
+	split = NULL;
 	while (get_next_line(fd, &line))
 	{
 		printf("%s\n", line);
@@ -51,10 +70,12 @@ int		parse_map(int fd, t_info *info)
 		parse_path(&(info->w_path), split, line, "WE");
 		parse_path(&(info->e_path), split, line, "EA");
 		parse_path(&(info->sprite_path), split, line, "S");
-		parse_color()
-
+		parse_color(&(info->floor_color), line, 'F');
+		parse_color(&(info->ceiling_color), line, 'C');
+		free(line);
 	}
 	printf("%s\n", line);
+	free(line);
 	print_info(info);
-	return (0);
+	return (1);
 }

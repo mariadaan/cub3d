@@ -10,5 +10,8 @@ void	print_info(t_info *info)
 	printf("e_path:           %s\n", info->e_path);
 	printf("sprite_path:      %s\n", info->sprite_path);
 	printf("floor_color:      %d\n", info->floor_color);
+	// ft_putnbr_fd(info->floor_color, 1);
+	// ft_putchar('=');
+	// ft_putbasenbr(info->floor_color, 2);
 	printf("ceiling_color:    %d\n", info->ceiling_color);
 }
