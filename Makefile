@@ -6,7 +6,7 @@
 #    By: mdaan <mdaan@student.codam.nl>               +#+                      #
 #                                                    +#+                       #
 #    Created: 2021/01/28 15:38:43 by mdaan         #+#    #+#                  #
-#    Updated: 2021/03/22 11:50:41 by mdaan         ########   odam.nl          #
+#    Updated: 2021/03/22 14:23:02 by mdaan         ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,6 +19,7 @@ SRCS	=	src/main.c \
 			src/utils.c \
 			src/color.c \
 			src/color_utils.c \
+			src/printvar.c \
 			../libft/libft.a
 			# $(shell find src -name '*.c')
 			# read_till_end.c \
@@ -27,6 +28,7 @@ SRCS	=	src/main.c \
 CC		=	gcc
 CFLAGS	=	-g -fsanitize=address #-Wall -Wextra # -Werror
 MLX		=	mlxopengl
+LIBFT	=	../libft/libft.a
 LXFLAGS	=	-lmlx -framework OpenGL -framework AppKit
 
 OBJS	=	$(SRCS:%.c=%.o)
@@ -40,7 +42,7 @@ $(NAME): $(OBJS)
 	$(CC) $(CFLAGS) -Imlx -c $< -o $@
 
 clean:
-	rm -f *.o
+	find src -name "*.o" -type f -delete
 
 fclean: clean
 	rm -f $(NAME)
@@ -49,7 +51,7 @@ re: fclean all
 
 debug:
 	make re
-	./cub cub3d_destroyer/valid_maps/valid_map_area_000.cub
+	./cub maps/valid_maps/valid_map_area_004.cub
 	# ./cub map.cub
 
 .PHONY: all clean fclean re debug

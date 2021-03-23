@@ -6,6 +6,11 @@
 # define UP 125
 # define DOWN 126
 
+# define PRESS 2
+# define RELEASE 3
+# define DESTROY 17
+
+
 /* events */
 # define KeyPress		2
 # define KeyRelease		3

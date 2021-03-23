@@ -102,9 +102,7 @@ void			print_components(int color);
 
 void			gen_darker_color(int color, int factor);
 
-/*
-	read_till_end.c
-*/
-int	read_till_end(int fd, char **line);
+int	printnum(char * name, int num);
+int	printstr(char *name, char *str);
 
 #endif

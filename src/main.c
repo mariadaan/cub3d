@@ -55,7 +55,7 @@ int		main(int argc, char *argv[])
 		mlx_hook(img.win, DestroyNotify, 0, destroy_window, &img);
 
 		mlx_hook(img.win, KeyPress, 0, key_press, &img);
-		// mlx_hook(img.win, 3, 0, key_release, &img);
+		// mlx_loop_hook(img.mlx, render_frame, &img);
 		mlx_loop(img.mlx);
 	}
 }

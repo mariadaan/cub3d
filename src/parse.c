@@ -2,8 +2,10 @@
 
 int	parse_int(char *line, int *size, int pos)
 {
-	char **split;
+	char	**split;
 
+	if (!line)
+		return (0);
 	line = ft_move_ptr(line, 'R');
 	if (line[0] == 'R')
 	{
@@ -17,8 +19,8 @@ int	parse_int(char *line, int *size, int pos)
 
 int	parse_path(char *line, char **path, char *compass)
 {
-	int	len;
-	char **split_line;
+	int		len;
+	char	**split_line;
 
 	line = ft_move_ptr(line, *compass);
 	len = ft_strlen(compass);
@@ -35,10 +37,10 @@ int	parse_path(char *line, char **path, char *compass)
 
 int	parse_color(char *line, unsigned int *color, char c)
 {
-	char **split;
-	int	r;
-	int	g;
-	int	b;
+	char	**split;
+	int		r;
+	int		g;
+	int		b;
 
 	line = ft_move_ptr(line, c);
 	if (line[0] == c)
@@ -87,5 +89,5 @@ int	parse_all(int fd, t_info *info)
 	free2d_array(split, ft_count_rows(split));
 	free(full_file);
 	print_info(info);
-	return (1);
+	return (0);
 }

@@ -27,5 +27,5 @@ void	print_info(t_info *info)
 	// ft_putbasenbr(info->floor_color, 2);
 	printf("ceiling_color:    %d\n", info->ceiling_color);
 	printf("map: \n");
-	ft_put2darray(info->map, 14);
+	ft_put2darray(info->map, ft_count_rows(info->map));
 }
