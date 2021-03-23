@@ -21,27 +21,37 @@ typedef struct s_data {
 	int				endian;
 }				t_data;
 
-typedef struct s_rectangle {
+typedef struct s_info
+{
+	int				x_size;
+	int				y_size;
+	char			*no_path;
+	char			*so_path;
+	char			*we_path;
+	char			*ea_path;
+	char			*s_path;
+	unsigned int	f_color;
+	unsigned int	c_color;
+	char			**map;
+	int				map_width;
+	int				map_height;
+	int				x_spawn;
+	int				y_spawn;
+	char			spawn_dir;
+}				t_info;
+
+typedef struct s_rect {
 	int				x;
 	int				y;
 	int				width;
 	int				height;
 	unsigned int	color;
-}				t_rectangle;
+}				t_rect;
 
-typedef struct s_info
-{
-	int				x_render_size;
-	int				y_render_size;
-	char			*n_path;
-	char			*s_path;
-	char			*w_path;
-	char			*e_path;
-	char			*sprite_path;
-	unsigned int	floor_color;
-	unsigned int	ceiling_color;
-	char			**map;
-}				t_info;
+typedef struct s_position {
+	int				x_pos;
+	int				y_pos;
+}				t_position;
 
 /*
 	parse.c
@@ -102,7 +112,20 @@ void			print_components(int color);
 
 void			gen_darker_color(int color, int factor);
 
-int	printnum(char * name, int num);
-int	printstr(char *name, char *str);
+/*
+	printvar.c
+*/
+int				printnum(char * name, int num);
+
+int				printstr(char *name, char *str);
+
+int				printchar(char *name, char c);
+
+/*
+	render.c
+*/
+int				draw_bg(t_data *img, t_info *info);
+
+int				draw_wall(t_data *img, t_info *info);
 
 #endif

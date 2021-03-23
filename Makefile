@@ -6,7 +6,7 @@
 #    By: mdaan <mdaan@student.codam.nl>               +#+                      #
 #                                                    +#+                       #
 #    Created: 2021/01/28 15:38:43 by mdaan         #+#    #+#                  #
-#    Updated: 2021/03/22 14:23:02 by mdaan         ########   odam.nl          #
+#    Updated: 2021/03/23 12:39:34 by mdaan         ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,6 +20,7 @@ SRCS	=	src/main.c \
 			src/color.c \
 			src/color_utils.c \
 			src/printvar.c \
+			src/render.c \
 			../libft/libft.a
 			# $(shell find src -name '*.c')
 			# read_till_end.c \
@@ -51,7 +52,7 @@ re: fclean all
 
 debug:
 	make re
-	./cub maps/valid_maps/valid_map_area_004.cub
-	# ./cub map.cub
+	./cub maps/map.cub
+	# ./cub maps/valid_maps/valid_map_area_010.cub
 
 .PHONY: all clean fclean re debug

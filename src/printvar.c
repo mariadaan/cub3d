@@ -19,3 +19,13 @@ int	printstr(char *name, char *str)
 	ret += printf("%s\n", str);
 	return (ret);
 }
+
+int	printchar(char *name, char c)
+{
+	int	ret;
+
+	ret = 0;
+	ret = printf("%-20s", name);
+	ret += printf("%c\n", c);
+	return (ret);
+}
