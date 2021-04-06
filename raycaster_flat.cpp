@@ -96,7 +96,7 @@ int main(int /*argc*/, char */*argv*/[])
       double sideDistY;
 
        //length of ray from one x or y-side to next x or y-side
-      double deltaDistX = std::abs(1 / rayDirX);
+      double deltaDistX = fabs(1 / rayDirX); // fabs
       double deltaDistY = std::abs(1 / rayDirY);
       double perpWallDist;
 

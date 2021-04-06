@@ -1,6 +1,8 @@
+#include "cub.h"
+
 #define mapWidth 24
 #define mapHeight 24
-#define screenWidth 640
+#define screenWidth 20
 #define screenHeight 480
 
 int worldMap[mapWidth][mapHeight]=
@@ -31,11 +33,26 @@ int worldMap[mapWidth][mapHeight]=
   {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1}
 };
 
-int main(int /*argc*/, char */*argv*/[])
+int main(void)
 {
-  double posX = 22, posY = 12;  //x and y start position
-  double dirX = -1, dirY = 0; //initial direction vector
-  double planeX = 0, planeY = 0.66; //the 2d raycaster version of camera plane
+	double posX = 22, posY = 12;  //x and y start position
+	double dirX = -1, dirY = 0; //initial direction vector
+	double planeX = 0, planeY = 0.66; //the 2d raycaster version of camera plane 	
+	double time = 0; //time of current frame
+	double oldTime = 0; //time of previous frame
+	int w = screenWidth;
 
-  double time = 0; //time of current frame
-  double oldTime = 0; //time of previous frame
+	for(int x = 0; x < w; x++)
+	{
+		//calculate ray position and direction
+		double cameraX = 2 * x / (double)w - 1; //x-coordinate in camera space
+		double rayDirX = dirX + planeX * cameraX;
+		double rayDirY = dirY + planeY * cameraX;
+
+		printf("cameraX: %f\n", cameraX);
+		printf("planeX:  %f\n", planeX);
+		printf("planeY:  %f\n", planeY);
+		printf("rayDirX: %f\n", rayDirX);
+		printf("rayDirY: %f\n\n", rayDirY);
+	}
+}
