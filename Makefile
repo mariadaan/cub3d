@@ -6,13 +6,12 @@
 #    By: mdaan <mdaan@student.codam.nl>               +#+                      #
 #                                                    +#+                       #
 #    Created: 2021/01/28 15:38:43 by mdaan         #+#    #+#                  #
-#    Updated: 2021/03/23 12:39:34 by mdaan         ########   odam.nl          #
+#    Updated: 2021/04/06 15:42:03 by mdaan         ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
 NAME	=	cub
-SRCS	=	src/main.c \
-			src/parse.c \
+SRCS	=	src/parse.c \
 			src/pixel.c \
 			src/hook_action.c \
 			src/move.c \
@@ -21,13 +20,14 @@ SRCS	=	src/main.c \
 			src/color_utils.c \
 			src/printvar.c \
 			src/render.c \
+			raycast.c \
 			../libft/libft.a
 			# $(shell find src -name '*.c')
 			# read_till_end.c \
 			# ../get_next_line/get_next_line.c
 			# ../get_next_line/get_next_line_utils.c
 CC		=	gcc
-CFLAGS	=	-g -fsanitize=address #-Wall -Wextra # -Werror
+CFLAGS	=	# -g -fsanitize=address #-Wall -Wextra # -Werror
 MLX		=	mlxopengl
 LIBFT	=	../libft/libft.a
 LXFLAGS	=	-lmlx -framework OpenGL -framework AppKit
@@ -49,6 +49,10 @@ fclean: clean
 	rm -f $(NAME)
 
 re: fclean all
+
+ray:
+	make re
+	./cub
 
 debug:
 	make re
