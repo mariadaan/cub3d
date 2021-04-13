@@ -99,6 +99,13 @@ typedef struct s_position {
 	int				y_pos;
 }				t_position;
 
+typedef struct s_color {
+	int				r;
+	int				g;
+	int				b;
+	int				color;
+}				t_color;
+
 /*
 	parse.c
 */
@@ -116,6 +123,10 @@ void			put_vertical(t_data *data, int x, int y, int len, int color);
 void			put_rect(t_data *data, int x, int y, int xlen, int ylen, int color);
 
 void			fill_rect(t_data *data, int x, int y, int xlen, int ylen, int color);
+
+void	gradient_bg(t_all *all);
+
+void	gradient_rect(t_all *all, int y_start, int color);
 
 /*
 	hook_action.c
@@ -141,7 +152,7 @@ void			print_info(t_info *info);
 /*
 	color.c
 */
-int				get_t(int trgb);
+// int				get_t(int trgb);
 
 int				get_r(int trgb);
 
@@ -149,14 +160,15 @@ int				get_g(int trgb);
 
 int				get_b(int trgb);
 
-unsigned int	create_trgb(int t, int r, int g, int b);
+// unsigned int	create_trgb(int t, int r, int g, int b);
+int	create_rgb(int r, int g, int b);
 
 /*
 	color_utils.c
 */
 void			print_components(int color);
 
-void			gen_darker_color(int color, int factor);
+int				gen_darker_color(int color, int factor);
 
 /*
 	printvar.c

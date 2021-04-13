@@ -1,26 +1,21 @@
 #include "cub.h"
 
-int	get_t(int trgb)
+int	create_rgb(int r, int g, int b)
 {
-	return (trgb & (0xFF << 24));
+	return (0xFFFFFF & (r << 16 | g << 8 | b));
 }
 
-int	get_r(int trgb)
+int	get_r(int rgb)
 {
-	return (trgb & (0xFF << 16));
+	return ((rgb & (0xFF << 16)) >> 16);
 }
 
-int	get_g(int trgb)
+int	get_g(int rgb)
 {
-	return (trgb & (0xFF << 8));
+	return ((rgb & (0xFF << 8)) >> 8);
 }
 
-int	get_b(int trgb)
+int	get_b(int rgb)
 {
-	return (trgb & 0xFF);
-}
-
-unsigned int	create_trgb(int t, int r, int g, int b)
-{
-	return (t << 24 | r << 16 | g << 8 | b);
+	return (rgb & 0xFF);
 }

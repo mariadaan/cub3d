@@ -50,7 +50,7 @@ int	parse_color(char *line, unsigned int *color, char c)
 		g = ft_atoi(split[1]);
 		b = ft_atoi(split[2]);
 		free_2darray(split, 3);
-		*color = create_trgb(0, r, g, b);
+		*color = create_rgb(r, g, b);
 		return (1);
 	}
 	return (0);
@@ -93,6 +93,11 @@ int	get_spawn_pos(t_info *info)
 	return (0);
 }
 
+// int	change_spawn(t_info *info)
+// {
+// 	info->map[info->y_spawn][info->x_spawn] = 0;
+// }
+
 int	parse_all(int fd, t_info *info)
 {
 	char	*full_file;
@@ -103,15 +108,17 @@ int	parse_all(int fd, t_info *info)
 	split = ft_split(full_file, '\n');
 	parse_int(split[0], &(info->x_size), 1);
 	parse_int(split[0], &(info->y_size), 2);
-	parse_path(split[1], &(info->no_path), "NO");
-	parse_path(split[2], &(info->so_path), "SO");
-	parse_path(split[3], &(info->we_path), "WE");
-	parse_path(split[4], &(info->ea_path), "EA");
-	parse_path(split[5], &(info->s_path), "S");
+	parse_path(split[1], &(info->no_path), "NO ");
+	parse_path(split[2], &(info->so_path), "SO ");
+	parse_path(split[3], &(info->we_path), "WE ");
+	parse_path(split[4], &(info->ea_path), "EA ");
+	parse_path(split[5], &(info->s_path), "S ");
 	parse_color(split[6], &(info->f_color), 'F');
 	parse_color(split[7], &(info->c_color), 'C');
 	parse_map(info, full_file);
 	get_spawn_pos(info);
+	printchar("spawn", info->map[info->y_spawn][info->x_spawn]);
+	info->map[info->y_spawn][info->x_spawn] = '0';
 	free_2darray(split, ft_count_rows(split));
 	free(full_file);
 	print_info(info);
