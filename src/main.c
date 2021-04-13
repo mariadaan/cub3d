@@ -2,6 +2,7 @@
 
 int		main(int argc, char *argv[])
 {
+	t_all		all;
 	t_data		img;
 	t_info		info;
 
@@ -28,6 +29,8 @@ int		main(int argc, char *argv[])
 		img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length,
 													&img.endian);
 
+		all.img = img;
+		all.info = info;
 
 		draw_bg(&img, &info);
 		draw_wall(&img, &info);

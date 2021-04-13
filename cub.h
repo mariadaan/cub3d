@@ -11,6 +11,7 @@
 # include "../libft/libft.h"
 # include "keys.h"
 
+
 typedef struct s_data {
 	void			*mlx;
 	void			*img;
@@ -20,6 +21,45 @@ typedef struct s_data {
 	int				line_length;
 	int				endian;
 }				t_data;
+
+typedef struct s_ray {
+	double pos_x;
+	double pos_y;	//x and y start position
+	double dir_x; //initial direction vector
+	double dir_y;
+	double plane_x; //the 2d raycaster version of camera plane
+	double plane_y;
+	int w;
+	int h;
+	double camera_x; //x-coordinate in camera space
+	double ray_dir_x;
+	double ray_dir_y;
+	//which box of the map we're in
+	int map_x;
+	int map_y;
+
+	//length of ray from current position to next x or y-side
+	double side_dist_x;
+	double side_dist_y;
+
+	 //length of ray from one x or y-side to next x or y-side
+	double delta_dist_y;
+	double delta_dist_x;
+	double perp_wall_dist;
+
+	//what direction to step in x or y-direction (either +1 or -1)
+	int step_x;
+	int step_y;
+
+	int hit; //was there a wall hit?
+	int side; //was a NS or a EW wall hit?
+
+	double move_speed; //the constant value is in squares/second
+	double rot_speed; //the constant value is in radians/second
+
+	double time;
+	double old_time;
+}		t_ray;
 
 typedef struct s_info
 {
@@ -39,6 +79,12 @@ typedef struct s_info
 	int				y_spawn;
 	char			spawn_dir;
 }				t_info;
+
+typedef struct s_all {
+	t_data img;
+	t_ray ray;
+	t_info info;
+}			t_all;
 
 typedef struct s_rect {
 	int				x;
