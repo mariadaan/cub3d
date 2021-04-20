@@ -6,7 +6,9 @@ int	parse_int(char *line, int *size, int pos)
 
 	if (!line)
 		return (0);
-	line = ft_move_ptr(line, 'R');
+	int linelen = ft_strlen(line);
+	line = ft_strnstr(line, "R ", linelen);
+	// ft_move_ptr(line, 'R');
 	if (line[0] == 'R')
 	{
 		split = ft_split(line, ' ');
@@ -17,32 +19,51 @@ int	parse_int(char *line, int *size, int pos)
 	return (0);
 }
 
+int	get_index(char *str, char c)
+{
+	int	i;
+
+	i = 0;
+	while (str && str[i] && str[i] != c)
+		i++;
+	return (i);
+}
+
 int	parse_path(char *line, char **path, char *compass)
 {
 	int		len;
 	char	**split_line;
+	char	*test;
 
-	line = ft_move_ptr(line, *compass);
+	int linelen = ft_strlen(line);
+	line = ft_strnstr(line, compass, linelen);
+	int length = get_index(line, '\n');
+	// error als length = 0
+	test = ft_substr(line, 0, length);
+	linelen = ft_strlen(line);
 	len = ft_strlen(compass);
 	if (!(ft_strncmp(line, compass, len)))
 	{
-		split_line = ft_split(line, ' ');
+		split_line = ft_split(test, ' ');
 		*path = ft_strdup(split_line[1]);
 		free_2darray(split_line, 2);
+		free(test);
 		return (1);
 	}
 	return (0);
 }
 
-int	parse_color(char *line, unsigned int *color, char c)
+int	parse_color(char *line, unsigned int *color, char *area)
 {
 	char	**split;
 	int		r;
 	int		g;
 	int		b;
 
-	line = ft_move_ptr(line, c);
-	if (line[0] == c)
+	// line = ft_move_ptr(line, c);
+	int linelen = ft_strlen(line);
+	line = ft_strnstr(line, area, linelen);
+	if (line[0] == *area)
 	{
 		line += 2;
 		split = ft_split(line, ',');
@@ -56,13 +77,103 @@ int	parse_color(char *line, unsigned int *color, char c)
 	return (0);
 }
 
+int	check_line(char *str)
+{
+	int check;
+	int i;
+	char **split;
+
+	split = ft_split(str, '\n');
+
+	// check = 1;
+	i = 0;
+	while (split[i])
+	{
+		check = 1;
+		printstr("split plek", split[i]);
+		int linelen = ft_strlen(split[i]);
+		int j = 0;
+		while (j < linelen)
+		{
+			if (!(ft_inset("102NEWS ", split[i][j])))
+				check = 0;
+			j++;
+		}
+		printnum("check", check);
+		if (check == 1)
+			return (i);
+		i++;
+	}
+	return (0);
+}
+
+int	check_str(char *str)
+{
+	int check;
+	int i;
+	int index;
+
+	i = 0;
+	check = 1;
+	while (str[i])
+	{
+		while (str[i] == '\n')
+			i++;
+		printchar("char", str[i]);
+		if (!(ft_inset("102NEWS ", str[i])))
+			check = 0;
+		i++;
+		if (str[i] == '\n' && check == 1)
+			return (index);
+		while (str[i] == '\n')
+		{
+			i++;
+			printf("NEWLINE\n\n");
+			check = 1;
+			index = i;
+		}
+	}
+
+		
+	// 	int linelen = ft_strlend(str + i, '\n');
+	// 	int j = 0;
+	// 	while (j < linelen)
+	// 	{
+	// 		if (!(ft_inset("102NEWS ", (str + i)[j])))
+	// 			check = 0;
+	// 		j++;
+	// 		all++;
+	// 	}
+	// 	printnum("check", check);
+	// 	if (check == 1)
+	// 		return (all);
+	// 	all++;
+	// 	i++;
+	// }
+	return (0);
+}
+
 int	parse_map(t_info *info, char *full_file)
 {
 	char	*start_map;
+	int		map_check;
+	char	**mappie;
 
-	start_map = ft_move_ptr(full_file, 'C');
-	start_map = ft_move_ptr(start_map, '\n') + 1;
-	info->map = ft_split(start_map, '\n');
+	// begin map: geen ["NO", "SO", "WE", "EA", "S", "F", "C"] in line
+	// alleen 1 0 2 N E W S of spatie in line
+	map_check = check_str(full_file);
+	printnum("mapcheck", map_check);
+	if (map_check)
+	{
+		printstr("mappie", full_file + map_check);
+
+		start_map = full_file + map_check;
+		info->map = ft_split(start_map, '\n');
+		return (1);
+	}
+	// start_map = ft_move_ptr(full_file, 'C');
+	// start_map = ft_move_ptr(start_map, '\n') + 1;
+	// info->map = ft_split(start_map, '\n');
 	return (0);
 }
 
@@ -105,21 +216,21 @@ int	parse_all(int fd, t_info *info)
 
 	init_info(info);
 	read_till_end(fd, &full_file);
-	split = ft_split(full_file, '\n');
-	parse_int(split[0], &(info->x_size), 1);
-	parse_int(split[0], &(info->y_size), 2);
-	parse_path(split[1], &(info->no_path), "NO ");
-	parse_path(split[2], &(info->so_path), "SO ");
-	parse_path(split[3], &(info->we_path), "WE ");
-	parse_path(split[4], &(info->ea_path), "EA ");
-	parse_path(split[5], &(info->s_path), "S ");
-	parse_color(split[6], &(info->f_color), 'F');
-	parse_color(split[7], &(info->c_color), 'C');
+	// split = ft_split(full_file, '\n');
+	parse_int(full_file, &(info->x_size), 1);
+	parse_int(full_file, &(info->y_size), 2);
+	parse_path(full_file, &(info->no_path), "NO ");
+	parse_path(full_file, &(info->so_path), "SO ");
+	parse_path(full_file, &(info->we_path), "WE ");
+	parse_path(full_file, &(info->ea_path), "EA ");
+	parse_path(full_file, &(info->s_path), "S ");
+	parse_color(full_file, &(info->f_color), "F ");
+	parse_color(full_file, &(info->c_color), "C ");
 	parse_map(info, full_file);
 	get_spawn_pos(info);
 	printchar("spawn", info->map[info->y_spawn][info->x_spawn]);
 	info->map[info->y_spawn][info->x_spawn] = '0';
-	free_2darray(split, ft_count_rows(split));
+	// free_2darray(split, ft_count_rows(split));
 	free(full_file);
 	print_info(info);
 	return (0);
