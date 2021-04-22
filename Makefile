@@ -6,7 +6,7 @@
 #    By: mdaan <mdaan@student.codam.nl>               +#+                      #
 #                                                    +#+                       #
 #    Created: 2021/01/28 15:38:43 by mdaan         #+#    #+#                  #
-#    Updated: 2021/04/08 16:22:08 by mdaan         ########   odam.nl          #
+#    Updated: 2021/04/22 16:47:26 by mdaan         ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,7 +27,7 @@ SRCS	=	src/parse.c \
 			# ../get_next_line/get_next_line.c
 			# ../get_next_line/get_next_line_utils.c
 CC		=	gcc
-CFLAGS	=	# -g -fsanitize=address #-Wall -Wextra # -Werror
+CFLAGS	=	-g -fsanitize=address #-Wall -Wextra # -Werror
 MLX		=	mlxopengl
 LIBFT	=	../libft/libft.a
 LXFLAGS	=	-lmlx -framework OpenGL -framework AppKit

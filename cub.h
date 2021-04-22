@@ -63,6 +63,7 @@ typedef struct s_ray {
 
 typedef struct s_info
 {
+	char			*full_file;
 	int				x_size;
 	int				y_size;
 	char			*no_path;
@@ -78,6 +79,7 @@ typedef struct s_info
 	int				x_spawn;
 	int				y_spawn;
 	char			spawn_dir;
+	int				file_len;
 }				t_info;
 
 typedef struct s_all {

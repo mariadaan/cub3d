@@ -1,5 +1,24 @@
 #include "cub.h"
 
+int	parse_rendersize(t_info *info, char *full_file, char *id)
+{
+	char	**split;
+
+	if (!full_file)
+		return (0);
+	int full_filelen = ft_strlen(full_file);
+	full_file = ft_strnstr(full_file, "R ", full_filelen);
+	if (!(ft_strncmp(full_file, id, 2)))
+	{
+		split = ft_split(full_file, ' ');
+		info->x_size = ft_atoi(split[0]);
+		info->y_size = ft_atoi(split[1]);
+		free_2darray(split, ft_count_rows(split));
+		return (1);
+	}
+	return (0);
+}
+
 int	parse_int(char *line, int *size, int pos)
 {
 	char	**split;
@@ -77,103 +96,37 @@ int	parse_color(char *line, unsigned int *color, char *area)
 	return (0);
 }
 
-int	check_line(char *str)
+int	check_map(char *str)
 {
 	int check;
 	int i;
-	char **split;
 
-	split = ft_split(str, '\n');
-
-	// check = 1;
-	i = 0;
-	while (split[i])
-	{
-		check = 1;
-		printstr("split plek", split[i]);
-		int linelen = ft_strlen(split[i]);
-		int j = 0;
-		while (j < linelen)
-		{
-			if (!(ft_inset("102NEWS ", split[i][j])))
-				check = 0;
-			j++;
-		}
-		printnum("check", check);
-		if (check == 1)
-			return (i);
-		i++;
-	}
-	return (0);
-}
-
-int	check_str(char *str)
-{
-	int check;
-	int i;
-	int index;
-
-	i = 0;
+	i = ft_strlen(str) - 1;
 	check = 1;
 	while (str[i])
 	{
-		while (str[i] == '\n')
-			i++;
-		printchar("char", str[i]);
-		if (!(ft_inset("102NEWS ", str[i])))
+		if (!(ft_inset("102NEWS \n", str[i])))
 			check = 0;
-		i++;
-		if (str[i] == '\n' && check == 1)
-			return (index);
-		while (str[i] == '\n')
-		{
-			i++;
-			printf("NEWLINE\n\n");
-			check = 1;
-			index = i;
-		}
+		i--;
+		if (str[i] == '\n' && str[i - 1] == '\n' && check == 1)
+			return (i - 1);
 	}
 
-		
-	// 	int linelen = ft_strlend(str + i, '\n');
-	// 	int j = 0;
-	// 	while (j < linelen)
-	// 	{
-	// 		if (!(ft_inset("102NEWS ", (str + i)[j])))
-	// 			check = 0;
-	// 		j++;
-	// 		all++;
-	// 	}
-	// 	printnum("check", check);
-	// 	if (check == 1)
-	// 		return (all);
-	// 	all++;
-	// 	i++;
-	// }
 	return (0);
 }
 
-int	parse_map(t_info *info, char *full_file)
+int	parse_map2(t_info *info, char *full_file)
 {
 	char	*start_map;
-	int		map_check;
-	char	**mappie;
+	int		start_index;
 
-	// begin map: geen ["NO", "SO", "WE", "EA", "S", "F", "C"] in line
-	// alleen 1 0 2 N E W S of spatie in line
-	map_check = check_str(full_file);
-	printnum("mapcheck", map_check);
-	if (map_check)
+	start_index = check_map(full_file);
+	if (start_index)
 	{
-		printstr("mappie", full_file + map_check);
-
-		start_map = full_file + map_check;
+		start_map = full_file + start_index;
 		info->map = ft_split(start_map, '\n');
 		return (1);
 	}
-	// start_map = ft_move_ptr(full_file, 'C');
-	// start_map = ft_move_ptr(start_map, '\n') + 1;
-	// info->map = ft_split(start_map, '\n');
 	return (0);
 }
 
@@ -211,27 +164,25 @@ int	get_spawn_pos(t_info *info)
 
 int	parse_all(int fd, t_info *info)
 {
-	char	*full_file;
-	char	**split;
+	// char	*full_file;
 
 	init_info(info);
-	read_till_end(fd, &full_file);
-	// split = ft_split(full_file, '\n');
-	parse_int(full_file, &(info->x_size), 1);
-	parse_int(full_file, &(info->y_size), 2);
-	parse_path(full_file, &(info->no_path), "NO ");
-	parse_path(full_file, &(info->so_path), "SO ");
-	parse_path(full_file, &(info->we_path), "WE ");
-	parse_path(full_file, &(info->ea_path), "EA ");
-	parse_path(full_file, &(info->s_path), "S ");
-	parse_color(full_file, &(info->f_color), "F ");
-	parse_color(full_file, &(info->c_color), "C ");
-	parse_map(info, full_file);
+	read_till_end(fd, &(info->full_file));
+	// parse_rendersize(full_file, &(info->x_size), "R ");
+	parse_int(info->full_file, &(info->x_size), 1);
+	parse_int(info->full_file, &(info->y_size), 2);
+	parse_path(info->full_file, &(info->no_path), "NO ");
+	parse_path(info->full_file, &(info->so_path), "SO ");
+	parse_path(info->full_file, &(info->we_path), "WE ");
+	parse_path(info->full_file, &(info->ea_path), "EA ");
+	parse_path(info->full_file, &(info->s_path), "S ");
+	parse_color(info->full_file, &(info->f_color), "F ");
+	parse_color(info->full_file, &(info->c_color), "C ");
+	parse_map2(info, info->full_file);
+
 	get_spawn_pos(info);
-	printchar("spawn", info->map[info->y_spawn][info->x_spawn]);
 	info->map[info->y_spawn][info->x_spawn] = '0';
-	// free_2darray(split, ft_count_rows(split));
-	free(full_file);
+	free(info->full_file);
 	print_info(info);
 	return (0);
 }
