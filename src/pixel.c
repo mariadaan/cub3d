@@ -64,7 +64,7 @@ void	gradient_bg(t_all *all)
 
 void	gradient_rect(t_all *all, int y_start, int color)
 {
-	print_components(color);
+	// print_components(color);
 	int	i;
 
 	if (y_start == 0)

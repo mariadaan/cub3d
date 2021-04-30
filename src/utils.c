@@ -32,6 +32,9 @@ void	print_info(t_info *info)
 	printf("ceiling_color:    %d\n", info->c_color);
 	printf("map: \n");
 	ft_put2darray(info->map, ft_count_rows(info->map));
+
+	printnum("mapwidth", info->map_width);
+	printnum("mapheight", info->map_height);
 	printnum("spawn x", info->x_spawn);
 	printnum("spawn y", info->y_spawn);
 	printchar("spawn direction", info->spawn_dir);

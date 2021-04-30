@@ -105,12 +105,22 @@ int	parse_map2(t_info *info, char *full_file)
 {
 	char	*start_map;
 	int		start_index;
+	int		i;
+	int		width;
 
+	i = 0;
 	start_index = check_map(full_file);
 	if (start_index)
 	{
 		start_map = full_file + start_index;
 		info->map = ft_split(start_map, '\n');
+		while (i <= info->map_height)
+		{
+			width = ft_strlen(info->map[i]);
+			if (width > info->map_width)
+				info->map_width = width;
+			i++;
+		}
 		return (1);
 	}
 	return (0);

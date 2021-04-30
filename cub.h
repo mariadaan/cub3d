@@ -125,9 +125,9 @@ void			put_rect(t_data *data, int x, int y, int xlen, int ylen, int color);
 
 void			fill_rect(t_data *data, int x, int y, int xlen, int ylen, int color);
 
-void	gradient_bg(t_all *all);
+void			gradient_bg(t_all *all);
 
-void	gradient_rect(t_all *all, int y_start, int color);
+void			gradient_rect(t_all *all, int y_start, int color);
 
 /*
 	hook_action.c
@@ -162,7 +162,7 @@ int				get_g(int trgb);
 int				get_b(int trgb);
 
 // unsigned int	create_trgb(int t, int r, int g, int b);
-int	create_rgb(int r, int g, int b);
+int				create_rgb(int r, int g, int b);
 
 /*
 	color_utils.c

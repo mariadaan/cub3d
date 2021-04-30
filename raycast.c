@@ -61,6 +61,7 @@ int render_screen(t_all *all)
 
 	for (int x = 0; x < info.x_size; x++)
 	{
+		// printnum("verticale streep", x);
 		//calculate ray position and direction
 		ray.camera_x = 2 * x / (double)info.x_size - 1; //x-coordinate in camera space
 		ray.ray_dir_x = ray.dir_x + ray.plane_x * ray.camera_x;
@@ -120,13 +121,20 @@ int render_screen(t_all *all)
 				ray.side_dist_x += ray.delta_dist_y;
 				ray.map_x += ray.step_x;
 				ray.side = 0;
+				// if (ray.map_x < 0)
+				// 	ray.map_x = 0;
 			}
 			else
 			{
 				ray.side_dist_y += ray.delta_dist_x;
 				ray.map_y += ray.step_y;
 				ray.side = 1;
+				// if (ray.map_y < 0)
+				// 	ray.map_y = 0;
 			}
+			// printnum("map_x", ray.map_x);
+			// printnum("map_y", ray.map_y);
+
 			//Check if ray has hit a wall
 			if (worldMap[ray.map_x][ray.map_y] - '0' > 0)
 				ray.hit = 1;
@@ -167,7 +175,7 @@ int render_screen(t_all *all)
 
 int key_pressed(int keycode, t_all *all)
 {
-	printnum("keycode", keycode);
+	// printnum("keycode", keycode);
 	t_ray ray = all->ray;
 	t_info info = all->info;
 	char **worldMap = info.map;
@@ -176,7 +184,6 @@ int key_pressed(int keycode, t_all *all)
 		destroy_window(&(all->img));
 	if (keycode == DOWN)
 	{
-		printf("up\n");
 		if (worldMap[(int)(ray.pos_x + ray.dir_x * ray.move_speed)][(int)(ray.pos_y)] - '0' == 0)
 			ray.pos_x += ray.dir_x * ray.move_speed;
 		if (worldMap[(int)(ray.pos_x)][(int)(ray.pos_y + ray.dir_y * ray.move_speed)] - '0' == 0)
@@ -185,7 +192,6 @@ int key_pressed(int keycode, t_all *all)
 	//move backwards if no wall behind you
 	if (keycode == UP)
 	{
-		printf("down\n");
 		if (worldMap[(int)(ray.pos_x - ray.dir_x * ray.move_speed)][(int)(ray.pos_y)] - '0' == 0)
 			ray.pos_x -= ray.dir_x * ray.move_speed;
 		if (worldMap[(int)(ray.pos_x)][(int)(ray.pos_y - ray.dir_y * ray.move_speed)] - '0' == 0)
@@ -194,7 +200,6 @@ int key_pressed(int keycode, t_all *all)
 	//rotate to the right
 	if (keycode == RIGHT)
 	{
-		printf("right\n");
 		//both camera direction and camera plane must be rotated
 		double oldDirX = ray.dir_x;
 		ray.dir_x = ray.dir_x * cos(-ray.rot_speed) - ray.dir_y * sin(-ray.rot_speed);
@@ -206,7 +211,6 @@ int key_pressed(int keycode, t_all *all)
 	//rotate to the left
 	if (keycode == LEFT)
 	{
-		printf("left\n");
 		//both camera direction and camera plane must be rotated
 		double oldDirX = ray.dir_x;
 		ray.dir_x = ray.dir_x * cos(ray.rot_speed) - ray.dir_y * sin(ray.rot_speed);
@@ -242,7 +246,11 @@ int main(int argc, char *argv[])
 
 
 	printnum("x spawn", info.x_spawn);
-	ray.pos_x = 10, ray.pos_y = 12;		 //x and y start position
+	printnum("y spawn", info.y_spawn);
+
+	// ray.pos_x = 11, ray.pos_y = 26;
+	// HOE IS X Y EN ANDERSOM!!!
+	ray.pos_x = info.y_spawn, ray.pos_y = info.x_spawn;		 //x and y start position
 	ray.dir_x = -1, ray.dir_y = 0;		 //initial direction vector
 	ray.plane_x = 0, ray.plane_y = 0.66; //the 2d raycaster version of camera plane
 	ray.time = 0;						 //time of current frame
