@@ -6,8 +6,7 @@ int	parse_rendersize(t_info *info, char *full_file, char *id)
 
 	if (!full_file)
 		return (0);
-	int full_filelen = ft_strlen(full_file);
-	full_file = ft_strnstr(full_file, "R ", full_filelen);
+	full_file = ft_strstr(full_file, "R ");
 	if (!(ft_strncmp(full_file, id, 2)))
 	{
 		split = ft_split(full_file, ' ');
@@ -25,9 +24,7 @@ int	parse_int(char *line, int *size, int pos)
 
 	if (!line)
 		return (0);
-	int linelen = ft_strlen(line);
-	line = ft_strnstr(line, "R ", linelen);
-	// ft_move_ptr(line, 'R');
+	line = ft_strstr(line, "R ");
 	if (line[0] == 'R')
 	{
 		split = ft_split(line, ' ');
@@ -48,31 +45,21 @@ int	get_index(char *str, char c)
 	return (i);
 }
 
-int	parse_path(char *line, char **path, char *compass)
+int	parse_path(char *full_file, char **path, char *id)
 {
-	int		len;
-	char	**split_line;
-	char	*test;
+	int		id_len;
+	int		path_len;
+	char	*start;
 
-	int linelen = ft_strlen(line);
-	line = ft_strnstr(line, compass, linelen);
-	int length = get_index(line, '\n');
-	// error als length = 0
-	test = ft_substr(line, 0, length);
-	linelen = ft_strlen(line);
-	len = ft_strlen(compass);
-	if (!(ft_strncmp(line, compass, len)))
-	{
-		split_line = ft_split(test, ' ');
-		*path = ft_strdup(split_line[1]);
-		free_2darray(split_line, 2);
-		free(test);
-		return (1);
-	}
+	start = ft_strstr(full_file, id);
+	start = ft_strstr(start, "./");
+	path_len = get_index(start, '\n');
+	// error als path_len = 0
+	*path = ft_substr(start, 0, path_len);
 	return (0);
 }
 
-int	parse_color(char *line, unsigned int *color, char *area)
+int	parse_color(char *line, unsigned int *color, char *id)
 {
 	char	**split;
 	int		r;
@@ -80,9 +67,8 @@ int	parse_color(char *line, unsigned int *color, char *area)
 	int		b;
 
 	// line = ft_move_ptr(line, c);
-	int linelen = ft_strlen(line);
-	line = ft_strnstr(line, area, linelen);
-	if (line[0] == *area)
+	line = ft_strstr(line, id);
+	if (line[0] == *id)
 	{
 		line += 2;
 		split = ft_split(line, ',');
@@ -157,15 +143,8 @@ int	get_spawn_pos(t_info *info)
 	return (0);
 }
 
-// int	change_spawn(t_info *info)
-// {
-// 	info->map[info->y_spawn][info->x_spawn] = 0;
-// }
-
 int	parse_all(int fd, t_info *info)
 {
-	// char	*full_file;
-
 	init_info(info);
 	read_till_end(fd, &(info->full_file));
 	// parse_rendersize(full_file, &(info->x_size), "R ");

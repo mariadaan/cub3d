@@ -79,7 +79,6 @@ typedef struct s_info
 	int				x_spawn;
 	int				y_spawn;
 	char			spawn_dir;
-	int				file_len;
 }				t_info;
 
 typedef struct s_all {
