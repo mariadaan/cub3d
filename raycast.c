@@ -2,41 +2,11 @@
 
 #define mapWidth 33
 #define mapHeight 14
-// #define screenWidth 2560
-// #define screenHeight 1920
 
 #define LEFT 123
 #define RIGHT 124
 #define UP 125
 #define DOWN 126
-
-// int worldMap[mapWidth][mapHeight]=
-// {
-// 	{1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
-// 	{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-// 	{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-// 	{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-// 	{1,0,0,0,0,0,2,2,2,2,2,0,0,0,0,3,0,3,0,3,0,0,0,1},
-// 	{1,0,0,0,0,0,2,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,1},
-// 	{1,0,0,0,0,0,2,0,0,0,2,0,0,0,0,3,0,0,0,3,0,0,0,1},
-// 	{1,0,0,0,0,0,2,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,1},
-// 	{1,0,0,0,0,0,2,2,0,2,2,0,0,0,0,3,0,3,0,3,0,0,0,1},
-// 	{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-// 	{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-// 	{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-// 	{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-// 	{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-// 	{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-// 	{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-// 	{1,4,4,4,4,4,4,4,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-// 	{1,4,0,4,0,0,0,0,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-// 	{1,4,0,0,0,0,5,0,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-// 	{1,4,0,4,0,0,0,0,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-// 	{1,4,0,4,4,4,4,4,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-// 	{1,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-// 	{1,4,4,4,4,4,4,4,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-// 	{1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1}
-// };
 
 int verLine(t_data *img, int x, int drawStart, int drawEnd, int color)
 {
@@ -59,19 +29,14 @@ int render_screen(t_all *all)
 	// fill_rect(&img, 0, 0, info.x_size, info.y_size / 2, info.f_color);
 	// fill_rect(&img, 0, info.y_size / 2, info.x_size, info.y_size / 2, info.c_color);
 
+	// Loop over vertical lines to be drawn in image
 	for (int x = 0; x < info.x_size; x++)
 	{
-		// printnum("verticale streep", x);
 		//calculate ray position and direction
 		ray.camera_x = 2 * x / (double)info.x_size - 1; //x-coordinate in camera space
 		ray.ray_dir_x = ray.dir_x + ray.plane_x * ray.camera_x;
 		ray.ray_dir_y = ray.dir_y + ray.plane_y * ray.camera_x;
 
-		// printf("camera_x: %f\n", camera_x);
-		// printf("plane_x:  %f\n", plane_x);
-		// printf("plane_y:  %f\n", plane_y);
-		// printf("ray_dir_x: %f\n", ray_dir_x);
-		// printf("ray_dir_y: %f\n\n", ray_dir_y);
 		//which box of the map we're in
 		ray.map_x = (int)ray.pos_x;
 		ray.map_y = (int)ray.pos_y;
@@ -81,7 +46,7 @@ int render_screen(t_all *all)
 		// ray.side_dist_y;
 
 		//length of ray from one x or y-side to next x or y-side
-		ray.delta_dist_y = fabs(1 / ray.ray_dir_x); // fabs
+		ray.delta_dist_y = fabs(1 / ray.ray_dir_x);
 		ray.delta_dist_x = fabs(1 / ray.ray_dir_y);
 		// ray.perp_wall_dist;
 

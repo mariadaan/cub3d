@@ -27,14 +27,19 @@ typedef struct s_ray {
 	double pos_y;	//x and y start position
 	double dir_x; //initial direction vector
 	double dir_y;
-	double plane_x; //the 2d raycaster version of camera plane
+
+	//the 2d raycaster version of camera plane
+	double plane_x;
 	double plane_y;
-	int w;
-	int h;
-	double camera_x; //x-coordinate in camera space
+
+	//x-coordinate in camera plane (factor to multiply plane coordinates with)
+	double camera_x;
+
+
 	double ray_dir_x;
 	double ray_dir_y;
-	//which box of the map we're in
+
+	//which box of the map we're in (just the coordinate of the square, not where in the square)
 	int map_x;
 	int map_y;
 
