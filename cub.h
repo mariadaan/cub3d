@@ -23,9 +23,12 @@ typedef struct s_data {
 }				t_data;
 
 typedef struct s_ray {
+	// x and y exact player position
 	double pos_x;
-	double pos_y;	//x and y start position
-	double dir_x; //initial direction vector
+	double pos_y;
+
+	// direction vector (point straight in front of player)
+	double dir_x;
 	double dir_y;
 
 	//the 2d raycaster version of camera plane
@@ -35,7 +38,7 @@ typedef struct s_ray {
 	//x-coordinate in camera plane (factor to multiply plane coordinates with)
 	double camera_x;
 
-
+	// The ray position contains both info about in which square of the map we are, and where in that square we are
 	double ray_dir_x;
 	double ray_dir_y;
 
@@ -43,13 +46,19 @@ typedef struct s_ray {
 	int map_x;
 	int map_y;
 
-	//length of ray from current position to next x or y-side
+	// length of ray from current position to next x or y-side
+	// x vanaf pos tot EERSTE verticale lijn op grid
 	double side_dist_x;
+	// y vanaf pos tot EERSTE horizontale lijn op grid
 	double side_dist_y;
 
-	 //length of ray from one x or y-side to next x or y-side
-	double delta_dist_y;
+	// distance the ray has to travel to go from 1 x-side to the next x-side, or from 1 y-side to the next y-side.
+	// vanaf side_dist_x tot volgende verticale lijn
 	double delta_dist_x;
+	// vanaf side_dist_y tot volgende horizontale lijn
+	double delta_dist_y;
+
+	
 	double perp_wall_dist;
 
 	//what direction to step in x or y-direction (either +1 or -1)
