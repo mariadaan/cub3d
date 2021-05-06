@@ -47,7 +47,7 @@ typedef struct s_ray {
 	int map_y;
 
 	// length of ray from current position to next x or y-side
-	// x vanaf pos tot EERSTE verticale lijn op grid
+	// x vanaf pos tot EERSTE verticale lijn op grid (eenmalige kortere afstand, daarna altijd zelfde)
 	double side_dist_x;
 	// y vanaf pos tot EERSTE horizontale lijn op grid
 	double side_dist_y;
@@ -58,15 +58,18 @@ typedef struct s_ray {
 	// vanaf side_dist_y tot volgende horizontale lijn
 	double delta_dist_y;
 
-	
+	// lengte van de hele ray
 	double perp_wall_dist;
 
-	//what direction to step in x or y-direction (either +1 or -1)
+	// what direction to step in x or y-direction (either +1 or -1, just to the next gridline)
 	int step_x;
 	int step_y;
 
-	int hit; //was there a wall hit?
-	int side; //was a NS or a EW wall hit?
+	//was there a wall hit?
+	int hit; 
+
+	//was a NS or a EW wall hit? (0 = x wall hit, 1 = y wall hit)
+	int side;
 
 	double move_speed; //the constant value is in squares/second
 	double rot_speed; //the constant value is in radians/second
@@ -125,6 +128,11 @@ typedef struct s_color {
 	parse.c
 */
 int				parse_all(int fd, t_info *info);
+
+int				get_findex(char *str, char c);
+
+int				get_lindex(char *str, char c);
+
 
 /*
 	pixel.c
@@ -200,5 +208,14 @@ int				printchar(char *name, char c);
 int				draw_bg(t_data *img, t_info *info);
 
 int				draw_wall(t_data *img, t_info *info);
+
+/*
+	check_map.c
+*/
+int				check_map(char *str);
+
+int				parse_map(t_info *info, char *full_file);
+
+int				valid_map(t_info *info);
 
 #endif

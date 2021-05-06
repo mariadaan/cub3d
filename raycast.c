@@ -41,21 +41,12 @@ int render_screen(t_all *all)
 		ray.map_x = (int)ray.pos_x;
 		ray.map_y = (int)ray.pos_y;
 
-		//length of ray from current position to next x or y-side
-		// ray.side_dist_x;
-		// ray.side_dist_y;
-
 		//length of ray from one x or y-side to next x or y-side
 		ray.delta_dist_y = fabs(1 / ray.ray_dir_x);
 		ray.delta_dist_x = fabs(1 / ray.ray_dir_y);
-		// ray.perp_wall_dist;
-
-		//what direction to step in x or y-direction (either +1 or -1)
-		// ray.step_x;
-		// ray.step_y;
 
 		ray.hit = 0; //was there a wall hit?
-		// ray.side; //was a NS or a EW wall hit?
+
 		//calculate step and initial sideDist
 		if (ray.ray_dir_x < 0)
 		{
@@ -202,6 +193,8 @@ int main(int argc, char *argv[])
 
 	int fd = open(argv[1], O_RDONLY);
 	int ret = parse_all(fd, &info);
+	if (ret)
+		return (1);
 
 	img.mlx = mlx_init();
 	img.win = mlx_new_window(img.mlx, info.x_size, info.y_size, "Maria's cub3d");

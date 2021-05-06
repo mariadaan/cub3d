@@ -6,12 +6,13 @@
 #    By: mdaan <mdaan@student.codam.nl>               +#+                      #
 #                                                    +#+                       #
 #    Created: 2021/01/28 15:38:43 by mdaan         #+#    #+#                  #
-#    Updated: 2021/04/30 11:59:04 by mdaan         ########   odam.nl          #
+#    Updated: 2021/05/06 14:31:14 by mdaan         ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
 NAME	=	cub
 SRCS	=	src/parse.c \
+			src/check_map.c \
 			src/pixel.c \
 			src/hook_action.c \
 			src/move.c \

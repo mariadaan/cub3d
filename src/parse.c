@@ -35,13 +35,23 @@ int	parse_int(char *line, int *size, int pos)
 	return (0);
 }
 
-int	get_index(char *str, char c)
+int	get_findex(char *str, char c)
 {
 	int	i;
 
 	i = 0;
 	while (str && str[i] && str[i] != c)
 		i++;
+	return (i);
+}
+
+int	get_lindex(char *str, char c)
+{
+	int	i;
+
+	i = ft_strlen(str) - 1;
+	while (str && str[i] && str[i] != c)
+		i--;
 	return (i);
 }
 
@@ -53,7 +63,7 @@ int	parse_path(char *full_file, char **path, char *id)
 
 	start = ft_strstr(full_file, id);
 	start = ft_strstr(start, "./");
-	path_len = get_index(start, '\n');
+	path_len = get_findex(start, '\n');
 	// error als path_len = 0
 	*path = ft_substr(start, 0, path_len);
 	return (0);
@@ -81,51 +91,6 @@ int	parse_color(char *line, unsigned int *color, char *id)
 	}
 	return (0);
 }
-
-int	check_map(char *str)
-{
-	int check;
-	int i;
-
-	i = ft_strlen(str) - 1;
-	check = 1;
-	while (str[i])
-	{
-		if (!(ft_inset("102NEWS \n", str[i])))
-			check = 0;
-		i--;
-		if (str[i] == '\n' && str[i - 1] == '\n' && check == 1)
-			return (i - 1);
-	}
-
-	return (0);
-}
-
-int	parse_map2(t_info *info, char *full_file)
-{
-	char	*start_map;
-	int		start_index;
-	int		i;
-	int		width;
-
-	i = 0;
-	start_index = check_map(full_file);
-	if (start_index)
-	{
-		start_map = full_file + start_index;
-		info->map = ft_split(start_map, '\n');
-		while (i <= info->map_height)
-		{
-			width = ft_strlen(info->map[i]);
-			if (width > info->map_width)
-				info->map_width = width;
-			i++;
-		}
-		return (1);
-	}
-	return (0);
-}
-
 
 // find N,S,E or W in map and save location as x and y value
 
@@ -167,7 +132,14 @@ int	parse_all(int fd, t_info *info)
 	parse_path(info->full_file, &(info->s_path), "S ");
 	parse_color(info->full_file, &(info->f_color), "F ");
 	parse_color(info->full_file, &(info->c_color), "C ");
-	parse_map2(info, info->full_file);
+	parse_map(info, info->full_file);
+	print_info(info);
+
+	if (valid_map(info))
+	{
+		printf("Invalid map!\n");
+		return (1);
+	}
 
 	get_spawn_pos(info);
 	info->map[info->y_spawn][info->x_spawn] = '0';
