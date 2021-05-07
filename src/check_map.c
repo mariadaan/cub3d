@@ -30,8 +30,8 @@ int	parse_map(t_info *info, char *full_file)
 	start_index = check_map(full_file);
 	if (start_index)
 	{
-		start_map = full_file + start_index;
-		info->map = ft_split(start_map, '\n');
+		info->start = full_file + start_index;
+		info->map = ft_split(info->start, '\n');
 		while (info->map[info->map_height])
 			info->map_height++;
 		while (i < info->map_height)
@@ -46,53 +46,67 @@ int	parse_map(t_info *info, char *full_file)
 	return (0);
 }
 
-int	valid_map(t_info *info)
+int	is_notmap(char c)
 {
-	int	x;
-	int y;
-	int	w;
+	if (!c)
+		return (1);
+	if (c == ' ' || c == '\n')
+		return (1);
+	else
+		return (0);
+}
 
-	y = 0;
-	x = 0;
-	// map is invalid als er direct naast een spatie een 0 staat
-	// of aan de zijkant een 0 staat
-	while (y < info->map_height)
+int	check_x(t_info *info)
+{
+	int map_len;
+	int x;
+
+	x = 1;
+	map_len = ft_strlen(info->start);
+	if (info->start[0] == '0' || info->start[map_len - 1] == '0')
+		return (1);
+	while (x < map_len - 1)
 	{
-		printnum("y", y);
-		w = ft_strlen(info->map[y]);
-		// while (x < w)
-		// {
-			while (info->map[y][x] == ' ')
-				x++;
-			printchar("naam char", info->map[y][x]);
-			if (info->map[y][x] == '0')
-			{
-				printnum("ytest", y);
-				return (1);
-			}
-			// x++;
-		// }
-		// OOK TUSSENDOOR CHECKEN OF ER NULLEN NAAST SPATIE STAAN
-		x = w - 1 ;
-		// while (x > 0)
-		// {
-			printnum("x", x);
-			while (x > 0 && info->map[y][x] == ' ')
-			{
-				printnum("xxx", x);
-				x--;
-			}
-			if (info->map[y][x] == '0')
-			{
-				printnum("ytest2", y);
-				return (1);
-			}
-		// 	x--;
-		// }
+		if (info->start[x] == '0' && (is_notmap(info->start[x - 1]) || is_notmap(info->start[x + 1])))
+			return (1);
+		x++;
+	}
+	return (0);
+}
+
+int	check_y(t_info *info)
+{
+	int x;
+	int y;
+	int rowlen;
+	
+	y = 1;
+	while (y < info->map_height - 2)
+	{
 		x = 0;
-		printnum("xxxxxxx", x);
+		rowlen = ft_strlen(info->map[y]);
+		while (x < rowlen)
+		{
+			if (info->map[y][x] == '0' && (is_notmap(info->map[y - 1][x]) || is_notmap(info->map[y + 1][x])))
+				return (1);
+			x++;
+		}
 		y++;
 	}
-	printnum("test", 1);
+	return (0);
+}
+
+int	valid_map(t_info *info)
+{
+	if (check_x(info))
+	{
+		printf("Error encountered while parsing cub file: Invalid map!\n");
+		return (1);
+	}
+	if (check_y(info))
+	{
+		printf("Error encountered while parsing cub file: Invalid map!\n");
+		return (1);
+	}
 	return (0);
 }

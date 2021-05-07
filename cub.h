@@ -96,6 +96,7 @@ typedef struct s_info
 	int				x_spawn;
 	int				y_spawn;
 	char			spawn_dir;
+	char			*start;
 }				t_info;
 
 typedef struct s_all {
@@ -132,6 +133,8 @@ int				parse_all(int fd, t_info *info);
 int				get_findex(char *str, char c);
 
 int				get_lindex(char *str, char c);
+
+int				check_res(t_data *img, t_info *info);
 
 
 /*

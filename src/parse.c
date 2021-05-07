@@ -85,11 +85,16 @@ int	parse_color(char *line, unsigned int *color, char *id)
 		r = ft_atoi(split[0]);
 		g = ft_atoi(split[1]);
 		b = ft_atoi(split[2]);
+		if (r > 255 || g > 255 || b > 255 || r < 0 || g < 0 || b < 0)
+		{
+			printf("Error encountered while parsing cub file: Invalid rgb values\n");
+			return (1);
+		}
 		free_2darray(split, 3);
 		*color = create_rgb(r, g, b);
-		return (1);
+		return (0);
 	}
-	return (0);
+	return (1);
 }
 
 // find N,S,E or W in map and save location as x and y value
@@ -118,29 +123,51 @@ int	get_spawn_pos(t_info *info)
 	return (0);
 }
 
-int	parse_all(int fd, t_info *info)
+int	check_res(t_data *img, t_info *info)
 {
-	init_info(info);
-	read_till_end(fd, &(info->full_file));
-	// parse_rendersize(full_file, &(info->x_size), "R ");
-	parse_int(info->full_file, &(info->x_size), 1);
-	parse_int(info->full_file, &(info->y_size), 2);
-	parse_path(info->full_file, &(info->no_path), "NO ");
-	parse_path(info->full_file, &(info->so_path), "SO ");
-	parse_path(info->full_file, &(info->we_path), "WE ");
-	parse_path(info->full_file, &(info->ea_path), "EA ");
-	parse_path(info->full_file, &(info->s_path), "S ");
-	parse_color(info->full_file, &(info->f_color), "F ");
-	parse_color(info->full_file, &(info->c_color), "C ");
-	parse_map(info, info->full_file);
-	print_info(info);
+	int	x;
+	int	y;
 
-	if (valid_map(info))
+	return (0);
+	// mlx_get_screen_size(img, &x, &y);
+	if (x < info->x_size || y < info->y_size)
 	{
-		printf("Invalid map!\n");
+		printf("Error encountered while parsing cub file: Invalid resolution\n");
 		return (1);
 	}
+	return (0);
+}
 
+int	parse_all(int fd, t_info *info)
+{
+	int ret;
+
+	init_info(info);
+	ret = read_till_end(fd, &(info->full_file));
+	if (ret == -1)
+	{
+		printf("Error encountered while reading cub file\n");
+		return (1);
+	}
+	parse_int(info->full_file, &(info->x_size), 1);
+	parse_int(info->full_file, &(info->y_size), 2);
+	ret = parse_path(info->full_file, &(info->no_path), "NO ");
+	ret += parse_path(info->full_file, &(info->so_path), "SO ");
+	ret += parse_path(info->full_file, &(info->we_path), "WE ");
+	ret += parse_path(info->full_file, &(info->ea_path), "EA ");
+	ret += parse_path(info->full_file, &(info->s_path), "S ");
+	if (ret)
+	{
+		printf("Error encountered while parsing cub file: Invalid texture/sprite path\n");
+		return (1);
+	}
+	ret = parse_color(info->full_file, &(info->f_color), "F ");
+	ret += parse_color(info->full_file, &(info->c_color), "C ");
+	if (ret)
+		return (1);
+	ret += parse_map(info, info->full_file);
+	if (valid_map(info))
+		return (1);
 	get_spawn_pos(info);
 	info->map[info->y_spawn][info->x_spawn] = '0';
 	free(info->full_file);

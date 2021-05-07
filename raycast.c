@@ -197,14 +197,15 @@ int main(int argc, char *argv[])
 		return (1);
 
 	img.mlx = mlx_init();
+	if (check_res(&img, &info))
+	{
+		printf("Resolution too big for screen!\n");
+		return (1);
+	}
 	img.win = mlx_new_window(img.mlx, info.x_size, info.y_size, "Maria's cub3d");
 	img.img = mlx_new_image(img.mlx, info.x_size, info.y_size);
 	img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length,
 								 &img.endian);
-
-
-	printnum("x spawn", info.x_spawn);
-	printnum("y spawn", info.y_spawn);
 
 	// ray.pos_x = 11, ray.pos_y = 26;
 	// HOE IS X Y EN ANDERSOM!!!
