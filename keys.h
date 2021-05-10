@@ -1,10 +1,12 @@
 #ifndef KEYS_H
 # define KEYS_H
 
-# define LEFT 123
-# define RIGHT 124
-# define UP 125
-# define DOWN 126
+# define LROTATE 123
+# define RROTATE 124
+# define FORWARD 13
+# define BACKWARDS 1
+# define LEFT 0
+# define RIGHT 2
 
 # define PRESS 2
 # define RELEASE 3
@@ -46,6 +48,6 @@
 # define ClientMessage		33
 # define MappingNotify		34
 # define GenericEvent		35
-# define LASTEvent		36
+# define LASTEvent			36
 
 #endif

@@ -1,5 +1,19 @@
 #include "cub.h"
 
+int	check_res(t_data *img, t_info *info)
+{
+	int	x;
+	int	y;
+
+	mlx_get_screen_size(img, &x, &y);
+	if (x < info->x_size || y < info->y_size)
+	{
+		printf("Error encountered while parsing cub file: Invalid resolution\n");
+		return (1);
+	}
+	return (0);
+}
+
 int	parse_rendersize(t_info *info, char *full_file, char *id)
 {
 	char	**split;
@@ -123,21 +137,6 @@ int	get_spawn_pos(t_info *info)
 	return (0);
 }
 
-int	check_res(t_data *img, t_info *info)
-{
-	int	x;
-	int	y;
-
-	return (0);
-	// mlx_get_screen_size(img, &x, &y);
-	if (x < info->x_size || y < info->y_size)
-	{
-		printf("Error encountered while parsing cub file: Invalid resolution\n");
-		return (1);
-	}
-	return (0);
-}
-
 int	parse_all(int fd, t_info *info)
 {
 	int ret;
@@ -171,6 +170,6 @@ int	parse_all(int fd, t_info *info)
 	get_spawn_pos(info);
 	info->map[info->y_spawn][info->x_spawn] = '0';
 	free(info->full_file);
-	print_info(info);
+	// print_info(info);
 	return (0);
 }

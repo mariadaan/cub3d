@@ -1,13 +1,5 @@
 #include "cub.h"
 
-#define mapWidth 33
-#define mapHeight 14
-
-#define LEFT 123
-#define RIGHT 124
-#define UP 125
-#define DOWN 126
-
 int verLine(t_data *img, int x, int drawStart, int drawEnd, int color)
 {
 	int len;
@@ -26,8 +18,6 @@ int render_screen(t_all *all)
 	char **worldMap = info.map;
 
 	gradient_bg(all);
-	// fill_rect(&img, 0, 0, info.x_size, info.y_size / 2, info.f_color);
-	// fill_rect(&img, 0, info.y_size / 2, info.x_size, info.y_size / 2, info.c_color);
 
 	// Loop over vertical lines to be drawn in image
 	for (int x = 0; x < info.x_size; x++)
@@ -131,30 +121,49 @@ int render_screen(t_all *all)
 
 int key_pressed(int keycode, t_all *all)
 {
-	// printnum("keycode", keycode);
 	t_ray ray = all->ray;
 	t_info info = all->info;
 	char **worldMap = info.map;
 
 	if (keycode == 53)
 		destroy_window(&(all->img));
-	if (keycode == DOWN)
+	if (keycode == FORWARD)
 	{
+		printco("", ray.pos_x, ray.pos_y);
+		printchar("", worldMap[(int)ray.pos_x][(int)ray.pos_y]);
 		if (worldMap[(int)(ray.pos_x + ray.dir_x * ray.move_speed)][(int)(ray.pos_y)] - '0' == 0)
 			ray.pos_x += ray.dir_x * ray.move_speed;
 		if (worldMap[(int)(ray.pos_x)][(int)(ray.pos_y + ray.dir_y * ray.move_speed)] - '0' == 0)
 			ray.pos_y += ray.dir_y * ray.move_speed;
 	}
 	//move backwards if no wall behind you
-	if (keycode == UP)
+	if (keycode == BACKWARDS)
 	{
+				printco("", ray.pos_x, ray.pos_y);
+		printchar("", worldMap[(int)ray.pos_x][(int)ray.pos_y]);
 		if (worldMap[(int)(ray.pos_x - ray.dir_x * ray.move_speed)][(int)(ray.pos_y)] - '0' == 0)
 			ray.pos_x -= ray.dir_x * ray.move_speed;
 		if (worldMap[(int)(ray.pos_x)][(int)(ray.pos_y - ray.dir_y * ray.move_speed)] - '0' == 0)
 			ray.pos_y -= ray.dir_y * ray.move_speed;
 	}
-	//rotate to the right
+	//move left if no wall
+	if (keycode == LEFT)
+	{
+		if (worldMap[(int)(ray.pos_x - ray.plane_x * ray.move_speed)][(int)(ray.pos_y)] - '0' == 0)
+			ray.pos_x -= ray.plane_x * ray.move_speed;
+		if (worldMap[(int)(ray.pos_x)][(int)(ray.pos_y - ray.plane_y * ray.move_speed)] - '0' == 0)
+			ray.pos_y -= ray.plane_y * ray.move_speed;
+	}
+	//move right if no wall
 	if (keycode == RIGHT)
+	{
+		if (worldMap[(int)(ray.pos_x + ray.plane_x * ray.move_speed)][(int)(ray.pos_y)] - '0' == 0)
+			ray.pos_x -= ray.plane_x * ray.move_speed;
+		if (worldMap[(int)(ray.pos_x)][(int)(ray.pos_y + ray.plane_y * ray.move_speed)] - '0' == 0)
+			ray.pos_y += ray.plane_y * ray.move_speed;
+	}
+	//rotate to the right
+	if (keycode == RROTATE)
 	{
 		//both camera direction and camera plane must be rotated
 		double oldDirX = ray.dir_x;
@@ -165,7 +174,7 @@ int key_pressed(int keycode, t_all *all)
 		ray.plane_y = oldPlaneX * sin(-ray.rot_speed) + ray.plane_y * cos(-ray.rot_speed);
 	}
 	//rotate to the left
-	if (keycode == LEFT)
+	if (keycode == LROTATE)
 	{
 		//both camera direction and camera plane must be rotated
 		double oldDirX = ray.dir_x;
@@ -199,9 +208,14 @@ int main(int argc, char *argv[])
 	img.mlx = mlx_init();
 	if (check_res(&img, &info))
 	{
+		red();
 		printf("Resolution too big for screen!\n");
+		reset();
 		return (1);
 	}
+	green();
+	printf("Parsed successfully!\n");
+	reset();
 	img.win = mlx_new_window(img.mlx, info.x_size, info.y_size, "Maria's cub3d");
 	img.img = mlx_new_image(img.mlx, info.x_size, info.y_size);
 	img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length,

@@ -6,7 +6,7 @@
 #    By: mdaan <mdaan@student.codam.nl>               +#+                      #
 #                                                    +#+                       #
 #    Created: 2021/01/28 15:38:43 by mdaan         #+#    #+#                  #
-#    Updated: 2021/05/06 14:31:14 by mdaan         ########   odam.nl          #
+#    Updated: 2021/05/10 12:20:15 by mdaan         ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,6 +21,7 @@ SRCS	=	src/parse.c \
 			src/color_utils.c \
 			src/printvar.c \
 			src/render.c \
+			src/errors.c \
 			raycast.c \
 			../libft/libft.a
 			# $(shell find src -name '*.c')

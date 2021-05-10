@@ -205,6 +205,8 @@ int				printstr(char *name, char *str);
 
 int				printchar(char *name, char c);
 
+int				printco(char *name, int x, int y);
+
 /*
 	render.c
 */
@@ -215,10 +217,21 @@ int				draw_wall(t_data *img, t_info *info);
 /*
 	check_map.c
 */
-int				check_map(char *str);
+int				find_map(char *str);
 
 int				parse_map(t_info *info, char *full_file);
 
 int				valid_map(t_info *info);
+
+/*
+	errors.c
+*/
+void	red(void);
+
+void	yellow(void);
+
+void	green(void);
+
+void	reset(void);
 
 #endif

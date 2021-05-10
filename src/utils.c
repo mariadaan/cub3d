@@ -19,7 +19,7 @@ void	init_info(t_info *info)
 
 void	print_info(t_info *info)
 {
-	printnum("size struct", sizeof(*info));
+	// printnum("size struct", sizeof(*info));
 	printf("x_render_size:    %d\n", info->x_size);
 	printf("y_render_size:    %d\n", info->y_size);
 	printf("n_path:           %s\n", info->no_path);

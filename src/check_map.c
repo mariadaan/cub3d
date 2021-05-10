@@ -1,6 +1,6 @@
 #include "cub.h"
 
-int	check_map(char *str)
+int	find_map(char *str)
 {
 	int check;
 	int i;
@@ -27,7 +27,7 @@ int	parse_map(t_info *info, char *full_file)
 	int		width;
 
 	i = 0;
-	start_index = check_map(full_file);
+	start_index = find_map(full_file);
 	if (start_index)
 	{
 		info->start = full_file + start_index;
@@ -100,12 +100,16 @@ int	valid_map(t_info *info)
 {
 	if (check_x(info))
 	{
+		red();
 		printf("Error encountered while parsing cub file: Invalid map!\n");
+		reset();
 		return (1);
 	}
 	if (check_y(info))
 	{
+		red();
 		printf("Error encountered while parsing cub file: Invalid map!\n");
+		reset();
 		return (1);
 	}
 	return (0);
