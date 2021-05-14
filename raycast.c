@@ -128,8 +128,6 @@ int key_pressed(int keycode, t_all *all)
 		destroy_window(&(all->img));
 	if (keycode == FORWARD)
 	{
-		printco("", ray.pos_x, ray.pos_y);
-		printchar("", worldMap[(int)ray.pos_x][(int)ray.pos_y]);
 		if (worldMap[(int)(ray.pos_x + ray.dir_x * ray.move_speed)][(int)(ray.pos_y)] - '0' == 0)
 			ray.pos_x += ray.dir_x * ray.move_speed;
 		if (worldMap[(int)(ray.pos_x)][(int)(ray.pos_y + ray.dir_y * ray.move_speed)] - '0' == 0)
@@ -138,8 +136,6 @@ int key_pressed(int keycode, t_all *all)
 	//move backwards if no wall behind you
 	if (keycode == BACKWARDS)
 	{
-				printco("", ray.pos_x, ray.pos_y);
-		printchar("", worldMap[(int)ray.pos_x][(int)ray.pos_y]);
 		if (worldMap[(int)(ray.pos_x - ray.dir_x * ray.move_speed)][(int)(ray.pos_y)] - '0' == 0)
 			ray.pos_x -= ray.dir_x * ray.move_speed;
 		if (worldMap[(int)(ray.pos_x)][(int)(ray.pos_y - ray.dir_y * ray.move_speed)] - '0' == 0)
@@ -157,7 +153,7 @@ int key_pressed(int keycode, t_all *all)
 	if (keycode == RIGHT)
 	{
 		if (worldMap[(int)(ray.pos_x + ray.plane_x * ray.move_speed)][(int)(ray.pos_y)] - '0' == 0)
-			ray.pos_x -= ray.plane_x * ray.move_speed;
+			ray.pos_x += ray.plane_x * ray.move_speed;
 		if (worldMap[(int)(ray.pos_x)][(int)(ray.pos_y + ray.plane_y * ray.move_speed)] - '0' == 0)
 			ray.pos_y += ray.plane_y * ray.move_speed;
 	}
@@ -183,10 +179,47 @@ int key_pressed(int keycode, t_all *all)
 		ray.plane_x = ray.plane_x * cos(ray.rot_speed) - ray.plane_y * sin(ray.rot_speed);
 		ray.plane_y = oldPlaneX * sin(ray.rot_speed) + ray.plane_y * cos(ray.rot_speed);
 	}
+	if (keycode == 25)
+	{
+		// rotate 90 degrees to the right
+		//both camera direction and camera plane must be rotated
+		double oldDirX = ray.dir_x;
+		ray.dir_x = ray.dir_x * cos(-M_PI / 2) - ray.dir_y * sin(-M_PI / 2);
+		ray.dir_y = oldDirX * sin(-M_PI / 2) + ray.dir_y * cos(-M_PI / 2);
+		double oldPlaneX = ray.plane_x;
+		ray.plane_x = ray.plane_x * cos(-M_PI / 2) - ray.plane_y * sin(-M_PI / 2);
+		ray.plane_y = oldPlaneX * sin(-M_PI / 2) + ray.plane_y * cos(-M_PI / 2);
+	}
 	all->ray = ray;
 
 	render_screen(all);
 	return (keycode);
+}
+
+int	rotate(t_all *all)
+{
+	t_ray ray = all->ray;
+	t_info info = all->info;
+	double pifactor;
+
+	if (info.spawn_dir == 'N')
+		return (0);
+	else if (info.spawn_dir == 'E')
+		pifactor = M_PI / 2;
+	else if (info.spawn_dir == 'S')
+		pifactor = M_PI;
+	else if (info.spawn_dir == 'W')
+		pifactor = 1.5 * M_PI;
+	
+	double oldDirX = ray.dir_x;
+	ray.dir_x = ray.dir_x * cos(-pifactor) - ray.dir_y * sin(-pifactor);
+	ray.dir_y = oldDirX * sin(-pifactor) + ray.dir_y * cos(-pifactor);
+	double oldPlaneX = ray.plane_x;
+	ray.plane_x = ray.plane_x * cos(-pifactor) - ray.plane_y * sin(-pifactor);
+	ray.plane_y = oldPlaneX * sin(-pifactor) + ray.plane_y * cos(-pifactor);
+	all->ray = ray;
+
+	return (0);
 }
 
 int main(int argc, char *argv[])
@@ -222,9 +255,12 @@ int main(int argc, char *argv[])
 
 	// ray.pos_x = 11, ray.pos_y = 26;
 	// HOE IS X Y EN ANDERSOM!!!
-	ray.pos_x = info.y_spawn, ray.pos_y = info.x_spawn;		 //x and y start position
-	ray.dir_x = -1, ray.dir_y = 0;		 //initial direction vector
-	ray.plane_x = 0, ray.plane_y = 0.66; //the 2d raycaster version of camera plane
+	ray.pos_x = info.y_spawn;		 //x and y start position
+	ray.pos_y = info.x_spawn;
+	ray.dir_x = -1;		 //initial direction vector
+	ray.dir_y = 0;
+	ray.plane_x = 0; //the 2d raycaster version of camera plane
+	ray.plane_y = 0.66;
 	ray.time = 0;						 //time of current frame
 	ray.old_time = 0;					 //time of previous frame
 
@@ -246,6 +282,7 @@ int main(int argc, char *argv[])
 	all.ray = ray;
 	all.info = info;
 
+	rotate(&all);
 	render_screen(&all);
 	mlx_hook(img.win, KeyPress, 0, key_pressed, &all);
 	mlx_put_image_to_window(img.mlx, img.win, img.img, 0, 0);

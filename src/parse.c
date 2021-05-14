@@ -145,10 +145,7 @@ int	parse_all(int fd, t_info *info)
 	init_info(info);
 	ret = read_till_end(fd, &(info->full_file));
 	if (ret == -1)
-	{
-		printf("Error encountered while reading cub file\n");
-		return (1);
-	}
+		return (error_msg("Error encountered while reading cub file"));
 	parse_int(info->full_file, &(info->x_size), 1);
 	parse_int(info->full_file, &(info->y_size), 2);
 	ret = parse_path(info->full_file, &(info->no_path), "NO ");
@@ -157,15 +154,14 @@ int	parse_all(int fd, t_info *info)
 	ret += parse_path(info->full_file, &(info->ea_path), "EA ");
 	ret += parse_path(info->full_file, &(info->s_path), "S ");
 	if (ret)
-	{
-		printf("Error encountered while parsing cub file: Invalid texture/sprite path\n");
-		return (1);
-	}
+		return (error_msg("Error encountered while parsing cub file: Invalid texture/sprite path"));
 	ret = parse_color(info->full_file, &(info->f_color), "F ");
 	ret += parse_color(info->full_file, &(info->c_color), "C ");
 	if (ret)
 		return (1);
 	ret += parse_map(info, info->full_file);
+	if (ret)
+		return (error_msg("Error encountered while parsing cub file: Map is missing"));
 	if (valid_map(info))
 		return (1);
 	get_spawn_pos(info);

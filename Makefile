@@ -6,7 +6,7 @@
 #    By: mdaan <mdaan@student.codam.nl>               +#+                      #
 #                                                    +#+                       #
 #    Created: 2021/01/28 15:38:43 by mdaan         #+#    #+#                  #
-#    Updated: 2021/05/10 12:20:15 by mdaan         ########   odam.nl          #
+#    Updated: 2021/05/14 17:03:41 by mdaan         ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -60,5 +60,13 @@ debug:
 	make re
 	# ./cub maps/map.cub
 	./cub maps/valid_maps/valid_map_area_008.cub
+
+invalid:
+	make re
+	./cub maps/invalid_maps/invalid_map_area_025.cub
+
+invalid_res:
+	make re
+	./cub maps/invalid_maps/invalid_res_000.cub
 
 .PHONY: all clean fclean re debug

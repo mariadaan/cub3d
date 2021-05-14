@@ -1,18 +1,11 @@
 To do
 
-- In de goeie richting spawnen. Nu altijd N.
-
-map fixen
-parsen verbeteren
-opzij lopen
-hele code begrijpen
-
-Parsen:
-
-- Resolutie checken: max en min?
+- parse int functie protecten, resolutie checken beter
+- CHECK: In de goeie richting spawnen. Nu altijd N.
+- CHECK: Resolutie checken: max en min?
 - Path checken: bestaat het wel? Wat voor type bestand is het?
-- Kleuren checken: is elke waarde wel tussen 0 en 255
-- Map checken: waar is de spawn positie en kan je vanaf daar de map "af" lopen?
+- CHECK: Kleuren checken: is elke waarde wel tussen 0 en 255
+- CHECK: Map checken: waar is de spawn positie en kan je vanaf daar de map "af" lopen?
 
 
 - CHECK: The left and right arrow keys of the keyboard must allow you to look left and

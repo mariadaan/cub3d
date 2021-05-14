@@ -207,6 +207,8 @@ int				printchar(char *name, char c);
 
 int				printco(char *name, int x, int y);
 
+int				printflco(char *name, double x, double y);
+
 /*
 	render.c
 */
@@ -233,5 +235,9 @@ void	yellow(void);
 void	green(void);
 
 void	reset(void);
+
+int		error_msg(char *message);
+
+int		success_msg(char *message);
 
 #endif
