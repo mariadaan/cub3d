@@ -90,7 +90,6 @@ int	parse_color(char *line, unsigned int *color, char *id)
 	int		g;
 	int		b;
 
-	// line = ft_move_ptr(line, c);
 	line = ft_strstr(line, id);
 	if (line[0] == *id)
 	{
@@ -101,7 +100,9 @@ int	parse_color(char *line, unsigned int *color, char *id)
 		b = ft_atoi(split[2]);
 		if (r > 255 || g > 255 || b > 255 || r < 0 || g < 0 || b < 0)
 		{
+			red();
 			printf("Error encountered while parsing cub file: Invalid rgb values\n");
+			reset();
 			return (1);
 		}
 		free_2darray(split, 3);

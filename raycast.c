@@ -6,7 +6,6 @@ int verLine(t_data *img, int x, int drawStart, int drawEnd, int color)
 
 	len = drawEnd - drawStart;
 	put_vertical(img, x, drawStart, len, color);
-	// printf("verline");
 	return (0);
 }
 

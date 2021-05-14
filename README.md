@@ -1,5 +1,7 @@
 To do
 
+- In de goeie richting spawnen. Nu altijd N.
+
 map fixen
 parsen verbeteren
 opzij lopen
