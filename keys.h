@@ -7,6 +7,7 @@
 # define BACKWARDS 1
 # define LEFT 0
 # define RIGHT 2
+# define ESC 53
 
 # define PRESS 2
 # define RELEASE 3

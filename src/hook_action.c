@@ -7,29 +7,24 @@ int	destroy_window(t_data *img)
 	return (1);
 }
 
-int	key_release(int keycode, t_data *img)
+int	key_pressed(int keycode, t_all *all)
 {
-	// printf("keyrelease: %d\n", keycode);
-	return (1);
-}
-
-int	key_press(int keycode, t_data *img)
-{
-	static int	x_pos = 250;
-	static int	y_pos = 50;
-
-	// x_pos = 250;
-	// y_pos = 50;
-
-	printnum("x_pos", x_pos);
-	printnum("y_pos", y_pos);
-	while (keycode >= 123 && keycode <= 126)
-	{
-		move_rect(keycode, &x_pos, &y_pos, img);
-		if (mlx_hook(img->win, RELEASE, 0, key_release, &img))
-			break ;
-	}
-	if (keycode == 53)
-		destroy_window(img);
-	return (1);
+	if (keycode == ESC)
+		destroy_window(&(all->img));
+	if (keycode == FORWARD)
+		move_player(all, all->ray.dir_x, all->ray.dir_y);
+	if (keycode == BACKWARDS)
+		move_player(all, -all->ray.dir_x, -all->ray.dir_y);
+	if (keycode == LEFT)
+		move_player(all, -all->ray.plane_x, -all->ray.plane_y);
+	if (keycode == RIGHT)
+		move_player(all, all->ray.plane_x, all->ray.plane_y);
+	if (keycode == RROTATE)
+		rotate(all, -all->ray.const_rad);
+	if (keycode == LROTATE)
+		rotate(all, all->ray.const_rad);
+	if (keycode == 25)
+		rotate(all, -M_PI / 2);
+	draw_img(all);
+	return (keycode);
 }

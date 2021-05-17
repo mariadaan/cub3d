@@ -6,12 +6,13 @@
 #    By: mdaan <mdaan@student.codam.nl>               +#+                      #
 #                                                    +#+                       #
 #    Created: 2021/01/28 15:38:43 by mdaan         #+#    #+#                  #
-#    Updated: 2021/05/14 17:03:41 by mdaan         ########   odam.nl          #
+#    Updated: 2021/05/17 17:07:52 by mdaan         ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
 NAME	=	cub
-SRCS	=	src/parse.c \
+SRCS	=	src/main.c \
+			src/parse.c \
 			src/check_map.c \
 			src/pixel.c \
 			src/hook_action.c \
@@ -22,7 +23,7 @@ SRCS	=	src/parse.c \
 			src/printvar.c \
 			src/render.c \
 			src/errors.c \
-			raycast.c \
+			src/init.c \
 			../libft/libft.a
 			# $(shell find src -name '*.c')
 			# read_till_end.c \
@@ -56,6 +57,10 @@ ray:
 	make re
 	./cub maps/map.cub
 
+non:
+	make re
+	./cub maps/mapss.cub
+
 debug:
 	make re
 	# ./cub maps/map.cub
@@ -63,7 +68,7 @@ debug:
 
 invalid:
 	make re
-	./cub maps/invalid_maps/invalid_map_area_025.cub
+	./cub maps/invalid_maps/invalid_map_area_014.cub
 
 invalid_res:
 	make re

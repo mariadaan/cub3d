@@ -1,12 +1,12 @@
 #include "cub.h"
 
-int	check_res(t_data *img, t_info *info)
+int	check_res(t_all *all)
 {
 	int	x;
 	int	y;
 
-	mlx_get_screen_size(img, &x, &y);
-	if (x < info->x_size || y < info->y_size)
+	mlx_get_screen_size(&(all->img), &x, &y);
+	if (x < all->info.x_size || y < all->info.y_size)
 	{
 		printf("Error encountered while parsing cub file: Invalid resolution\n");
 		return (1);

@@ -71,11 +71,9 @@ typedef struct s_ray {
 	//was a NS or a EW wall hit? (0 = x wall hit, 1 = y wall hit)
 	int side;
 
-	double move_speed; //the constant value is in squares/second
-	double rot_speed; //the constant value is in radians/second
+	double step_size; // constant value in squares
+	double const_rad; // constant value in radians
 
-	double time;
-	double old_time;
 }		t_ray;
 
 typedef struct s_info
@@ -99,24 +97,19 @@ typedef struct s_info
 	char			*start;
 }				t_info;
 
+typedef struct s_rect {
+	int				line_height;
+	int				draw_start;
+	int				draw_end;
+	int				color;
+}				t_rect;
+
 typedef struct s_all {
 	t_data img;
 	t_ray ray;
 	t_info info;
+	t_rect rect;
 }			t_all;
-
-typedef struct s_rect {
-	int				x;
-	int				y;
-	int				width;
-	int				height;
-	unsigned int	color;
-}				t_rect;
-
-typedef struct s_position {
-	int				x_pos;
-	int				y_pos;
-}				t_position;
 
 typedef struct s_color {
 	int				r;
@@ -134,7 +127,7 @@ int				get_findex(char *str, char c);
 
 int				get_lindex(char *str, char c);
 
-int				check_res(t_data *img, t_info *info);
+int				check_res(t_all *all);
 
 
 /*
@@ -157,16 +150,19 @@ void			gradient_rect(t_all *all, int y_start, int color);
 /*
 	hook_action.c
 */
-int				key_release(int keycode, t_data *img);
-
-int				key_press(int keycode, t_data *img);
+int				key_pressed(int keycode, t_all *all);
 
 int				destroy_window(t_data *img);
 
 /*
 	move.c
 */
-int				move_rect(int keycode, int *x_pos, int *y_pos, t_data *img);
+int				spawn_dir(t_all *all);
+
+int				move_player(t_all *all, double x, double y);
+
+int				rotate(t_all *all, double radius);
+
 
 /*
 	utils.c
@@ -212,9 +208,13 @@ int				printflco(char *name, double x, double y);
 /*
 	render.c
 */
-int				draw_bg(t_data *img, t_info *info);
+int				ver_line(t_all *all, int x);
 
-int				draw_wall(t_data *img, t_info *info);
+int				textured(t_all *all, int x);
+
+int				set_values(t_all *all, int x);
+
+int				draw_img(t_all *all);
 
 /*
 	check_map.c
@@ -228,16 +228,26 @@ int				valid_map(t_info *info);
 /*
 	errors.c
 */
-void	red(void);
+void			red(void);
 
-void	yellow(void);
+void			yellow(void);
 
-void	green(void);
+void			green(void);
 
-void	reset(void);
+void			reset(void);
 
-int		error_msg(char *message);
+int				error_msg(char *message);
 
-int		success_msg(char *message);
+int				success_msg(char *message);
+
+
+/*
+	init.c
+*/
+int	init_raycaster(t_all *all);
+
+int	init_mlx(t_all *all);
+
+int	check_input(t_all *all, int argc, char *cub_file);
 
 #endif
