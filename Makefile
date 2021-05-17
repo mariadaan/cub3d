@@ -6,7 +6,7 @@
 #    By: mdaan <mdaan@student.codam.nl>               +#+                      #
 #                                                    +#+                       #
 #    Created: 2021/01/28 15:38:43 by mdaan         #+#    #+#                  #
-#    Updated: 2021/05/17 17:07:52 by mdaan         ########   odam.nl          #
+#    Updated: 2021/05/17 20:11:41 by mdaan         ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -60,6 +60,10 @@ ray:
 non:
 	make re
 	./cub maps/mapss.cub
+
+wrongarg:
+	make re
+	./cub maps/mapss.cub hallo
 
 debug:
 	make re

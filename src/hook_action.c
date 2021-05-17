@@ -1,6 +1,6 @@
 #include "cub.h"
 
-int	destroy_window(t_data *img)
+int	destroy_window(t_img *img)
 {
 	mlx_destroy_window(img->mlx, img->win);
 	exit(0);

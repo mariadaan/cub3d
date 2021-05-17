@@ -12,7 +12,7 @@
 # include "keys.h"
 
 
-typedef struct s_data {
+typedef struct s_img {
 	void			*mlx;
 	void			*img;
 	void			*win;
@@ -20,7 +20,7 @@ typedef struct s_data {
 	int				bits_per_pixel;
 	int				line_length;
 	int				endian;
-}				t_data;
+}				t_img;
 
 typedef struct s_ray {
 	// x and y exact player position
@@ -104,11 +104,22 @@ typedef struct s_rect {
 	int				color;
 }				t_rect;
 
+typedef struct s_tex
+{
+	t_img			n_img;
+	t_img			e_img;
+	t_img			s_img;
+	t_img			w_img;
+	// t_img			sprite;
+	// double			shading;
+}				t_tex;
+
 typedef struct s_all {
-	t_data img;
-	t_ray ray;
-	t_info info;
-	t_rect rect;
+	t_img			img;
+	t_ray			ray;
+	t_info			info;
+	t_rect			rect;
+	t_tex			tex;
 }			t_all;
 
 typedef struct s_color {
@@ -133,15 +144,15 @@ int				check_res(t_all *all);
 /*
 	pixel.c
 */
-void			my_mlx_pixel_put(t_data *data, int x, int y, int color);
+void			my_mlx_pixel_put(t_img *img, int x, int y, int color);
 
-void			put_horizontal(t_data *data, int x, int y, int len, int color);
+void			put_horizontal(t_img *data, int x, int y, int len, int color);
 
-void			put_vertical(t_data *data, int x, int y, int len, int color);
+void			put_vertical(t_img *data, int x, int y, int len, int color);
 
-void			put_rect(t_data *data, int x, int y, int xlen, int ylen, int color);
+void			put_rect(t_img *data, int x, int y, int xlen, int ylen, int color);
 
-void			fill_rect(t_data *data, int x, int y, int xlen, int ylen, int color);
+void			fill_rect(t_img *data, int x, int y, int xlen, int ylen, int color);
 
 void			gradient_bg(t_all *all);
 
@@ -152,7 +163,7 @@ void			gradient_rect(t_all *all, int y_start, int color);
 */
 int				key_pressed(int keycode, t_all *all);
 
-int				destroy_window(t_data *img);
+int				destroy_window(t_img *img);
 
 /*
 	move.c
@@ -174,15 +185,12 @@ void			print_info(t_info *info);
 /*
 	color.c
 */
-// int				get_t(int trgb);
-
 int				get_r(int trgb);
 
 int				get_g(int trgb);
 
 int				get_b(int trgb);
 
-// unsigned int	create_trgb(int t, int r, int g, int b);
 int				create_rgb(int r, int g, int b);
 
 /*
@@ -244,10 +252,10 @@ int				success_msg(char *message);
 /*
 	init.c
 */
-int	init_raycaster(t_all *all);
+int				init_raycaster(t_all *all);
 
-int	init_mlx(t_all *all);
+int				init_mlx(t_all *all);
 
-int	check_input(t_all *all, int argc, char *cub_file);
+int				check_input(t_all *all, int argc, char *cub_file);
 
 #endif

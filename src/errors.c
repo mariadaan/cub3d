@@ -22,6 +22,7 @@ void	reset(void)
 
 int		error_msg(char *message)
 {
+	perror("FAIL");
 	red();
 	printf("\n%s\n\n", message);
 	reset();
