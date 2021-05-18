@@ -4,6 +4,7 @@ int	spawn_dir(t_all *all)
 {
 	double	radius;
 
+	radius = 0;
 	if (all->info.spawn_dir == 'N')
 		return (0);
 	else if (all->info.spawn_dir == 'E')
@@ -12,6 +13,7 @@ int	spawn_dir(t_all *all)
 		radius = M_PI;
 	else if (all->info.spawn_dir == 'W')
 		radius = 1.5 * M_PI;
+	
 	rotate(all, radius);
 	return (0);
 }

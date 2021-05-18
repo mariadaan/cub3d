@@ -1,29 +1,91 @@
 #include "cub.h"
 
-int	init_texture(t_all *all)
+// INITIALIZATION FUNCTIONS
+
+/*
+	init_input():
+	Checks user input. Has an argument with the name of the cub file been given?
+	Does the file exist? If yes, the file is parsed and all information is saved
+	in the info struct.
+*/
+
+int	init_input(t_all *all, int argc, char *cub_file)
 {
-	int width;
-	int height;
+	int		fd;
+	t_info	info;
 
-	all->tex.n_img.img = mlx_xpm_file_to_image(all->tex.n_img.mlx, "./bricks.xpm", &width, &height);
-
-	printnum("width", width);
-	printnum("height", height);
-	all->tex.n_img.addr = mlx_get_data_addr(all->tex.n_img.mlx, &(all->tex.n_img.bits_per_pixel), &(all->tex.n_img.line_length), &(all->tex.n_img.endian));
-	mlx_put_image_to_window(all->tex.n_img.mlx, all->img.win, all->tex.n_img.img, 0, 0);
+	if (argc != 2)
+		return (error_msg("Invalid argument\n"));
+	fd = open(cub_file, O_RDONLY);
+	if (fd == -1)
+		return (error_msg("Make sure cub file exists and path is correct\n"));
+	ft_bzero(&info, sizeof(t_info));
+	all->info = info;
+	if (parse_all(fd, &(all->info)))
+		return (1);
 	return (0);
 }
 
-int	init_raycaster(t_all *all)
+/*
+	Creates an image structure for every texture and saves them in t_tex tex.
+	In rect, information about the walls to be displayed will be saved later on.
+*/
+
+int	init_textures(t_all *all)
 {
 	t_tex	tex;
+	t_rect	rect;
 
+	ft_bzero(&tex, sizeof(t_tex));
+	ft_bzero(&rect, sizeof(t_rect));
 	all->tex = tex;
-	all->tex.n_img.mlx = mlx_init();
-	all->tex.e_img.mlx = mlx_init();
-	all->tex.s_img.mlx = mlx_init();
-	all->tex.w_img.mlx = mlx_init();
+	all->rect = rect;
+	if (xpm_to_img(&(all->tex.n_img), all->info.no_path)
+		|| xpm_to_img(&(all->tex.e_img), all->info.ea_path)
+		|| xpm_to_img(&(all->tex.s_img), all->info.so_path)
+		|| xpm_to_img(&(all->tex.w_img), all->info.we_path))
+		return (1);
+	return (0);
+}
 
+/*
+	Create the window in which the cub3d project will be shown and create an
+	image called img, that will be modified during the program.
+*/
+
+int	init_mlx(t_all *all)
+{
+	t_img	img;
+
+	ft_bzero(&img, sizeof(t_img));
+	all->img = img;
+	all->img.mlx = mlx_init();
+	if (!(all->img.mlx))
+		return (error_msg("Creating mlx pointer failed"));
+	if (check_res(all))
+		return (error_msg("Resolution too big for screen!\n"));
+	all->img.win = mlx_new_window(all->img.mlx, all->info.x_size,
+			all->info.y_size, "Maria's cub3d");
+	all->img.img = mlx_new_image(all->img.mlx, all->info.x_size,
+			all->info.y_size);
+	all->img.addr = mlx_get_data_addr(all->img.img, &all->img.bits_per_pixel,
+			&all->img.line_length, &all->img.endian);
+	return (0);
+}
+
+/*
+	Set the values that are used by the raycaster algorithm in render.c to the
+	correct starting values. step_size can be modified to change walking speed.
+	const_rad can be modified to change rotation speed. Depending on the spawn
+	direction, player is rotated in the spawn_dir function.
+*/
+
+int	init_raycaster(t_all *all)
+{
+	t_ray	ray;
+
+	ft_bzero(&ray, sizeof(t_ray));
+	all->ray = ray;
 	all->ray.pos_x = all->info.y_spawn + 0.5;
 	all->ray.pos_y = all->info.x_spawn + 0.5;
 	all->ray.dir_x = -1;
@@ -33,51 +95,5 @@ int	init_raycaster(t_all *all)
 	all->ray.step_size = 0.3;
 	all->ray.const_rad = 0.2;
 	spawn_dir(all);
-	draw_img(all);
-	// init_texture(all);
-	return (0);
-}
-
-int	init_mlx(t_all *all)
-{
-	// t_img newimg;
-	// int width;
-	// int height;
-
-	// newimg.mlx = mlx_init();
-	// newimg.img = mlx_xpm_file_to_image(newimg.addr, "./bricks.xpm", &width, &height);
-	// printnum("width", width);
-	// printnum("height", height);
-	// newimg.win = mlx_new_window(newimg.mlx, width, height, "test");
-	// newimg.addr = mlx_get_data_addr(newimg.img, &newimg.bits_per_pixel, &newimg.line_length,
-	// 												&newimg.endian);
-	// mlx_put_image_to_window(newimg.mlx, newimg.win, newimg.img, 0, 0);
-
-	all->img.mlx = mlx_init();
-	if (check_res(all))
-		return (error_msg("Resolution too big for screen!\n"));
-	success_msg("Parsed successfully!\n");
-	all->img.win = mlx_new_window(all->img.mlx, all->info.x_size,
-			all->info.y_size, "Maria's cub3d");
-	printnum("all->info.x_size", all->info.x_size);
-	printnum("all->info.y_size", all->info.y_size);
-	all->img.img = mlx_new_image(all->img.mlx, all->info.x_size,
-			all->info.y_size);
-	all->img.addr = mlx_get_data_addr(all->img.img, &all->img.bits_per_pixel,
-			&all->img.line_length, &all->img.endian);
-	return (0);
-}
-
-int	check_input(t_all *all, int argc, char *cub_file)
-{
-	int	fd;
-
-	if (argc != 2)
-		return (error_msg("Invalid argument\n"));
-	fd = open(cub_file, O_RDONLY);
-	if (fd == -1)
-		return (error_msg("Make sure cub file exists and path is correct\n"));
-	if (parse_all(fd, &(all->info)))
-		return (1);
 	return (0);
 }

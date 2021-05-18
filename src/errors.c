@@ -5,11 +5,6 @@ void	red(void)
 	printf("\033[1;31m");
 }
 
-void	yellow(void)
-{
-	printf("\033[1;33m");
-}
-
 void	green(void)
 {
 	printf("\033[1;32m");
@@ -22,7 +17,6 @@ void	reset(void)
 
 int		error_msg(char *message)
 {
-	perror("FAIL");
 	red();
 	printf("\n%s\n\n", message);
 	reset();

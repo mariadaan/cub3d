@@ -1,12 +1,12 @@
-   R 900    480
+   R 9000    480
 
 
 
 
-      NO ./path_to_the_north_texture
-      EA ./path_to_the_east_texture
-      SO ./path_to_the_south_texture
-  WE ./path_to_the_west_texture
+      NO ./textures/wood.xpm
+      EA ./textures/bricks.xpm
+      SO ./textures/sample.xpm
+  WE ./textures/wood.xpm
       S ./path_to_the_sprite_texture
 
      F    102, 79, 120

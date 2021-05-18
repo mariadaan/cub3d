@@ -1,9 +1,11 @@
 #include "cub.h"
 
+// CHECK WHETHER MAP IS VALID FUNCTIONS
+
 int	find_map(char *full_file)
 {
-	int check;
-	int i;
+	int	check;
+	int	i;
 
 	i = ft_strlen(full_file) - 1;
 	check = 1;
@@ -18,56 +20,51 @@ int	find_map(char *full_file)
 	return (-1);
 }
 
-int	parse_map(t_info *info, char *full_file)
-{
-	char	*start_map;
-	int		start_index;
-	int		i;
-	int		width;
-
-	i = 0;
-	start_index = find_map(full_file);
-	if (start_index != -1)
-	{
-		info->start = full_file + start_index;
-		info->map = ft_split(info->start, '\n');
-		while (info->map[info->map_height])
-			info->map_height++;
-		while (i < info->map_height)
-		{
-			width = ft_strlen(info->map[i]);
-			if (width > info->map_width)
-				info->map_width = width;
-			i++;
-		}
-		return (0);
-	}
-	return (1);
-}
-
-int	is_notmap(char c)
-{
-	if (!c)
-		return (1);
-	if (c == ' ' || c == '\n')
-		return (1);
-	else
-		return (0);
-}
+/*
+	Check if no or multiple spawn position in map
+*/
 
 int	check_spawn(t_info *info)
 {
 	int	index;
 
-	// check if no spawn position in map
 	index = ft_setinset(info->start, "NESW");
 	if (index == -1)
 		return (1);
-	// check if multiple spawn positions are in map
 	index = ft_setinset(info->start + index + 1, "NESW");
 	if (index != -1)
 		return (1);
 	return (0);
+}
+
+/*
+	Finds N,S,E or W in map and save location as x and y value. Change the spawn
+	position in map to a so it is seen as open space.
+*/
+
+int	get_spawn_pos(t_info *info)
+{
+	int	y_index;
+	int	x_index;
+
+	info->map_height = ft_count_rows(info->map);
+	y_index = 0;
+	while (y_index < info->map_height)
+	{
+		x_index = ft_setinset(info->map[y_index], "NSWE");
+		if (x_index >= 0)
+			break ;
+		y_index++;
+	}
+	if (x_index >= 0)
+	{
+		info->x_spawn = x_index;
+		info->y_spawn = y_index;
+		info->spawn_dir = info->map[y_index][x_index];
+		info->map[info->y_spawn][info->x_spawn] = '0';
+		return (0);
+	}
+	return (error_msg("Error saving spawn position in map"));
 }
 
 int	check_firstlast(t_info *info)
@@ -140,8 +137,10 @@ int	check_map(t_info *info)
 int	valid_map(t_info *info)
 {
 	if (check_spawn(info))
-		return (error_msg("Error encountered while parsing cub file: Make sure there is one spawn position in map!"));
+		return (error_msg("Error encountered while parsing cub file:"
+			" Make sure there is one spawn position in map!"));
 	if (check_map(info) || check_firstlast(info))
-		return (error_msg("Error encountered while parsing cub file: Map must be closed/surrounded by walls!"));
+		return (error_msg("Error encountered while parsing cub file:"
+			" Map must be closed/surrounded by walls!"));
 	return (0);
 }

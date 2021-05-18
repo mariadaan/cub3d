@@ -1,11 +1,19 @@
 #include "cub.h"
 
+/*
+	closes window and SHOULD FREE EVERYTHING!!
+*/
+
 int	destroy_window(t_img *img)
 {
 	mlx_destroy_window(img->mlx, img->win);
 	exit(0);
 	return (1);
 }
+
+/*
+	Executes player movement and rerenders image
+*/
 
 int	key_pressed(int keycode, t_all *all)
 {

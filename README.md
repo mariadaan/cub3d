@@ -1,9 +1,17 @@
 To do
 
+- Deze readme mooi maken
+- render.c fixen
+- check_map.c fixen
+- teveel functies in parse.c
+- TEXTUREEESSSS
+
 - parse int functie protecten, resolutie checken beter
+- Wat voor type bestand is de texture image? PNG fixen
+
 - CHECK: In de goeie richting spawnen. Nu altijd N.
 - CHECK: Resolutie checken: max en min?
-- Path checken: bestaat het wel? Wat voor type bestand is het?
+- CHECK: Path checken: bestaat het wel?
 - CHECK: Kleuren checken: is elke waarde wel tussen 0 en 255
 - CHECK: Map checken: waar is de spawn positie en kan je vanaf daar de map "af" lopen?
 
@@ -18,6 +26,3 @@ To do
 - CHECK: If the declared screen size in the map is greater than the display resolution,
   the window size will be set depending to the current display resolution.
 - CHECK: The use of images of the minilibX is strongly recommended.
-
-als ik nog nooit gerotate heb lijk ik door de muren heen te kunnen, als ik wel al een keer gedraaid heb niet. Hoe kan dat??
-

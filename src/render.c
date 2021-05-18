@@ -15,46 +15,81 @@ int	ver_line(t_all *all, int x)
 	return (0);
 }
 
-#define texWidth 64
-#define texHeight 64
-#define screenWidth 640
-#define screenHeight 480
-unsigned int buffer[screenHeight][screenWidth];
-
-int	textured(t_all *all, int x)
+int	behang(t_all *all, int x)
 {
-	//texturing calculations
-	int texNum = all->info.map[all->ray.map_x][all->ray.map_x] - 1; //1 subtracted from it so that texture 0 can be used!
+	t_img	wall_img;
+	char	*dst;
+	int		color;
+	int		y_start;
+	int		y_end;
+	int		i;
+	int		wall_len;
 
-	//calculate value of wallX
-	double wallX; //where exactly the wall was hit
-	if(all->ray.side == 0) wallX = all->ray.pos_y + all->ray.perp_wall_dist * all->ray.ray_dir_y;
-	else		wallX = all->ray.pos_x + all->ray.perp_wall_dist * all->ray.ray_dir_x;
-	wallX -= floor((wallX));
+	if (all->ray.side == 0)
+		wall_img = all->tex.n_img;
+	else if (all->ray.side == 1)
+		wall_img = all->tex.s_img;
 
-	//x coordinate on the texture
-	int texX = (int)(wallX * (double)(texWidth));
-	if(all->ray.side == 0 && all->ray.ray_dir_x > 0) texX = texWidth - texX - 1;
-	if(all->ray.side == 1 && all->ray.ray_dir_y < 0) texX = texWidth - texX - 1;
+	i = 0;
+	y_start = all->rect.draw_start;
+	y_end = all->rect.draw_end;
+	wall_len = y_end - y_start;
+	// printnum("len", y_end - y_start);
+	// printnum("height", all->rect.line_height);
 
-	// TODO: an integer-only bresenham or DDA like algorithm could make the texture coordinate stepping faster
-	// How much to increase the texture coordinate per screen pixel
-	double step = 1.0 * texHeight / all->rect.line_height;
-	// Starting texture coordinate
-	double texPos = (all->rect.draw_start - all->info.y_size / 2 + all->rect.line_height / 2) * step;
-	for(int y = all->rect.draw_start; y < all->rect.draw_end; y++)
+	while (y_start < y_end)
 	{
-		// Cast the texture coordinate to integer, and mask with (texHeight - 1) in case of overflow
-		int texY = (int)texPos & (texHeight - 1);
-		texPos += step;
-		unsigned int color;
-		//  = texture[texNum][texHeight * texY + texX];
-		//make color darker for y-sides: R, G and B byte each divided through two with a "shift" and an "and"
-		if(all->ray.side == 1) color = (color >> 1) & 8355711;
-		buffer[y][x] = color;
+		int y_waarde = (i % (wall_img.height));
+		dst = wall_img.addr + (y_waarde * wall_img.line_length + (x % wall_img.width) * (wall_img.bits_per_pixel / 8));
+		color = *(unsigned int *)dst;
+		my_mlx_pixel_put(&(all->img), x, y_start, color);
+		y_start++;
+		i++;
 	}
 	return (0);
 }
+
+
+// #define texWidth 64
+// #define texHeight 64
+// #define screenWidth 640
+// #define screenHeight 480
+// unsigned int buffer[screenHeight][screenWidth];
+
+// int	textured(t_all *all, int x)
+// {
+// 	//texturing calculations
+// 	int texNum = all->info.map[all->ray.map_x][all->ray.map_x] - 1; //1 subtracted from it so that texture 0 can be used!
+
+// 	//calculate value of wallX
+// 	double wallX; //where exactly the wall was hit
+// 	if(all->ray.side == 0) wallX = all->ray.pos_y + all->ray.perp_wall_dist * all->ray.ray_dir_y;
+// 	else		wallX = all->ray.pos_x + all->ray.perp_wall_dist * all->ray.ray_dir_x;
+// 	wallX -= floor((wallX));
+
+// 	//x coordinate on the texture
+// 	int texX = (int)(wallX * (double)(texWidth));
+// 	if(all->ray.side == 0 && all->ray.ray_dir_x > 0) texX = texWidth - texX - 1;
+// 	if(all->ray.side == 1 && all->ray.ray_dir_y < 0) texX = texWidth - texX - 1;
+
+// 	// TODO: an integer-only bresenham or DDA like algorithm could make the texture coordinate stepping faster
+// 	// How much to increase the texture coordinate per screen pixel
+// 	double step = 1.0 * texHeight / all->rect.line_height;
+// 	// Starting texture coordinate
+// 	double texPos = (all->rect.draw_start - all->info.y_size / 2 + all->rect.line_height / 2) * step;
+// 	for(int y = all->rect.draw_start; y < all->rect.draw_end; y++)
+// 	{
+// 		// Cast the texture coordinate to integer, and mask with (texHeight - 1) in case of overflow
+// 		int texY = (int)texPos & (texHeight - 1);
+// 		texPos += step;
+// 		unsigned int color;
+// 		//  = texture[texNum][texHeight * texY + texX];
+// 		//make color darker for y-sides: R, G and B byte each divided through two with a "shift" and an "and"
+// 		if(all->ray.side == 1) color = (color >> 1) & 8355711;
+// 		buffer[y][x] = color;
+// 	}
+// 	return (0);
+// }
 
 int	dda(t_all *all)
 {
@@ -160,10 +195,9 @@ int	draw_img(t_all *all)
 			all->rect.color = gen_darker_color(all->rect.color, 50);
 		}
 		// textured(all, x);
-		// drawBuffer(buffer[0]);
-		// for(int y = 0; y < h; y++) for(int x = 0; x < w; x++) buffer[y][x] = 0;
 		//draw the pixels of the stripe as a vertical line
-		ver_line(all, x);
+		// ver_line(all, x);
+		behang(all, x);
 		x++;
 	}
 	mlx_put_image_to_window(&(all->img.mlx), all->img.win, all->img.img, 0, 0);

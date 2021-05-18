@@ -20,6 +20,8 @@ typedef struct s_img {
 	int				bits_per_pixel;
 	int				line_length;
 	int				endian;
+	int				width;
+	int				height;
 }				t_img;
 
 typedef struct s_ray {
@@ -130,40 +132,34 @@ typedef struct s_color {
 }				t_color;
 
 /*
+	init.c
+*/
+int				init_input(t_all *all, int argc, char *cub_file);
+
+int				init_textures(t_all *all);
+
+int				init_mlx(t_all *all);
+
+int				init_raycaster(t_all *all);
+
+
+/*
 	parse.c
 */
 int				parse_all(int fd, t_info *info);
 
-int				get_findex(char *str, char c);
-
-int				get_lindex(char *str, char c);
+int				parse_map(t_info *info, char *full_file);
 
 int				check_res(t_all *all);
 
 
 /*
-	pixel.c
-*/
-void			my_mlx_pixel_put(t_img *img, int x, int y, int color);
-
-void			put_horizontal(t_img *data, int x, int y, int len, int color);
-
-void			put_vertical(t_img *data, int x, int y, int len, int color);
-
-void			put_rect(t_img *data, int x, int y, int xlen, int ylen, int color);
-
-void			fill_rect(t_img *data, int x, int y, int xlen, int ylen, int color);
-
-void			gradient_bg(t_all *all);
-
-void			gradient_rect(t_all *all, int y_start, int color);
-
-/*
-	hook_action.c
+	hooks.c
 */
 int				key_pressed(int keycode, t_all *all);
 
 int				destroy_window(t_img *img);
+
 
 /*
 	move.c
@@ -178,20 +174,26 @@ int				rotate(t_all *all, double radius);
 /*
 	utils.c
 */
-void			init_info(t_info *info);
+
+int				xpm_to_img(t_img *img, char *filename);
+
+void			my_mlx_pixel_put(t_img *img, int x, int y, int color);
+
+int				is_notmap(char c);
 
 void			print_info(t_info *info);
 
 /*
 	color.c
 */
+
+int				create_rgb(int r, int g, int b);
+
 int				get_r(int trgb);
 
 int				get_g(int trgb);
 
 int				get_b(int trgb);
-
-int				create_rgb(int r, int g, int b);
 
 /*
 	color_utils.c
@@ -233,12 +235,12 @@ int				parse_map(t_info *info, char *full_file);
 
 int				valid_map(t_info *info);
 
+int				get_spawn_pos(t_info *info);
+
 /*
 	errors.c
 */
 void			red(void);
-
-void			yellow(void);
 
 void			green(void);
 
@@ -248,14 +250,20 @@ int				error_msg(char *message);
 
 int				success_msg(char *message);
 
-
 /*
-	init.c
+	pixel.c -- DEZE FILE MOET EIGENLIJK HELEMAAL GESKIPT WORDEN
 */
-int				init_raycaster(t_all *all);
+void			put_horizontal(t_img *data, int x, int y, int len, int color);
 
-int				init_mlx(t_all *all);
+void			put_vertical(t_img *data, int x, int y, int len, int color);
 
-int				check_input(t_all *all, int argc, char *cub_file);
+void			put_rect(t_img *data, int x, int y, int xlen, int ylen, int color);
+
+void			fill_rect(t_img *data, int x, int y, int xlen, int ylen, int color);
+
+void			gradient_bg(t_all *all);
+
+void			gradient_rect(t_all *all, int y_start, int color);
+
 
 #endif
