@@ -175,6 +175,8 @@ int				rotate(t_all *all, double radius);
 	utils.c
 */
 
+int				show_img(t_all *all);
+
 int				xpm_to_img(t_img *img, char *filename);
 
 void			my_mlx_pixel_put(t_img *img, int x, int y, int color);

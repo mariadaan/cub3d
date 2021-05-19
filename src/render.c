@@ -1,11 +1,5 @@
 #include "cub.h"
 
-int	show_img(t_all *all)
-{
-	mlx_put_image_to_window(&(all->img.mlx), all->img.win, all->img.img, 0, 0);
-	return (0);
-}
-
 int	ver_line(t_all *all, int x)
 {
 	int	len;
@@ -28,7 +22,7 @@ int	behang(t_all *all, int x)
 	if (all->ray.side == 0)
 		wall_img = all->tex.n_img;
 	else if (all->ray.side == 1)
-		wall_img = all->tex.s_img;
+		wall_img = all->tex.n_img;
 
 	i = 0;
 	y_start = all->rect.draw_start;
@@ -42,6 +36,8 @@ int	behang(t_all *all, int x)
 		int y_waarde = (i % (wall_img.height));
 		dst = wall_img.addr + (y_waarde * wall_img.line_length + (x % wall_img.width) * (wall_img.bits_per_pixel / 8));
 		color = *(unsigned int *)dst;
+		if (all->ray.side == 0)
+			color = gen_darker_color(color, 25);
 		my_mlx_pixel_put(&(all->img), x, y_start, color);
 		y_start++;
 		i++;
@@ -200,6 +196,6 @@ int	draw_img(t_all *all)
 		behang(all, x);
 		x++;
 	}
-	mlx_put_image_to_window(&(all->img.mlx), all->img.win, all->img.img, 0, 0);
+	show_img(all);
 	return (0);
 }

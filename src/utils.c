@@ -1,6 +1,16 @@
 #include "cub.h"
 
 /*
+	Simplified version of mlx_put_image_to_window that always places the image
+	in the upper left corner
+*/
+int	show_img(t_all *all)
+{
+	mlx_put_image_to_window(&(all->img.mlx), all->img.win, all->img.img, 0, 0);
+	return (0);
+}
+
+/*
 	Creates new img struct and saves xpm file into it
 */
 
