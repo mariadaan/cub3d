@@ -1,22 +1,29 @@
 #include "cub.h"
 
+/*
+	Changes initial player direction if necessary
+*/
+
 int	spawn_dir(t_all *all)
 {
-	double	radius;
+	double	radians;
 
-	radius = 0;
+	radians = 0;
 	if (all->info.spawn_dir == 'N')
 		return (0);
 	else if (all->info.spawn_dir == 'E')
-		radius = M_PI / 2;
+		radians = M_PI / 2;
 	else if (all->info.spawn_dir == 'S')
-		radius = M_PI;
+		radians = M_PI;
 	else if (all->info.spawn_dir == 'W')
-		radius = 1.5 * M_PI;
-	
-	rotate(all, radius);
+		radians = 1.5 * M_PI;
+	rotate(all, radians);
 	return (0);
 }
+
+/*
+	Moves player position in map
+*/
 
 int	move_player(t_all *all, double x, double y)
 {
@@ -29,19 +36,24 @@ int	move_player(t_all *all, double x, double y)
 	return (0);
 }
 
-int	rotate(t_all *all, double radius)
+/*
+	Rotates player by angle in radians
+	(for example: 90° = π/2 rad)
+*/
+
+int	rotate(t_all *all, double radians)
 {
 	double	old_dir_x;
 	double	old_plane_x;
 
 	old_dir_x = all->ray.dir_x;
-	all->ray.dir_x = all->ray.dir_x * cos(radius)
-		- all->ray.dir_y * sin(radius);
-	all->ray.dir_y = old_dir_x * sin(radius) + all->ray.dir_y * cos(radius);
+	all->ray.dir_x = all->ray.dir_x * cos(radians)
+		- all->ray.dir_y * sin(radians);
+	all->ray.dir_y = old_dir_x * sin(radians) + all->ray.dir_y * cos(radians);
 	old_plane_x = all->ray.plane_x;
-	all->ray.plane_x = all->ray.plane_x * cos(radius)
-		- all->ray.plane_y * sin(radius);
-	all->ray.plane_y = old_plane_x * sin(radius)
-		+ all->ray.plane_y * cos(radius);
+	all->ray.plane_x = all->ray.plane_x * cos(radians)
+		- all->ray.plane_y * sin(radians);
+	all->ray.plane_y = old_plane_x * sin(radians)
+		+ all->ray.plane_y * cos(radians);
 	return (0);
 }

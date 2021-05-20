@@ -9,7 +9,7 @@ int	ver_line(t_all *all, int x)
 	return (0);
 }
 
-int	behang(t_all *all, int x)
+int	textured(t_all *all, int x)
 {
 	t_img	wall_img;
 	char	*dst;
@@ -87,70 +87,39 @@ int	behang(t_all *all, int x)
 // 	return (0);
 // }
 
-int	dda(t_all *all)
+void	untextured(t_all *all, int x)
 {
-	//perform DDA
-	while (all->ray.hit == 0)
+	//choose wall color
+	all->rect.color = 0x9c9c9c;
+	//give x and y sides different brightness
+	if (all->ray.side == 1)
 	{
-		//jump to next map square, OR in x-direction, OR in y-direction
-		if (all->ray.side_dist_x < all->ray.side_dist_y)
-		{
-			all->ray.side_dist_x += all->ray.delta_dist_y;
-			all->ray.map_x += all->ray.step_x;
-			all->ray.side = 0;
-		}
-		else
-		{
-			all->ray.side_dist_y += all->ray.delta_dist_x;
-			all->ray.map_y += all->ray.step_y;
-			all->ray.side = 1;
-		}
-
-		//Check if ray has hit a wall
-		if (all->info.map[all->ray.map_x][all->ray.map_y] > '0')
-			all->ray.hit = 1;
+		all->rect.color = gen_darker_color(all->rect.color, 50);
 	}
-	return (0);
+	//draw the pixels of the stripe as a vertical line
+	ver_line(all, x);
 }
+
+/*
+	Loops over vertical lines to be drawn in image, does raycasting calculations
+	for every line, and places the textures on the walls.
+*/
 
 int	draw_img(t_all *all)
 {
 	int x;
 
-	dda_calc(all);
-
-	// ft_bzero(&rect, sizeof(&rect));
 	gradient_bg(all);
 	x = 0;
 	// Loop over vertical lines to be drawn in image
 	while (x < all->info.x_size)
 	{
-		set_values(all, x);
-		//Calculate height of line to draw on screen
-		all->rect.line_height = (int)(all->info.y_size / all->ray.perp_wall_dist);
-
-		//calculate lowest and highest pixel to fill in current stripe
-		all->rect.draw_start = -all->rect.line_height / 2 + all->info.y_size / 2;
-		if (all->rect.draw_start < 0)
-			all->rect.draw_start = 0;
-		all->rect.draw_end = all->rect.line_height / 2 + all->info.y_size / 2;
-		if (all->rect.draw_end >= all->info.y_size)
-			all->rect.draw_end = all->info.y_size - 1;
-
-		//choose wall color
-		all->rect.color = 0x9c9c9c;
-
-		//give x and y sides different brightness
-		if (all->ray.side == 1)
-		{
-			all->rect.color = gen_darker_color(all->rect.color, 50);
-		}
-		// textured(all, x);
-		//draw the pixels of the stripe as a vertical line
-		// ver_line(all, x);
-		behang(all, x);
+		set_ray_pos(all, x);
+		set_ray_len(all);
+		perform_dda(all);
+		set_projection(all);
+		textured(all, x);
 		x++;
 	}
-	show_img(all);
 	return (0);
 }

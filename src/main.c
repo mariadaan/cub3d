@@ -5,7 +5,7 @@
 	functions or the draw_img function returns 1, an error has occurred and the
 	program will be exited. When all necessary values are set correctly, the
 	first image is rendered and shown in the window. 
-	
+
 	If a key is pressed, mlx_hook calls the key_pressed function. This will move
 	the player and modify the image that is shown in the window. The window
 	stays the same throughout the entire program.
@@ -19,7 +19,8 @@ int	main(int argc, char *argv[])
 		|| init_textures(&all)
 		|| init_mlx(&all)
 		|| init_raycaster(&all)
-		|| draw_img(&all))
+		|| draw_img(&all)
+		|| show_img(&all))
 		return (1);
 	mlx_hook(all.img.win, KeyPress, 0, key_pressed, &all);
 	mlx_hook(all.img.win, DestroyNotify, 0, destroy_window, &all);

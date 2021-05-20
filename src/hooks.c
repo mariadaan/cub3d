@@ -34,5 +34,6 @@ int	key_pressed(int keycode, t_all *all)
 	if (keycode == 25)
 		rotate(all, -M_PI / 2);
 	draw_img(all);
+	show_img(all);
 	return (keycode);
 }

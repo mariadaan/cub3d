@@ -148,9 +148,52 @@ int				init_raycaster(t_all *all);
 */
 int				parse_all(int fd, t_info *info);
 
+int				parse_int(char *line, int *size, int pos);
+
+int				parse_path(char *full_file, char **path, char *id);
+
+int				parse_color(char *line, unsigned int *color, char *id);
+
 int				parse_map(t_info *info, char *full_file);
 
 int				check_res(t_all *all);
+
+/*
+	check_map.c
+*/
+
+int				find_map(char *str);
+
+int				check_spawn(t_info *info);
+
+int				get_spawn_pos(t_info *info);
+
+int				check_firstlast(t_info *info);
+
+int				check_map(t_info *info);
+
+int				valid_map(t_info *info);
+
+/*
+	raycast.c
+*/
+
+void			set_ray_pos(t_all *all, int x);
+
+void			set_ray_len(t_all *all);
+
+void			perform_dda(t_all *all);
+
+void			set_projection(t_all *all);
+
+/*
+	render.c
+*/
+int				ver_line(t_all *all, int x);
+
+int				textured(t_all *all, int x);
+
+int				draw_img(t_all *all);
 
 
 /*
@@ -160,10 +203,10 @@ int				key_pressed(int keycode, t_all *all);
 
 int				destroy_window(t_img *img);
 
-
 /*
 	move.c
 */
+
 int				spawn_dir(t_all *all);
 
 int				move_player(t_all *all, double x, double y);
@@ -200,6 +243,7 @@ int				get_b(int trgb);
 /*
 	color_utils.c
 */
+
 void			print_components(int color);
 
 int				gen_darker_color(int color, int factor);
@@ -217,27 +261,7 @@ int				printco(char *name, int x, int y);
 
 int				printflco(char *name, double x, double y);
 
-/*
-	render.c
-*/
-int				ver_line(t_all *all, int x);
 
-int				textured(t_all *all, int x);
-
-int				set_values(t_all *all, int x);
-
-int				draw_img(t_all *all);
-
-/*
-	check_map.c
-*/
-int				find_map(char *str);
-
-int				parse_map(t_info *info, char *full_file);
-
-int				valid_map(t_info *info);
-
-int				get_spawn_pos(t_info *info);
 
 /*
 	errors.c
@@ -269,7 +293,9 @@ void			gradient_rect(t_all *all, int y_start, int color);
 
 
 /*
-set_dad
+	set_dda_values.c
 */
+
+int	set_values(t_all *all, int x);
 
 #endif

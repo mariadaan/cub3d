@@ -6,7 +6,7 @@
 #    By: mdaan <mdaan@student.codam.nl>               +#+                      #
 #                                                    +#+                       #
 #    Created: 2021/01/28 15:38:43 by mdaan         #+#    #+#                  #
-#    Updated: 2021/05/18 19:31:42 by mdaan         ########   odam.nl          #
+#    Updated: 2021/05/20 14:27:54 by mdaan         ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,6 +22,7 @@ SRCS	=	src/printvar.c \
 			src/color.c \
 			src/color_utils.c \
 			src/render.c \
+			src/raycast.c \
 			src/errors.c \
 			src/init.c \
 			../libft/libft.a
