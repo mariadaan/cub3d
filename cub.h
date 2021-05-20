@@ -268,4 +268,8 @@ void			gradient_bg(t_all *all);
 void			gradient_rect(t_all *all, int y_start, int color);
 
 
+/*
+set_dad
+*/
+
 #endif
