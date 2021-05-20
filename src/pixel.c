@@ -7,7 +7,7 @@ void	put_horizontal(t_img *data, int x, int y, int len, int color)
 	i = 0;
 	while (i < len)
 	{
-		my_mlx_pixel_put(data, x + i, y, color);
+		put_pixel(data, x + i, y, color);
 		i++;
 	}
 }
@@ -19,7 +19,7 @@ void	put_vertical(t_img *data, int x, int y, int len, int color)
 	i = 0;
 	while (i < len)
 	{
-		my_mlx_pixel_put(data, x, y + i, color);
+		put_pixel(data, x, y + i, color);
 		i++;
 	}
 }
@@ -65,7 +65,7 @@ void	gradient_rect(t_all *all, int y_start, int color)
 		while (i < all->info.y_size / 2)
 		{
 			put_horizontal(&(all->img), 0, y_start + i, all->info.x_size, color);
-			if (i % 2 == 0)
+			if (i % 5 == 0)
 				color = gen_darker_color(color, 1);
 			// printnum("color", color);
 			// printnum("i", i);

@@ -7,6 +7,7 @@
 int	destroy_window(t_img *img)
 {
 	mlx_destroy_window(img->mlx, img->win);
+	success_msg("Thanks for playing! :)");
 	exit(0);
 	return (1);
 }

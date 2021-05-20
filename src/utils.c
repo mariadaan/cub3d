@@ -40,7 +40,7 @@ int	xpm_to_img(t_img *img, char *filename)
 	altering the int color value on this location in img.addr
 */
 
-void	my_mlx_pixel_put(t_img *img, int x, int y, int color)
+void	put_pixel(t_img *img, int x, int y, int color)
 {
 	char	*dst;
 

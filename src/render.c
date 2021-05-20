@@ -3,9 +3,15 @@
 int	ver_line(t_all *all, int x)
 {
 	int	len;
+	int i;
 
 	len = all->rect.draw_end - all->rect.draw_start;
-	put_vertical(&(all->img), x, all->rect.draw_start, len, all->rect.color);
+	i = 0;
+	while (i < len)
+	{
+		put_pixel(&(all->img), x, all->rect.draw_start + i, all->rect.color);
+		i++;
+	}
 	return (0);
 }
 
@@ -17,7 +23,6 @@ int	textured(t_all *all, int x)
 	int		y_start;
 	int		y_end;
 	int		i;
-	int		wall_len;
 
 	if (all->ray.side == 0)
 		wall_img = all->tex.n_img;
@@ -27,24 +32,77 @@ int	textured(t_all *all, int x)
 	i = 0;
 	y_start = all->rect.draw_start;
 	y_end = all->rect.draw_end;
-	wall_len = y_end - y_start;
-	// printnum("len", y_end - y_start);
-	// printnum("height", all->rect.line_height);
-
+	all->rect.line_height = y_end - y_start;
+	int x_tex = x / 2 % 32;
+	x_tex = x;
+	int pix_amount = all->rect.line_height / wall_img.height;
+	printnum("pix amount", pix_amount);
+	printnum("wall height", y_end - y_start);
+	printnum("line height", all->rect.line_height);
+	printnum("wall img height", wall_img.height);
+	printf("\n\n");
+	int count;
 	while (y_start < y_end)
 	{
-		int y_waarde = (i % (wall_img.height));
-		dst = wall_img.addr + (y_waarde * wall_img.line_length + (x % wall_img.width) * (wall_img.bits_per_pixel / 8));
+		int y_tex = (i % (wall_img.height));
+		dst = wall_img.addr + (y_tex * wall_img.line_length + (x_tex % wall_img.width) * (wall_img.bits_per_pixel / 8));
 		color = *(unsigned int *)dst;
 		if (all->ray.side == 0)
 			color = gen_darker_color(color, 25);
-		my_mlx_pixel_put(&(all->img), x, y_start, color);
-		y_start++;
+		count = 0;
+		while (count < pix_amount)
+		{
+			put_pixel(&(all->img), x, (y_start + count) % y_end, color);
+			put_pixel(&(all->img), (x + count) % all->info.x_size, (y_start + count) % y_end, color);
+			count++;
+			// y_start++;
+		}
+		y_start+=count;
+		// y_start++;
 		i++;
+	}
+	return (x + count);
+}
+
+/*
+	Loops over vertical lines to be drawn in image, does raycasting calculations
+	for every line, and places the textures on the walls.
+*/
+
+int	draw_img(t_all *all)
+{
+	int x;
+
+	gradient_bg(all);
+	x = 0;
+	while (x < all->info.x_size)
+	{
+		set_ray_pos(all, x);
+		set_ray_len(all);
+		perform_dda(all);
+		set_projection(all);
+		x = textured(all, x);
+		// x++;
 	}
 	return (0);
 }
 
+
+
+// vanaf hier skippen
+
+void	untextured(t_all *all, int x)
+{
+	//choose wall color
+	all->rect.color = 0x9c9c9c;
+	//give x and y sides different brightness
+	if (all->ray.side == 1)
+	{
+		all->rect.color = gen_darker_color(all->rect.color, 50);
+	}
+	//draw the pixels of the stripe as a vertical line
+	ver_line(all, x);
+}
 
 // #define texWidth 64
 // #define texHeight 64
@@ -86,40 +144,3 @@ int	textured(t_all *all, int x)
 // 	}
 // 	return (0);
 // }
-
-void	untextured(t_all *all, int x)
-{
-	//choose wall color
-	all->rect.color = 0x9c9c9c;
-	//give x and y sides different brightness
-	if (all->ray.side == 1)
-	{
-		all->rect.color = gen_darker_color(all->rect.color, 50);
-	}
-	//draw the pixels of the stripe as a vertical line
-	ver_line(all, x);
-}
-
-/*
-	Loops over vertical lines to be drawn in image, does raycasting calculations
-	for every line, and places the textures on the walls.
-*/
-
-int	draw_img(t_all *all)
-{
-	int x;
-
-	gradient_bg(all);
-	x = 0;
-	// Loop over vertical lines to be drawn in image
-	while (x < all->info.x_size)
-	{
-		set_ray_pos(all, x);
-		set_ray_len(all);
-		perform_dda(all);
-		set_projection(all);
-		textured(all, x);
-		x++;
-	}
-	return (0);
-}

@@ -6,7 +6,7 @@
 #    By: mdaan <mdaan@student.codam.nl>               +#+                      #
 #                                                    +#+                       #
 #    Created: 2021/01/28 15:38:43 by mdaan         #+#    #+#                  #
-#    Updated: 2021/05/20 14:27:54 by mdaan         ########   odam.nl          #
+#    Updated: 2021/05/20 16:02:09 by mdaan         ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -53,6 +53,10 @@ re: fclean all
 ray:
 	make re
 	./cub maps/map.cub
+
+map2:
+	make
+	./cub maps/map2.cub
 
 non:
 	make re

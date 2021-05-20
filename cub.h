@@ -112,8 +112,7 @@ typedef struct s_tex
 	t_img			e_img;
 	t_img			s_img;
 	t_img			w_img;
-	// t_img			sprite;
-	// double			shading;
+	// t_img			sprite_img;
 }				t_tex;
 
 typedef struct s_all {
@@ -144,8 +143,9 @@ int				init_raycaster(t_all *all);
 
 
 /*
-	parse.c
+	parse.c NOG 1 FILE TEVEEL
 */
+
 int				parse_all(int fd, t_info *info);
 
 int				parse_int(char *line, int *size, int pos);
@@ -159,7 +159,7 @@ int				parse_map(t_info *info, char *full_file);
 int				check_res(t_all *all);
 
 /*
-	check_map.c
+	check_map.c NOG 1 FILE TEVEEL
 */
 
 int				find_map(char *str);
@@ -189,6 +189,7 @@ void			set_projection(t_all *all);
 /*
 	render.c
 */
+
 int				ver_line(t_all *all, int x);
 
 int				textured(t_all *all, int x);
@@ -222,7 +223,7 @@ int				show_img(t_all *all);
 
 int				xpm_to_img(t_img *img, char *filename);
 
-void			my_mlx_pixel_put(t_img *img, int x, int y, int color);
+void			put_pixel(t_img *img, int x, int y, int color);
 
 int				is_notmap(char c);
 
@@ -299,3 +300,36 @@ void			gradient_rect(t_all *all, int y_start, int color);
 int	set_values(t_all *all, int x);
 
 #endif
+
+	// while (y_start < y_end)
+	// {
+	// 	int y_tex = (i % (wall_img.height));
+	// 	dst = wall_img.addr + (y_tex * wall_img.line_length + (x_tex % wall_img.width) * (wall_img.bits_per_pixel / 8));
+	// 	color = *(unsigned int *)dst;
+	// 	if (all->ray.side == 0)
+	// 		color = gen_darker_color(color, 25);
+	// 	// int county = 0;
+	// 	// while (county < pix_amount)
+	// 	// {
+	// 	// 	put_pixel(&(all->img), x, (y_start + county) % y_end, color);
+	// 	// 	county++;
+	// 	// 	// y_start++;
+	// 	// }
+	// 	int countx = 0;
+	// 	int county;
+	// 	while (countx < pix_amount)
+	// 	{
+	// 		county = 0;
+	// 		while (county < pix_amount)
+	// 		{
+	// 			put_pixel(&(all->img), (x + countx) % all->img.width -1, (y_start + county) % y_end, color);
+	// 			county++;
+	// 			// y_start++;
+	// 		}
+	// 		countx++;
+	// 	}
+	// 	y_start+=county;
+	// 	x += countx;
+	// 	// y_start++;
+	// 	i++;
+	// }
