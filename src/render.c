@@ -36,11 +36,11 @@ int	textured(t_all *all, int x)
 	int x_tex = x / 2 % 32;
 	x_tex = x;
 	int pix_amount = all->rect.line_height / wall_img.height;
-	printnum("pix amount", pix_amount);
-	printnum("wall height", y_end - y_start);
-	printnum("line height", all->rect.line_height);
-	printnum("wall img height", wall_img.height);
-	printf("\n\n");
+	// printnum("pix amount", pix_amount);
+	// printnum("wall height", y_end - y_start);
+	// printnum("line height", all->rect.line_height);
+	// printnum("wall img height", wall_img.height);
+	// printf("\n\n");
 	int count;
 	while (y_start < y_end)
 	{
@@ -52,8 +52,13 @@ int	textured(t_all *all, int x)
 		count = 0;
 		while (count < pix_amount)
 		{
-			put_pixel(&(all->img), x, (y_start + count) % y_end, color);
-			put_pixel(&(all->img), (x + count) % all->info.x_size, (y_start + count) % y_end, color);
+			// int county = 0;
+			// while (county < pix_amount)
+			// {
+				put_pixel(&(all->img), x, (y_start + count) % y_end, color);
+				// put_pixel(&(all->img), (x + county), (y_start + count) % y_end, color);
+			// 	county++;
+			// }
 			count++;
 			// y_start++;
 		}
@@ -61,7 +66,7 @@ int	textured(t_all *all, int x)
 		// y_start++;
 		i++;
 	}
-	return (x + count);
+	return (x);
 }
 
 /*
