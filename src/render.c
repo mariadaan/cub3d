@@ -15,86 +15,47 @@ int	ver_line(t_all *all, int x)
 	return (0);
 }
 
-int	textured(t_all *all, int x)
+int	tex2(t_all *all, t_img wall_img, int x, double x_tex)
 {
-	t_img	wall_img;
+	// t_img	wall_img;
 	char	*dst;
-	int		color;
 	int		y_start;
 	int		y_end;
-	int		i;
 
-	if (all->ray.side == 0)
-		wall_img = all->tex.n_img;
-	else if (all->ray.side == 1)
-		wall_img = all->tex.n_img;
+	// if (all->ray.side == 0)
+	// 	wall_img = all->tex.n_img;
+	// else if (all->ray.side == 1)
+	// 	wall_img = all->tex.n_img;
 
-	i = 0;
 	y_start = all->rect.draw_start;
 	y_end = all->rect.draw_end;
-	all->rect.line_height = y_end - y_start;
-	int x_tex = x / 2 % 32;
-	x_tex = x;
-	int pix_amount = all->rect.line_height / wall_img.height;
-	// printnum("pix amount", pix_amount);
-	// printnum("wall height", y_end - y_start);
-	// printnum("line height", all->rect.line_height);
-	// printnum("wall img height", wall_img.height);
+	double y_tex;
+	y_tex = 0;
+	double pix_amount;
+
+	printnum("line height", all->rect.line_height );
+	pix_amount = wall_img.bits_per_pixel / (double)all->rect.line_height;
+	if (all->rect.line_height > all->info.y_size)
+		y_tex = (all->rect.line_height - all->info.y_size) * pix_amount / 2;
+	
+	// printfloat("pix", pix_amount);
+	// printnum("wall line lenght", wall_img.line_length);
+	// printnum("bits", wall_img.bits_per_pixel);
 	// printf("\n\n");
-	int count;
+	
+	// 1 verticale lijn van boven naar beneden. 
 	while (y_start < y_end)
 	{
-		int y_tex = (i % (wall_img.height));
-		dst = wall_img.addr + (y_tex * wall_img.line_length + (x_tex % wall_img.width) * (wall_img.bits_per_pixel / 8));
-		color = *(unsigned int *)dst;
+		dst = wall_img.addr + ((int)y_tex % (wall_img.bits_per_pixel) * wall_img.line_length + ((int)x_tex % wall_img.width) * (wall_img.bits_per_pixel / 8));
+		int color = *(unsigned int *)dst;
 		if (all->ray.side == 0)
 			color = gen_darker_color(color, 25);
-		count = 0;
-		while (count < pix_amount)
-		{
-			// int county = 0;
-			// while (county < pix_amount)
-			// {
-				put_pixel(&(all->img), x, (y_start + count) % y_end, color);
-				// put_pixel(&(all->img), (x + county), (y_start + count) % y_end, color);
-			// 	county++;
-			// }
-			count++;
-			// y_start++;
-		}
-		y_start+=count;
-		// y_start++;
-		i++;
-	}
-	return (x);
-}
-
-/*
-	Loops over vertical lines to be drawn in image, does raycasting calculations
-	for every line, and places the textures on the walls.
-*/
-
-int	draw_img(t_all *all)
-{
-	int x;
-
-	gradient_bg(all);
-	x = 0;
-	while (x < all->info.x_size)
-	{
-		set_ray_pos(all, x);
-		set_ray_len(all);
-		perform_dda(all);
-		set_projection(all);
-		x = textured(all, x);
-		// x++;
+		put_pixel(&(all->img), x, y_start, color);
+		y_start++;
+		y_tex += pix_amount;
 	}
 	return (0);
 }
-
-
-
-// vanaf hier skippen
 
 void	untextured(t_all *all, int x)
 {
@@ -108,6 +69,51 @@ void	untextured(t_all *all, int x)
 	//draw the pixels of the stripe as a vertical line
 	ver_line(all, x);
 }
+
+/*
+	Loops over vertical lines to be drawn in image, does raycasting calculations
+	for every line, and places the textures on the walls.
+*/
+
+int	draw_img(t_all *all)
+{
+	int x;
+	t_img wall_img;
+
+	gradient_bg(all);
+	x = 0;
+	double x_tex = 0;
+	double pix = 0;
+	int sidebefore;
+	int heightbefore;
+	int diff;
+	while (x < all->info.x_size)
+	{
+		sidebefore = all->ray.side;
+		heightbefore = all->rect.line_height;
+		set_ray_pos(all, x);
+		set_ray_len(all);
+		perform_dda(all);
+		set_projection(all);
+		diff = abs(heightbefore - all->rect.line_height);
+		if ((all->ray.side != sidebefore) || (diff > 5 && all->ray.side == sidebefore))
+			x_tex = 0;
+		if (all->rect.line_height < all->info.y_size)
+			pix = all->tex.n_img.bits_per_pixel / (double)all->rect.line_height * 1.5;
+		if (all->ray.side == 0)
+			wall_img = all->tex.n_img;
+		else if (all->ray.side == 1)
+			wall_img = all->tex.e_img;
+		tex2(all, wall_img, x, x_tex);
+		x_tex += pix;
+		x++;
+	}
+	return (0);
+}
+
+
+
+// vanaf hier skippen
 
 // #define texWidth 64
 // #define texHeight 64

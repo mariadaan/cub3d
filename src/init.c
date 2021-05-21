@@ -3,7 +3,6 @@
 // INITIALIZATION FUNCTIONS
 
 /*
-	init_input():
 	Checks user input. Has an argument with the name of the cub file been given?
 	Does the file exist? If yes, the file is parsed and all information is saved
 	in the info struct.

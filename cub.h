@@ -104,6 +104,7 @@ typedef struct s_rect {
 	int				draw_start;
 	int				draw_end;
 	int				color;
+	int				pix_amount;
 }				t_rect;
 
 typedef struct s_tex
@@ -253,6 +254,8 @@ int				gen_darker_color(int color, int factor);
 	printvar.c
 */
 int				printnum(char * name, int num);
+
+int				printfloat(char *name, float num);
 
 int				printstr(char *name, char *str);
 
