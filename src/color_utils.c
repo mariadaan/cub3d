@@ -38,6 +38,11 @@ int		gen_darker_color(int color, int factor)
 	return (color);
 }
 
+int		darker_color(int color)
+{
+	return ((color >> 1) & 8355711);
+}
+
 // int	add_shade(int rgb, double shading)
 // {
 // 	int		r;

@@ -63,7 +63,7 @@ void	perform_dda(t_all *all)
 		}
 
 		//Check if ray has hit a wall
-		if (all->info.map[all->ray.map_x][all->ray.map_y] > '0')
+		if (all->info.map[all->ray.map_x][all->ray.map_y] == '1')
 			all->ray.hit = 1;
 	}
 }

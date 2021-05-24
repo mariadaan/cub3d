@@ -250,6 +250,8 @@ void			print_components(int color);
 
 int				gen_darker_color(int color, int factor);
 
+int		darker_color(int color);
+
 /*
 	printvar.c
 */

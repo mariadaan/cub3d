@@ -13,7 +13,7 @@ int	check_res(t_all *all)
 	if (x < all->info.x_size || y < all->info.y_size)
 	{
 		error_msg("Given resolution too big for screen . . .");
-		all->info.x_size = x - 150;
+		all->info.x_size = x - 500;
 		all->info.y_size = y - 150;
 		success_msg("Resolution has been altered to screen size");
 	}
