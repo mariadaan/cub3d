@@ -104,7 +104,6 @@ typedef struct s_rect {
 	int				draw_start;
 	int				draw_end;
 	int				color;
-	int				pix_amount;
 }				t_rect;
 
 typedef struct s_tex

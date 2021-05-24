@@ -39,9 +39,9 @@ int	tex2(t_all *all, t_img wall_img, int x)
 	//x coordinate on the texture
 	int texX = (int)(wallX * (double)wall_img.width);
 	if(all->ray.side == 0 && all->ray.ray_dir_x > 0)
-		texX = wall_img.width - texX - 1;
+		texX = wall_img.width - texX;
 	if(all->ray.side == 1 && all->ray.ray_dir_y < 0)
-		texX = wall_img.width - texX - 1;
+		texX = wall_img.width - texX;
 
 	// printnum("texX", texX);
 	y_start = all->rect.draw_start;
@@ -60,9 +60,8 @@ int	tex2(t_all *all, t_img wall_img, int x)
 	{
 		dst = wall_img.addr + ((int)y_tex % (wall_img.height) * wall_img.line_length + ((int)texX) % wall_img.width * (wall_img.bits_per_pixel / 8));
 		int color = *(unsigned int *)dst;
-		if (all->ray.side == 0)
-			color = darker_color(color);
-			// color = gen_darker_color(color, 25);
+		// if (all->ray.side == 0)
+		// 	color = darker_color(color);
 		put_pixel(&(all->img), x, y_start, color);
 		y_start++;
 		y_tex += y_tex_step;
@@ -151,19 +150,13 @@ int	draw_img(t_all *all)
 		perform_dda(all);
 		set_projection(all);
 		wall_img = all->tex.n_img;
-		printfloat("dir x ", all->ray.dir_x);
-		printfloat("dir y ", all->ray.dir_y);
-		printfloat("plane x ", all->ray.plane_x);
-		printfloat("plane y ", all->ray.plane_y);
-		printf("\n");
-
 		if (all->ray.side == 0)
 			wall_img = all->tex.n_img;
-		else if (all->ray.side == 0  && all->ray.dir_y < 0)
+		if (all->ray.side == 0  && all->ray.step_x < 0)
 			wall_img = all->tex.s_img;
-		else if (all->ray.side == 1)
+		if (all->ray.side == 1)
 			wall_img = all->tex.e_img;
-		else if (all->ray.side == 1  && all->ray.dir_y < 0)
+		if (all->ray.side == 1  && all->ray.step_y < 0)
 			wall_img = all->tex.w_img;
 		tex2(all, wall_img, x);
 		x++;
