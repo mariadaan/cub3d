@@ -1,5 +1,11 @@
 #include "cub.h"
 
+/*
+	- Calculate x-coordinate in camera space
+	- Calculate ray position and direction
+	- Save which box of the map we're in
+*/
+
 void	set_ray_pos(t_all *all, int x)
 {
 	//calculate ray position and direction
@@ -11,6 +17,11 @@ void	set_ray_pos(t_all *all, int x)
 	all->ray.map_x = (int)all->ray.pos_x;
 	all->ray.map_y = (int)all->ray.pos_y;
 }
+
+/*
+	- Calculate length of ray from one x or y-side to next x or y-side
+	- Calculate step and initial sideDist
+*/
 
 void	set_ray_len(t_all *all)
 {
@@ -43,6 +54,11 @@ void	set_ray_len(t_all *all)
 	}
 }
 
+/*
+	- Jump to next map square in x-direction OR in y-direction
+	- Check if ray has hit a wall
+*/
+
 void	perform_dda(t_all *all)
 {
 	//perform DDA
@@ -61,12 +77,17 @@ void	perform_dda(t_all *all)
 			all->ray.map_y += all->ray.step_y;
 			all->ray.side = 1;
 		}
-
 		//Check if ray has hit a wall
 		if (all->info.map[all->ray.map_x][all->ray.map_y] == '1')
 			all->ray.hit = 1;
 	}
 }
+
+/*
+	- Calculate distance projected on camera direction
+	- Calculate height of line to draw on screen
+	- Calculate lowest and highest pixel to fill in current stripe
+*/
 
 void	set_projection(t_all *all)
 {
@@ -77,14 +98,14 @@ void	set_projection(t_all *all)
 		all->ray.perp_wall_dist = (all->ray.map_y - all->ray.pos_y + (1 - all->ray.step_y) / 2) / all->ray.ray_dir_y;
 	
 	//Calculate height of line to draw on screen
-	all->rect.line_height = (int)(all->info.y_size / all->ray.perp_wall_dist);
+	all->ray.line_height = (int)(all->info.y_size / all->ray.perp_wall_dist);
 
 	//calculate lowest and highest pixel to fill in current stripe
-	all->rect.draw_start = -all->rect.line_height / 2 + all->info.y_size / 2;
-	if (all->rect.draw_start < 0)
-		all->rect.draw_start = 0;
-	all->rect.draw_end = all->rect.line_height / 2 + all->info.y_size / 2;
-	if (all->rect.draw_end >= all->info.y_size)
-		all->rect.draw_end = all->info.y_size - 1;
+	all->ray.draw_start = -all->ray.line_height / 2 + all->info.y_size / 2;
+	if (all->ray.draw_start < 0)
+		all->ray.draw_start = 0;
+	all->ray.draw_end = all->ray.line_height / 2 + all->info.y_size / 2;
+	if (all->ray.draw_end >= all->info.y_size)
+		all->ray.draw_end = all->info.y_size - 1;
 
 }

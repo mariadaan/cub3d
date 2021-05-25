@@ -13,8 +13,8 @@ int	check_res(t_all *all)
 	if (x < all->info.x_size || y < all->info.y_size)
 	{
 		error_msg("Given resolution too big for screen . . .");
-		all->info.x_size = x - 500;
-		all->info.y_size = y - 150;
+		all->info.x_size = x * 0.9;
+		all->info.y_size = y * 0.9;
 		success_msg("Resolution has been altered to screen size");
 	}
 	return (0);
@@ -166,6 +166,6 @@ int	parse_all(int fd, t_info *info)
 		return (1);
 	free(info->full_file);
 	success_msg("Parsing successful!");
-	// print_info(info);
+	print_info(info);
 	return (0);
 }

@@ -6,16 +6,14 @@
 #    By: mdaan <mdaan@student.codam.nl>               +#+                      #
 #                                                    +#+                       #
 #    Created: 2021/01/28 15:38:43 by mdaan         #+#    #+#                  #
-#    Updated: 2021/05/24 17:16:56 by mdaan         ########   odam.nl          #
+#    Updated: 2021/05/25 15:49:16 by mdaan         ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
 NAME	=	cub
-SRCS	=	src/printvar.c \
-			src/main.c \
+SRCS	=	src/main.c \
 			src/parse.c \
 			src/check_map.c \
-			src/pixel.c \
 			src/hooks.c \
 			src/move.c \
 			src/utils.c \
@@ -55,12 +53,15 @@ ray:
 	./cub maps/map.cub
 
 jungle:
+	make
 	./cub maps/jungle.cub
 
 jungle2:
+	make
 	./cub maps/jungle2.cub
 
 trip:
+	make
 	./cub maps/trip.cub
 
 map2:

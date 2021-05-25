@@ -1,4 +1,4 @@
-   R 20000    1000
+   R 1080    700
 
 
 
@@ -7,7 +7,7 @@
       EA ./textures/diertjes.xpm
       SO ./textures/plantdonker.xpm
   WE ./textures/jungledonker.xpm
-      S ./path_to_the_sprite_texture
+      S ./sprites/tiger.png
 
      F    8, 54, 6
      C    101, 133, 161

@@ -18,10 +18,10 @@ typedef struct s_img {
 	void			*win;
 	char			*addr;
 	int				bits_per_pixel;
-	int				line_length;
+	int				line_length; // in bytes (width / 4)
 	int				endian;
-	int				width;
-	int				height;
+	int				width; // in pixels
+	int				height; // in pixels
 }				t_img;
 
 typedef struct s_ray {
@@ -76,6 +76,14 @@ typedef struct s_ray {
 	double step_size; // constant value in squares
 	double const_rad; // constant value in radians
 
+	int				line_height; // real wall height in pixels
+	int				draw_start; // start y coordinate on image
+	int				draw_end; // end y coordinate on image
+
+	double 			wallX; //where exactly the wall was hit
+	int				x_tex; //x coordinate on the texture
+	double			y_tex; //y coordinate on the texture
+	double			y_tex_step;
 }		t_ray;
 
 typedef struct s_info
@@ -99,13 +107,6 @@ typedef struct s_info
 	char			*start;
 }				t_info;
 
-typedef struct s_rect {
-	int				line_height;
-	int				draw_start;
-	int				draw_end;
-	int				color;
-}				t_rect;
-
 typedef struct s_tex
 {
 	t_img			n_img;
@@ -116,10 +117,10 @@ typedef struct s_tex
 }				t_tex;
 
 typedef struct s_all {
+	int				press_release;
 	t_img			img;
 	t_ray			ray;
 	t_info			info;
-	t_rect			rect;
 	t_tex			tex;
 }			t_all;
 
@@ -140,7 +141,6 @@ int				init_textures(t_all *all);
 int				init_mlx(t_all *all);
 
 int				init_raycaster(t_all *all);
-
 
 /*
 	parse.c NOG 1 FILE TEVEEL
@@ -190,19 +190,23 @@ void			set_projection(t_all *all);
 	render.c
 */
 
-int				ver_line(t_all *all, int x);
+int				draw_bg(t_all *all);
 
-int				textured(t_all *all, int x);
+int				set_tex(t_all *all, t_img wall_img);
+
+int				draw_tex(t_all *all, t_img wall_img, int x);
 
 int				draw_img(t_all *all);
-
 
 /*
 	hooks.c
 */
+
 int				key_pressed(int keycode, t_all *all);
 
-int				destroy_window(t_img *img);
+int				key_release(int keycode, t_all *all);
+
+int				destroy_window(t_all *all);
 
 /*
 	move.c
@@ -224,6 +228,8 @@ int				show_img(t_all *all);
 int				xpm_to_img(t_img *img, char *filename);
 
 void			put_pixel(t_img *img, int x, int y, int color);
+
+void			put_hor_full(t_all *all, int y, int color);
 
 int				is_notmap(char c);
 
@@ -249,11 +255,12 @@ void			print_components(int color);
 
 int				gen_darker_color(int color, int factor);
 
-int		darker_color(int color);
+int				darker_color(int color);
 
 /*
 	printvar.c
 */
+
 int				printnum(char * name, int num);
 
 int				printfloat(char *name, float num);
@@ -266,11 +273,10 @@ int				printco(char *name, int x, int y);
 
 int				printflco(char *name, double x, double y);
 
-
-
 /*
 	errors.c
 */
+
 void			red(void);
 
 void			green(void);
@@ -281,59 +287,4 @@ int				error_msg(char *message);
 
 int				success_msg(char *message);
 
-/*
-	pixel.c -- DEZE FILE MOET EIGENLIJK HELEMAAL GESKIPT WORDEN
-*/
-void			put_horizontal(t_img *data, int x, int y, int len, int color);
-
-void			put_vertical(t_img *data, int x, int y, int len, int color);
-
-void			put_rect(t_img *data, int x, int y, int xlen, int ylen, int color);
-
-void			fill_rect(t_img *data, int x, int y, int xlen, int ylen, int color);
-
-void			gradient_bg(t_all *all);
-
-void			gradient_rect(t_all *all, int y_start, int color);
-
-
-/*
-	set_dda_values.c
-*/
-
-int	set_values(t_all *all, int x);
-
 #endif
-
-	// while (y_start < y_end)
-	// {
-	// 	int y_tex = (i % (wall_img.height));
-	// 	dst = wall_img.addr + (y_tex * wall_img.line_length + (x_tex % wall_img.width) * (wall_img.bits_per_pixel / 8));
-	// 	color = *(unsigned int *)dst;
-	// 	if (all->ray.side == 0)
-	// 		color = gen_darker_color(color, 25);
-	// 	// int county = 0;
-	// 	// while (county < pix_amount)
-	// 	// {
-	// 	// 	put_pixel(&(all->img), x, (y_start + county) % y_end, color);
-	// 	// 	county++;
-	// 	// 	// y_start++;
-	// 	// }
-	// 	int countx = 0;
-	// 	int county;
-	// 	while (countx < pix_amount)
-	// 	{
-	// 		county = 0;
-	// 		while (county < pix_amount)
-	// 		{
-	// 			put_pixel(&(all->img), (x + countx) % all->img.width -1, (y_start + county) % y_end, color);
-	// 			county++;
-	// 			// y_start++;
-	// 		}
-	// 		countx++;
-	// 	}
-	// 	y_start+=county;
-	// 	x += countx;
-	// 	// y_start++;
-	// 	i++;
-	// }

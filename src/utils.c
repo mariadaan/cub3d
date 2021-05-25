@@ -49,6 +49,23 @@ void	put_pixel(t_img *img, int x, int y, int color)
 }
 
 /*
+	Change the color of the full width of the main image. Used for drawing the
+	background.
+*/
+
+void	put_hor_full(t_all *all, int y, int color)
+{
+	int i;
+
+	i = 0;
+	while (i < all->info.x_size)
+	{
+		put_pixel((&all->img), i, y, color);
+		i++;
+	}
+}
+
+/*
 	Checks whether a character is a valid part of the map borders
 */
 

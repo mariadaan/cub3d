@@ -33,17 +33,19 @@ int	init_input(t_all *all, int argc, char *cub_file)
 int	init_textures(t_all *all)
 {
 	t_tex	tex;
-	t_rect	rect;
 
 	ft_bzero(&tex, sizeof(t_tex));
-	ft_bzero(&rect, sizeof(t_rect));
 	all->tex = tex;
-	all->rect = rect;
 	if (xpm_to_img(&(all->tex.n_img), all->info.no_path)
 		|| xpm_to_img(&(all->tex.e_img), all->info.ea_path)
 		|| xpm_to_img(&(all->tex.s_img), all->info.so_path)
 		|| xpm_to_img(&(all->tex.w_img), all->info.we_path))
 		return (1);
+	free(all->info.no_path);
+	free(all->info.so_path);
+	free(all->info.we_path);
+	free(all->info.ea_path);
+	free(all->info.s_path);
 	return (0);
 }
 

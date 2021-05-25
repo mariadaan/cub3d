@@ -1,10 +1,12 @@
 To do
 
 - Deze readme mooi maken
-- render.c fixen
 - check_map.c fixen
 - teveel functies in parse.c
-- TEXTUREEESSSS
+- Sprites
+- bmp image
+- png inladen
+- key press en release verbeteren, nu niet smooth
 
 - parse int functie protecten, resolutie checken beter
 - Wat voor type bestand is de texture image? PNG fixen
