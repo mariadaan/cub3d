@@ -113,7 +113,7 @@ typedef struct s_tex
 	t_img			e_img;
 	t_img			s_img;
 	t_img			w_img;
-	// t_img			sprite_img;
+	t_img			sprite_img;
 }				t_tex;
 
 typedef struct s_all {
@@ -226,6 +226,8 @@ int				rotate(t_all *all, double radius);
 int				show_img(t_all *all);
 
 int				xpm_to_img(t_img *img, char *filename);
+
+// int				png_to_img(t_img *img, char *filename);
 
 void			put_pixel(t_img *img, int x, int y, int color);
 

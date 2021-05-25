@@ -41,6 +41,8 @@ int	init_textures(t_all *all)
 		|| xpm_to_img(&(all->tex.s_img), all->info.so_path)
 		|| xpm_to_img(&(all->tex.w_img), all->info.we_path))
 		return (1);
+	printstr("sprite", all->info.s_path);
+		// || xpm_to_img(&(all->tex.sprite_img), all->info.s_path))
 	free(all->info.no_path);
 	free(all->info.so_path);
 	free(all->info.we_path);
