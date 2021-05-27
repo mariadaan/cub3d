@@ -7,7 +7,7 @@
       EA ./textures/diertjes.xpm
       SO ./textures/plantdonker.xpm
   WE ./textures/wood.xpm
-      S ./path_to_the_sprite_texture
+      S ./sprites/tiger.png
 
      F    49, 79, 49
      C    101, 133, 161

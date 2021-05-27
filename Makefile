@@ -1,55 +1,53 @@
-# **************************************************************************** #
-#                                                                              #
-#                                                         ::::::::             #
-#    Makefile                                           :+:    :+:             #
-#                                                      +:+                     #
-#    By: mdaan <mdaan@student.codam.nl>               +#+                      #
-#                                                    +#+                       #
-#    Created: 2021/01/28 15:38:43 by mdaan         #+#    #+#                  #
-#    Updated: 2021/05/25 15:49:16 by mdaan         ########   odam.nl          #
-#                                                                              #
-# **************************************************************************** #
+NAME		=	cub
 
-NAME	=	cub
-SRCS	=	src/main.c \
-			src/parse.c \
-			src/check_map.c \
-			src/hooks.c \
-			src/move.c \
-			src/utils.c \
-			src/color.c \
-			src/color_utils.c \
-			src/render.c \
-			src/raycast.c \
-			src/errors.c \
-			src/init.c \
-			../libft/libft.a
-CC		=	gcc
-CFLAGS	=	-g -fsanitize=address -Wall -Wextra # -Werror
-MLX		=	mlxopengl
-LIBFT	=	../libft/libft.a
-LXFLAGS	=	-lmlx -framework OpenGL -framework AppKit
+SRCS		=	src/main.c \
+				src/parse.c \
+				src/check_map.c \
+				src/hooks.c \
+				src/move.c \
+				src/utils.c \
+				src/color.c \
+				src/color_utils.c \
+				src/render.c \
+				src/raycast.c \
+				src/errors.c \
+				src/init.c
 
-OBJS	=	$(SRCS:%.c=%.o)
+OBJS		=	$(SRCS:.c=.o)
+
+LIBFT		=	libft.a
+LIBFTDIR	=	./libft/
+
+MLX			=	libmlx.a
+MLXDIR		=	./mlx/
+
+CC			=	gcc
+CFLAGS		=	-Wall -Wextra -Werror
 
 all: $(NAME)
 
 $(NAME): $(OBJS)
-	$(CC) -L $(MLX) $(CFLAGS) $(LXFLAGS) $(OBJS) -o $(NAME)
+	make -C ./libft/
+	make -C $(MLXDIR)
+	$(CC) $(LIBFTDIR)$(LIBFT) $(OBJS) -Llibft -Lmlx -lmlx -lz -framework OpenGL -framework Appkit -o $(NAME)
 
 %.o: %.c
-	$(CC) $(CFLAGS) -Imlx -c $< -o $@
+	$(CC) -c $(CFLAGS) -Imlx -c $< -o $@
 
 clean:
-	find src -name "*.o" -type f -delete
+	# find src -name "*.o" -type f -delete
+	rm -f $(OBJS)
+	make clean -C $(MLXDIR)
 
 fclean: clean
 	rm -f $(NAME)
+	rm -f $(MLX)
+	rm -f screenshot.bmp
 
 re: fclean all
 
 ray:
-	make re
+	make
 	./cub maps/map.cub
 
 jungle:
@@ -69,24 +67,24 @@ map2:
 	./cub maps/map2.cub
 
 non:
-	make re
+	make
 	./cub maps/mapss.cub
 
 wrongarg:
-	make re
+	make
 	./cub maps/mapss.cub hallo
 
 debug:
-	make re
+	make
 	# ./cub maps/map.cub
 	./cub maps/valid_maps/valid_map_area_008.cub
 
 invalid:
-	make re
+	make
 	./cub maps/invalid_maps/invalid_map_area_014.cub
 
 invalid_res:
-	make re
+	make
 	./cub maps/invalid_maps/invalid_res_000.cub
 
 .PHONY: all clean fclean re debug

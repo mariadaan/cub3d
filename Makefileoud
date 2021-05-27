@@ -1,0 +1,95 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         ::::::::             #
+#    Makefile                                           :+:    :+:             #
+#                                                      +:+                     #
+#    By: mdaan <mdaan@student.codam.nl>               +#+                      #
+#                                                    +#+                       #
+#    Created: 2021/01/28 15:38:43 by mdaan         #+#    #+#                  #
+#    Updated: 2021/05/27 11:39:01 by mdaan         ########   odam.nl          #
+#                                                                              #
+# **************************************************************************** #
+
+NAME	=	cub
+SRCS	=	src/main.c \
+			src/parse.c \
+			src/check_map.c \
+			src/hooks.c \
+			src/move.c \
+			src/utils.c \
+			src/color.c \
+			src/color_utils.c \
+			src/render.c \
+			src/raycast.c \
+			src/errors.c \
+			src/init.c \
+			../libft/libft.a
+CC		=	gcc
+CFLAGS	=	-g -fsanitize=address -Wall -Wextra # -Werror
+MLXDIR	=	./mlx/
+MLXLIB	=	libmlx.a
+LIBFT	=	../libft/libft.a
+LXFLAGS	=	-lmlx -lz -framework OpenGL -framework Appkit
+
+OBJS	=	$(SRCS:%.c=%.o)
+
+all: $(NAME)
+
+$(NAME): $(OBJS)
+	make -C $(MLXDIR)
+	cp ./mlx/libmlx.a .
+	$(CC) $(OBJS) -Lmlx $(LXFLAGS) -o $(NAME)
+
+%.o: %.c
+	$(CC) $(CFLAGS) -Imlx -c $< -o $@
+
+clean:
+	find src -name "*.o" -type f -delete
+
+fclean: clean
+	rm -f $(NAME)
+
+re: fclean all
+
+ray:
+	make re
+	./cub maps/map.cub
+
+jungle:
+	make
+	./cub maps/jungle.cub
+
+jungle2:
+	make
+	./cub maps/jungle2.cub
+
+trip:
+	make
+	./cub maps/trip.cub
+
+map2:
+	make
+	./cub maps/map2.cub
+
+non:
+	make re
+	./cub maps/mapss.cub
+
+wrongarg:
+	make re
+	./cub maps/mapss.cub hallo
+
+debug:
+	make re
+	# ./cub maps/map.cub
+	./cub maps/valid_maps/valid_map_area_008.cub
+
+invalid:
+	make re
+	./cub maps/invalid_maps/invalid_map_area_014.cub
+
+invalid_res:
+	make re
+	./cub maps/invalid_maps/invalid_res_000.cub
+
+.PHONY: all clean fclean re debug

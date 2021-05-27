@@ -1,7 +1,7 @@
 #ifndef CUB_H
 # define CUB_H
 
-# include "mlxopengl/mlx.h"
+# include "mlx/mlx.h"
 # include <unistd.h>
 # include <stdlib.h>
 # include <string.h>
@@ -225,9 +225,7 @@ int				rotate(t_all *all, double radius);
 
 int				show_img(t_all *all);
 
-int				xpm_to_img(t_img *img, char *filename);
-
-// int				png_to_img(t_img *img, char *filename);
+int				file_to_img(t_img *img, char *filename);
 
 void			put_pixel(t_img *img, int x, int y, int color);
 

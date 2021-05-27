@@ -7,7 +7,7 @@
       EA ./textures/bricks.xpm
       SO ./textures/sample.xpm
   WE ./textures/wood.xpm
-      S ./path_to_the_sprite_texture
+      S ./sprites/tiger.png
 
      F    102, 79, 120
      C    160, 200, 222

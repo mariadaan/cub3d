@@ -36,13 +36,12 @@ int	init_textures(t_all *all)
 
 	ft_bzero(&tex, sizeof(t_tex));
 	all->tex = tex;
-	if (xpm_to_img(&(all->tex.n_img), all->info.no_path)
-		|| xpm_to_img(&(all->tex.e_img), all->info.ea_path)
-		|| xpm_to_img(&(all->tex.s_img), all->info.so_path)
-		|| xpm_to_img(&(all->tex.w_img), all->info.we_path))
+	if (file_to_img(&(all->tex.n_img), all->info.no_path)
+		|| file_to_img(&(all->tex.e_img), all->info.ea_path)
+		|| file_to_img(&(all->tex.s_img), all->info.so_path)
+		|| file_to_img(&(all->tex.w_img), all->info.we_path)
+		|| file_to_img(&(all->tex.sprite_img), all->info.s_path))
 		return (1);
-	printstr("sprite", all->info.s_path);
-		// || xpm_to_img(&(all->tex.sprite_img), all->info.s_path))
 	free(all->info.no_path);
 	free(all->info.so_path);
 	free(all->info.we_path);

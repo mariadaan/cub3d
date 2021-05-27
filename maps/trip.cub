@@ -7,7 +7,7 @@
       EA ./textures/trip2.xpm
       SO ./textures/trip3.xpm
   WE ./textures/trip4.xpm
-      S ./path_to_the_sprite_texture
+      S ./sprites/tiger.png
 
      F    38, 38, 38
      C    209, 209, 209
