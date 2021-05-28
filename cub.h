@@ -63,12 +63,18 @@ typedef struct s_ray {
 	// lengte van de hele ray
 	double perp_wall_dist;
 
+	// lengte van de hele ray
+	double perp_sprite_dist;
+
 	// what direction to step in x or y-direction (either +1 or -1, just to the next gridline)
 	int step_x;
 	int step_y;
 
 	//was there a wall hit?
-	int hit; 
+	int hit;
+
+	//was there a sprite hit?
+	int hit_sprite;
 
 	//was a NS or a EW wall hit? (0 = x wall hit, 1 = y wall hit)
 	int side;
@@ -84,6 +90,11 @@ typedef struct s_ray {
 	int				x_tex; //x coordinate on the texture
 	double			y_tex; //y coordinate on the texture
 	double			y_tex_step;
+
+	double 			spriteX; //where exactly the sprite was hit
+	int				x_sprite; //x coordinate on the sprite
+	double			y_sprite; //y coordinate on the sprite
+	double			y_sprite_step;
 }		t_ray;
 
 typedef struct s_info

@@ -22,7 +22,7 @@ MLX			=	libmlx.a
 MLXDIR		=	./mlx/
 
 CC			=	gcc
-CFLAGS		=	-Wall -Wextra -Werror
+CFLAGS		=	# -fsanitize=address # -Wall -Wextra # -Werror
 
 all: $(NAME)
 

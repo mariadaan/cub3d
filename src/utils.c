@@ -7,7 +7,7 @@
 int	show_img(t_all *all)
 {
 	mlx_put_image_to_window(&(all->img.mlx), all->img.win, all->img.img, 0, 0);
-	mlx_put_image_to_window(&(all->img.mlx), all->img.win, all->tex.sprite_img.img, 10, 80);
+	// mlx_put_image_to_window(&(all->img.mlx), all->img.win, all->tex.sprite_img.img, 10, 80);
 	return (0);
 }
 

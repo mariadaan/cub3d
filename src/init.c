@@ -72,6 +72,8 @@ int	init_mlx(t_all *all)
 			all->info.y_size);
 	all->img.addr = mlx_get_data_addr(all->img.img, &all->img.bits_per_pixel,
 			&all->img.line_length, &all->img.endian);
+	all->img.width = all->info.x_size;
+	all->img.height = all->info.y_size;
 	return (0);
 }
 
