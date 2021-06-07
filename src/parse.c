@@ -55,6 +55,8 @@ int	parse_int(char *line, int *size, int pos)
 		split = ft_split(line, ' ');
 		*size = ft_atoi(split[pos]);
 		free_2darray(split);
+		if (*size < 1 || *size < 1)
+			return (error_msg("Invalid resolution"));
 		return (0);
 	}
 	return (1);
@@ -157,7 +159,6 @@ int	parse_all(int fd, t_info *info)
 		|| parse_path(info->full_file, &(info->so_path), "SO ")
 		|| parse_path(info->full_file, &(info->we_path), "WE ")
 		|| parse_path(info->full_file, &(info->ea_path), "EA ")
-		|| parse_path(info->full_file, &(info->s_path), "S ")
 		|| parse_color(info->full_file, &(info->f_color), "F ")
 		|| parse_color(info->full_file, &(info->c_color), "C ")
 		|| parse_map(info, info->full_file)

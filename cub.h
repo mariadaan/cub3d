@@ -91,10 +91,10 @@ typedef struct s_ray {
 	double			y_tex; //y coordinate on the texture
 	double			y_tex_step;
 
-	double 			spriteX; //where exactly the sprite was hit
-	int				x_sprite; //x coordinate on the sprite
-	double			y_sprite; //y coordinate on the sprite
-	double			y_sprite_step;
+	// double 			spriteX; //where exactly the sprite was hit
+	// int				x_sprite; //x coordinate on the sprite
+	// double			y_sprite; //y coordinate on the sprite
+	// double			y_sprite_step;
 }		t_ray;
 
 typedef struct s_info
@@ -106,7 +106,7 @@ typedef struct s_info
 	char			*so_path;
 	char			*we_path;
 	char			*ea_path;
-	char			*s_path;
+	// char			*s_path;
 	unsigned int	f_color;
 	unsigned int	c_color;
 	char			**map;
@@ -205,7 +205,7 @@ int				draw_bg(t_all *all);
 
 int				set_tex(t_all *all, t_img wall_img);
 
-int				draw_tex(t_all *all, t_img wall_img, int x);
+int				draw_tex(t_all *all, t_img wall_img, int spritelen);
 
 int				draw_img(t_all *all);
 

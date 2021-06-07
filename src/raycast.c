@@ -63,7 +63,7 @@ void	set_ray_len(t_all *all)
 void	perform_dda(t_all *all)
 {
 	//perform DDA
-	while (all->ray.hit == 0 || all->ray.hit == 2)
+	while (all->ray.hit == 0)
 	{
 		//jump to next map square, OR in x-direction, OR in y-direction
 		if (all->ray.side_dist_x < all->ray.side_dist_y)
@@ -81,17 +81,6 @@ void	perform_dda(t_all *all)
 		//Check if ray has hit a wall
 		if (all->info.map[all->ray.map_x][all->ray.map_y] == '1')
 			all->ray.hit = 1;
-		// //Check if ray has hit a sprite
-		if (all->info.map[all->ray.map_x][all->ray.map_y] == '2')
-		{
-			if (all->ray.side == 0)
-				all->ray.perp_sprite_dist = (all->ray.map_x - all->ray.pos_x + (1 - all->ray.step_x) / 2) / all->ray.ray_dir_x;
-			else
-				all->ray.perp_sprite_dist = (all->ray.map_y - all->ray.pos_y + (1 - all->ray.step_y) / 2) / all->ray.ray_dir_y;
-			all->ray.hit = 2;
-			all->ray.hit_sprite = 1;
-			// all->ray.perp_sprite_dist = all->ray.perp_wall_dist;
-		}
 	}
 }
 
@@ -119,5 +108,4 @@ void	set_projection(t_all *all)
 	all->ray.draw_end = all->ray.line_height / 2 + all->info.y_size / 2;
 	if (all->ray.draw_end >= all->info.y_size)
 		all->ray.draw_end = all->info.y_size - 1;
-
 }

@@ -94,7 +94,7 @@ void	print_info(t_info *info)
 	printf("s_path:           %s\n", info->so_path);
 	printf("w_path:           %s\n", info->we_path);
 	printf("e_path:           %s\n", info->ea_path);
-	printf("sprite_path:      %s\n", info->s_path);
+	// printf("sprite_path:      %s\n", info->s_path);
 	printf("floor_color:      %d\n", info->f_color);
 	printf("ceiling_color:    %d\n", info->c_color);
 	printf("map: \n");

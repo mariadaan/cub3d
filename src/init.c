@@ -39,14 +39,13 @@ int	init_textures(t_all *all)
 	if (file_to_img(&(all->tex.n_img), all->info.no_path)
 		|| file_to_img(&(all->tex.e_img), all->info.ea_path)
 		|| file_to_img(&(all->tex.s_img), all->info.so_path)
-		|| file_to_img(&(all->tex.w_img), all->info.we_path)
-		|| file_to_img(&(all->tex.sprite_img), all->info.s_path))
+		|| file_to_img(&(all->tex.w_img), all->info.we_path))
 		return (1);
 	free(all->info.no_path);
 	free(all->info.so_path);
 	free(all->info.we_path);
 	free(all->info.ea_path);
-	free(all->info.s_path);
+	// free(all->info.s_path);
 	return (0);
 }
 
@@ -98,6 +97,7 @@ int	init_raycaster(t_all *all)
 	all->ray.plane_y = 0.66;
 	all->ray.step_size = 0.3;
 	all->ray.const_rad = M_PI / 12;
+	// all->ray.perp_sprite_dist = 0;
 	spawn_dir(all);
 	return (0);
 }

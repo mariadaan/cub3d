@@ -22,14 +22,14 @@ MLX			=	libmlx.a
 MLXDIR		=	./mlx/
 
 CC			=	gcc
-CFLAGS		=	# -fsanitize=address # -Wall -Wextra # -Werror
+CFLAGS		=	-fsanitize=address -Wall -Wextra -Werror
 
 all: $(NAME)
 
 $(NAME): $(OBJS)
 	make -C ./libft/
 	make -C $(MLXDIR)
-	$(CC) $(LIBFTDIR)$(LIBFT) $(OBJS) -Llibft -Lmlx -lmlx -lz -framework OpenGL -framework Appkit -o $(NAME)
+	$(CC) $(CFLAGS) $(LIBFTDIR)$(LIBFT) $(OBJS) -Llibft -Lmlx -lmlx -lz -framework OpenGL -framework Appkit -o $(NAME)
 
 %.o: %.c
 	$(CC) -c $(CFLAGS) -Imlx -c $< -o $@
@@ -42,7 +42,6 @@ clean:
 fclean: clean
 	rm -f $(NAME)
 	rm -f $(MLX)
-	rm -f screenshot.bmp
 
 re: fclean all
 
