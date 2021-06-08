@@ -6,7 +6,7 @@
 /*   By: mdaan <mdaan@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/11/02 13:02:54 by mdaan         #+#    #+#                 */
-/*   Updated: 2021/05/25 12:02:52 by mdaan         ########   odam.nl         */
+/*   Updated: 2021/06/08 13:18:21 by mdaan         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,8 @@ int				ft_strncmp(const char *s1, const char *s2, size_t n);
 int				ft_atoi(const char *str);
 int				ft_isalpha(int c);
 int				ft_isdigit(int c);
+int				ft_has_digit(char *str);
+int				ft_onlydigits(char *str);
 int				ft_isalnum(int c);
 int				ft_isascii(int c);
 int				ft_isprint(int c);
@@ -64,6 +66,8 @@ void			*ft_calloc(size_t count, size_t size);
 char			*ft_strdup(const char *s1);
 int				get_findex(char *str, char c);
 int				get_lindex(char *str, char c);
+
+char			*create_line(char *str, char *needle);
 
 /*
 **	Part 2: Additional functions

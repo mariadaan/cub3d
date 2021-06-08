@@ -97,7 +97,6 @@ int	init_raycaster(t_all *all)
 	all->ray.plane_y = 0.66;
 	all->ray.step_size = 0.3;
 	all->ray.const_rad = M_PI / 12;
-	// all->ray.perp_sprite_dist = 0;
 	spawn_dir(all);
 	return (0);
 }

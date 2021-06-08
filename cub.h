@@ -8,7 +8,7 @@
 # include <math.h>
 # include <fcntl.h>
 # include <stdio.h>
-# include "../libft/libft.h"
+# include "libft/libft.h"
 # include "keys.h"
 
 
@@ -154,20 +154,25 @@ int				init_mlx(t_all *all);
 int				init_raycaster(t_all *all);
 
 /*
-	parse.c NOG 1 FILE TEVEEL
+	parse.c
 */
 
 int				parse_all(int fd, t_info *info);
 
-int				parse_int(char *line, int *size, int pos);
+int				parse_int(char *full_file, int *size, int pos);
 
 int				parse_path(char *full_file, char **path, char *id);
 
-int				parse_color(char *line, unsigned int *color, char *id);
+int				parse_color(char *full_file, unsigned int *color, char *id);
 
 int				parse_map(t_info *info, char *full_file);
 
+/*
+	parse_checks.c
+*/
 int				check_res(t_all *all);
+
+int				check_rgb(char **split, t_color *color_s);
 
 /*
 	check_map.c NOG 1 FILE TEVEEL

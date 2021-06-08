@@ -2,6 +2,7 @@ NAME		=	cub
 
 SRCS		=	src/main.c \
 				src/parse.c \
+				src/parse_checks.c \
 				src/check_map.c \
 				src/hooks.c \
 				src/move.c \
