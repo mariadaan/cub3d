@@ -8,12 +8,9 @@
 
 void	set_ray_pos(t_all *all, int x)
 {
-	//calculate ray position and direction
-	all->ray.camera_x = 2 * x / (double)all->info.x_size - 1; //x-coordinate in camera space
+	all->ray.camera_x = 2 * x / (double)all->info.x_size - 1;
 	all->ray.ray_dir_x = all->ray.dir_x + all->ray.plane_x * all->ray.camera_x;
 	all->ray.ray_dir_y = all->ray.dir_y + all->ray.plane_y * all->ray.camera_x;
-
-	//which box of the map we're in
 	all->ray.map_x = (int)all->ray.pos_x;
 	all->ray.map_y = (int)all->ray.pos_y;
 }
@@ -23,35 +20,31 @@ void	set_ray_pos(t_all *all, int x)
 	- Calculate step and initial sideDist
 */
 
-void	set_ray_len(t_all *all)
+void	set_ray_len(t_ray *ray)
 {
-	//length of ray from one x or y-side to next x or y-side
-	all->ray.delta_dist_y = fabs(1 / all->ray.ray_dir_x);
-	all->ray.delta_dist_x = fabs(1 / all->ray.ray_dir_y);
-
-	all->ray.hit = 0; //was there a wall hit?
-	all->ray.hit_sprite = 0; //was there a sprite hit?
-
-	//calculate step and initial sideDist
-	if (all->ray.ray_dir_x < 0)
+	ray->delta_dist_y = fabs(1 / ray->ray_dir_x);
+	ray->delta_dist_x = fabs(1 / ray->ray_dir_y);
+	ray->hit = 0;
+	ray->hit_sprite = 0;
+	if (ray->ray_dir_x < 0)
 	{
-		all->ray.step_x = -1;
-		all->ray.side_dist_x = (all->ray.pos_x - all->ray.map_x) * all->ray.delta_dist_y;
+		ray->step_x = -1;
+		ray->side_dist_x = (ray->pos_x - ray->map_x) * ray->delta_dist_y;
 	}
 	else
 	{
-		all->ray.step_x = 1;
-		all->ray.side_dist_x = (all->ray.map_x + 1.0 - all->ray.pos_x) * all->ray.delta_dist_y;
+		ray->step_x = 1;
+		ray->side_dist_x = (ray->map_x + 1.0 - ray->pos_x) * ray->delta_dist_y;
 	}
-	if (all->ray.ray_dir_y < 0)
+	if (ray->ray_dir_y < 0)
 	{
-		all->ray.step_y = -1;
-		all->ray.side_dist_y = (all->ray.pos_y - all->ray.map_y) * all->ray.delta_dist_x;
+		ray->step_y = -1;
+		ray->side_dist_y = (ray->pos_y - ray->map_y) * ray->delta_dist_x;
 	}
 	else
 	{
-		all->ray.step_y = 1;
-		all->ray.side_dist_y = (all->ray.map_y + 1.0 - all->ray.pos_y) * all->ray.delta_dist_x;
+		ray->step_y = 1;
+		ray->side_dist_y = (ray->map_y + 1.0 - ray->pos_y) * ray->delta_dist_x;
 	}
 }
 
@@ -62,10 +55,8 @@ void	set_ray_len(t_all *all)
 
 void	perform_dda(t_all *all)
 {
-	//perform DDA
 	while (all->ray.hit == 0)
 	{
-		//jump to next map square, OR in x-direction, OR in y-direction
 		if (all->ray.side_dist_x < all->ray.side_dist_y)
 		{
 			all->ray.side_dist_x += all->ray.delta_dist_y;
@@ -78,7 +69,6 @@ void	perform_dda(t_all *all)
 			all->ray.map_y += all->ray.step_y;
 			all->ray.side = 1;
 		}
-		//Check if ray has hit a wall
 		if (all->info.map[all->ray.map_x][all->ray.map_y] == '1')
 			all->ray.hit = 1;
 	}
@@ -90,22 +80,19 @@ void	perform_dda(t_all *all)
 	- Calculate lowest and highest pixel to fill in current stripe
 */
 
-void	set_projection(t_all *all)
+void	set_projection(t_ray *ray, t_info *info)
 {
-	//Calculate distance projected on camera direction (Euclidean distance will give fisheye effect!)
-	if (all->ray.side == 0)
-		all->ray.perp_wall_dist = (all->ray.map_x - all->ray.pos_x + (1 - all->ray.step_x) / 2) / all->ray.ray_dir_x;
+	if (ray->side == 0)
+		ray->perp_wall_dist = (ray->map_x - ray->pos_x
+				+ (1 - ray->step_x) / 2) / ray->ray_dir_x;
 	else
-		all->ray.perp_wall_dist = (all->ray.map_y - all->ray.pos_y + (1 - all->ray.step_y) / 2) / all->ray.ray_dir_y;
-	
-	//Calculate height of line to draw on screen
-	all->ray.line_height = (int)(all->info.y_size / all->ray.perp_wall_dist);
-
-	//calculate lowest and highest pixel to fill in current stripe
-	all->ray.draw_start = -all->ray.line_height / 2 + all->info.y_size / 2;
-	if (all->ray.draw_start < 0)
-		all->ray.draw_start = 0;
-	all->ray.draw_end = all->ray.line_height / 2 + all->info.y_size / 2;
-	if (all->ray.draw_end >= all->info.y_size)
-		all->ray.draw_end = all->info.y_size - 1;
+		ray->perp_wall_dist = (ray->map_y - ray->pos_y
+				+ (1 - ray->step_y) / 2) / ray->ray_dir_y;
+	ray->line_height = (int)(info->y_size / ray->perp_wall_dist);
+	ray->draw_start = -ray->line_height / 2 + info->y_size / 2;
+	if (ray->draw_start < 0)
+		ray->draw_start = 0;
+	ray->draw_end = ray->line_height / 2 + info->y_size / 2;
+	if (ray->draw_end >= info->y_size)
+		ray->draw_end = info->y_size - 1;
 }

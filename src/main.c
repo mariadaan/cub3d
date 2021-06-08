@@ -23,7 +23,6 @@ int	main(int argc, char *argv[])
 		|| show_img(&all))
 		return (1);
 	mlx_hook(all.img.win, PRESS, 0, key_pressed, &all);
-	// mlx_hook(all.img.win, RELEASE, 0, key_release, &all);
 	mlx_hook(all.img.win, DESTROY, 0, destroy_window, &all);
 	mlx_loop(all.img.mlx);
 	return (0);

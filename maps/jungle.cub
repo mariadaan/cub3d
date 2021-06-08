@@ -3,8 +3,8 @@
 
 
 
-      NO ./textures/jungle2.xpm
-      EA ./textures/diertjes.xpm
+      NO ./textures/jungle2.xpm 
+      EA textures/diertjes.xpm
       SO ./textures/plantdonker.xpm
   WE ./textures/jungledonker.xpm
       S ./sprites/tiger.png

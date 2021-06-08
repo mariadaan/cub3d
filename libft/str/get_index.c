@@ -13,7 +13,10 @@ int	get_findex(char *str, char c)
 	i = 0;
 	while (str[i] && str[i] != c)
 		i++;
-	return (i);
+	if (str[i] == c)
+		return (i);
+	else
+		return (-1);
 }
 
 /*

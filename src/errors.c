@@ -10,22 +10,12 @@ void	green(void)
 	printf("\033[1;32m");
 }
 
-void	blue(void)
-{
-	printf("\033[1;36m");
-}
-
-void	purple(void)
-{
-	printf("\033[1;35m");
-}
-
 void	reset(void)
 {
 	printf("\033[0m");
 }
 
-int		error_msg(char *message)
+int	error_msg(char *message)
 {
 	red();
 	printf("\n%s\n\n", message);
@@ -33,7 +23,7 @@ int		error_msg(char *message)
 	return (1);
 }
 
-int		success_msg(char *message)
+int	success_msg(char *message)
 {
 	green();
 	printf("\n%s\n\n", message);

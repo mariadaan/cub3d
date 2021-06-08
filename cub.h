@@ -86,7 +86,7 @@ typedef struct s_ray {
 	int				draw_start; // start y coordinate on image
 	int				draw_end; // end y coordinate on image
 
-	double 			wallX; //where exactly the wall was hit
+	double 			wall_x; //where exactly the wall was hit
 	int				x_tex; //x coordinate on the texture
 	double			y_tex; //y coordinate on the texture
 	double			y_tex_step;
@@ -159,9 +159,9 @@ int				init_raycaster(t_all *all);
 
 int				parse_all(int fd, t_info *info);
 
-int				parse_int(char *full_file, int *size, int pos);
+int				parse_res(char *full_file, int *size, int pos);
 
-int				parse_path(char *full_file, char **path, char *id);
+int				parse_tex(t_info *info);
 
 int				parse_color(char *full_file, unsigned int *color, char *id);
 
@@ -174,15 +174,15 @@ int				check_res(t_all *all);
 
 int				check_rgb(char **split, t_color *color_s);
 
-/*
-	check_map.c NOG 1 FILE TEVEEL
-*/
-
-int				find_map(char *str);
-
 int				check_spawn(t_info *info);
 
 int				get_spawn_pos(t_info *info);
+
+/*
+	check_map.c
+*/
+
+int				find_map(char *str);
 
 int				check_firstlast(t_info *info);
 
@@ -196,11 +196,11 @@ int				valid_map(t_info *info);
 
 void			set_ray_pos(t_all *all, int x);
 
-void			set_ray_len(t_all *all);
+void	set_ray_len(t_ray *ray);
 
 void			perform_dda(t_all *all);
+void	set_projection(t_ray *ray, t_info *info);
 
-void			set_projection(t_all *all);
 
 /*
 	render.c
@@ -263,15 +263,7 @@ int				get_g(int trgb);
 
 int				get_b(int trgb);
 
-/*
-	color_utils.c
-*/
-
-void			print_components(int color);
-
 int				gen_darker_color(int color, int factor);
-
-int				darker_color(int color);
 
 /*
 	printvar.c

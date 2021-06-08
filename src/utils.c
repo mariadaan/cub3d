@@ -7,7 +7,6 @@
 int	show_img(t_all *all)
 {
 	mlx_put_image_to_window(&(all->img.mlx), all->img.win, all->img.img, 0, 0);
-	// mlx_put_image_to_window(&(all->img.mlx), all->img.win, all->tex.sprite_img.img, 10, 80);
 	return (0);
 }
 
@@ -25,7 +24,7 @@ int	file_to_img(t_img *img, char *filename)
 				&(img->height));
 	else if (ft_strstr(filename, ".png"))
 		img->img = mlx_png_file_to_image(img->mlx, filename, &(img->width),
-			&(img->height));
+				&(img->height));
 	if (!(img->img))
 	{
 		red();
@@ -48,7 +47,7 @@ void	put_pixel(t_img *img, int x, int y, int color)
 	char	*dst;
 
 	dst = img->addr + (y * img->line_length + x * (img->bits_per_pixel / 8));
-	*(unsigned int*)dst = color;
+	*(unsigned int *)dst = color;
 }
 
 /*
@@ -58,7 +57,7 @@ void	put_pixel(t_img *img, int x, int y, int color)
 
 void	put_hor_full(t_all *all, int y, int color)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (i < all->info.x_size)
@@ -80,28 +79,4 @@ int	is_notmap(char c)
 		return (1);
 	else
 		return (0);
-}
-
-/*
-	DELETE WHEN DONE
-*/
-void	print_info(t_info *info)
-{
-	// printnum("size struct", sizeof(*info));
-	printf("x_render_size:    %d\n", info->x_size);
-	printf("y_render_size:    %d\n", info->y_size);
-	printf("n_path:           %s\n", info->no_path);
-	printf("s_path:           %s\n", info->so_path);
-	printf("w_path:           %s\n", info->we_path);
-	printf("e_path:           %s\n", info->ea_path);
-	// printf("sprite_path:      %s\n", info->s_path);
-	printf("floor_color:      %d\n", info->f_color);
-	printf("ceiling_color:    %d\n", info->c_color);
-	printf("map: \n");
-	ft_put2darray(info->map, info->map_height);
-	printnum("mapwidth", info->map_width);
-	printnum("mapheight", info->map_height);
-	printnum("spawn x", info->x_spawn);
-	printnum("spawn y", info->y_spawn);
-	printchar("spawn direction", info->spawn_dir);
 }

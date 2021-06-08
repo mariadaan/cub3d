@@ -21,7 +21,13 @@ int	init_input(t_all *all, int argc, char *cub_file)
 	ft_bzero(&info, sizeof(t_info));
 	all->info = info;
 	if (parse_all(fd, &(all->info)))
+	{
+		free(all->info.no_path);
+		free(all->info.so_path);
+		free(all->info.we_path);
+		free(all->info.ea_path);
 		return (1);
+	}
 	return (0);
 }
 
@@ -45,7 +51,6 @@ int	init_textures(t_all *all)
 	free(all->info.so_path);
 	free(all->info.we_path);
 	free(all->info.ea_path);
-	// free(all->info.s_path);
 	return (0);
 }
 

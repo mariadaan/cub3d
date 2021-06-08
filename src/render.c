@@ -28,34 +28,30 @@ int	draw_bg(t_all *all)
 /*
 	Sets coordinates of texture image to use for wall
 */
-
 int	set_tex(t_all *all, t_img wall_img)
 {
-	//calculate value of wallX
-	if(all->ray.side == 0)
-		all->ray.wallX = all->ray.pos_y + all->ray.perp_wall_dist * all->ray.ray_dir_y;
+	if (all->ray.side == 0)
+		all->ray.wall_x = all->ray.pos_y + all->ray.perp_wall_dist
+			* all->ray.ray_dir_y;
 	else
-		all->ray.wallX = all->ray.pos_x + all->ray.perp_wall_dist * all->ray.ray_dir_x;
-	all->ray.wallX -= floor((all->ray.wallX));
-
-	//x coordinate on the texture
-	all->ray.x_tex = (int)(all->ray.wallX * (double)wall_img.width);
-	if((all->ray.side == 0 && all->ray.ray_dir_x > 0)
+		all->ray.wall_x = all->ray.pos_x + all->ray.perp_wall_dist
+			* all->ray.ray_dir_x;
+	all->ray.wall_x -= floor((all->ray.wall_x));
+	all->ray.x_tex = (int)(all->ray.wall_x * (double)wall_img.width);
+	if ((all->ray.side == 0 && all->ray.ray_dir_x > 0)
 		|| (all->ray.side == 1 && all->ray.ray_dir_y < 0))
 		all->ray.x_tex = wall_img.width - all->ray.x_tex;
-
-	//y coordinate on the texture, step size
 	all->ray.y_tex = 0;
 	all->ray.y_tex_step = wall_img.height / (double)all->ray.line_height;
 	if (all->ray.line_height > all->info.y_size)
-		all->ray.y_tex = (all->ray.line_height - all->info.y_size) * all->ray.y_tex_step / 2;
+		all->ray.y_tex = (all->ray.line_height - all->info.y_size)
+			* all->ray.y_tex_step / 2;
 	return (0);
 }
 
 /*
 	Places texture on vertical wall line
 */
-
 int	draw_tex(t_all *all, t_img wall_img, int x)
 {
 	char	*dst;
@@ -64,10 +60,11 @@ int	draw_tex(t_all *all, t_img wall_img, int x)
 
 	set_tex(all, wall_img);
 	y_wall = all->ray.draw_start;
-	// loop over vertical line 
 	while (y_wall <= all->ray.draw_end)
 	{
-		dst = wall_img.addr + ((int)(all->ray.y_tex) % wall_img.height * wall_img.line_length + all->ray.x_tex % wall_img.width * (wall_img.bits_per_pixel / 8));
+		dst = wall_img.addr + ((int)(all->ray.y_tex) % wall_img.height
+				* wall_img.line_length + all->ray.x_tex % wall_img.width
+				* (wall_img.bits_per_pixel / 8));
 		color = *(unsigned int *)dst;
 		put_pixel(&(all->img), x, y_wall, color);
 		y_wall++;
@@ -76,12 +73,10 @@ int	draw_tex(t_all *all, t_img wall_img, int x)
 	return (0);
 }
 
-
 /*
 	Loops over vertical lines to be drawn in image, does raycasting calculations
 	for every line, and places the textures on the walls.
 */
-
 int	draw_img(t_all *all)
 {
 	int	x;
@@ -91,14 +86,14 @@ int	draw_img(t_all *all)
 	while (x < all->info.x_size)
 	{
 		set_ray_pos(all, x);
-		set_ray_len(all);
+		set_ray_len(&(all->ray));
 		perform_dda(all);
-		set_projection(all);
+		set_projection(&(all->ray), &(all->info));
 		if (all->ray.side == 0 && all->ray.step_x == 1)
 			draw_tex(all, all->tex.n_img, x);
 		if (all->ray.side == 0 && all->ray.step_x == -1)
 			draw_tex(all, all->tex.s_img, x);
-		if (all->ray.side == 1  && all->ray.step_y == 1)
+		if (all->ray.side == 1 && all->ray.step_y == 1)
 			draw_tex(all, all->tex.e_img, x);
 		if (all->ray.side == 1 && all->ray.step_y == -1)
 			draw_tex(all, all->tex.w_img, x);

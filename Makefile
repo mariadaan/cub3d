@@ -8,7 +8,6 @@ SRCS		=	src/main.c \
 				src/move.c \
 				src/utils.c \
 				src/color.c \
-				src/color_utils.c \
 				src/render.c \
 				src/raycast.c \
 				src/errors.c \

@@ -23,3 +23,22 @@ int	get_b(int rgb)
 {
 	return (rgb & 0xFF);
 }
+
+int	gen_darker_color(int color, int factor)
+{
+	int	r;
+	int	g;
+	int	b;
+
+	r = get_r(color) - factor;
+	if (r < 0)
+		r = 0;
+	g = get_g(color) - factor ;
+	if (g < 0)
+		g = 0;
+	b = get_b(color) - factor;
+	if (b < 0)
+		b = 0;
+	color = create_rgb(r, g, b);
+	return (color);
+}
