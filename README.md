@@ -1,7 +1,7 @@
 
-## cub3D
+# cub3D
 
-# Usage
+## Usage
 1. Clone this repository
    ```console
    git clone https://github.com/mariadaan/cub3d.git
@@ -15,7 +15,7 @@
    ./cub3D filename.cub
    ```
 
-# See some example cub3D environments
+## See some example cub3D environments
 Run one of the following commands to try different cub3D environments! 
 - make jungle
 - make jungle2
@@ -23,7 +23,7 @@ Run one of the following commands to try different cub3D environments!
 - make map
 - make map2
 
-# Check behavior in invalid map cases
+## Check behavior in invalid map cases
 - make invalid
 - make invalid_res
 - make wrongarg
