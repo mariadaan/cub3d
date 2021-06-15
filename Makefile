@@ -2,8 +2,8 @@ NAME		=	cub3D
 
 SRCS		=	src/main.c \
 				src/init.c \
+				src/parsing/check_info.c \
 				src/parsing/check_map.c \
-				src/parsing/parse_checks.c \
 				src/parsing/parse.c \
 				src/raycasting/move.c \
 				src/raycasting/raycast.c \

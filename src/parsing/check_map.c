@@ -21,7 +21,6 @@ int	find_map(char *full_file)
 	return (-1);
 }
 
-
 /*
 	Check upper and lower row of map for gaps
 */
@@ -53,7 +52,8 @@ int	check_firstlast(char **map, int height)
 	while (y < height)
 	{
 		rowlen = ft_strlen(map[y]);
-		if (ft_inset("0NESW", map[y][0]) || ft_inset("0NESW", map[y][rowlen - 1]))
+		if (ft_inset("0NESW", map[y][0])
+			|| ft_inset("0NESW", map[y][rowlen - 1]))
 			return (1);
 		y++;
 	}
@@ -74,9 +74,9 @@ int	check_spots(char **map, int x, int y)
 				is_notmap(map[y + 1][x + 1]) ||
 				is_notmap(map[y - 1][x + 1]) ||
 				is_notmap(map[y + 1][x - 1])))
-				return (1);
+		return (1);
 	else
-		return (0);	
+		return (0);
 }
 
 /*
@@ -99,7 +99,7 @@ int	check_map(t_info *info)
 		rowlen = ft_strlen(info->map[y]);
 		while (x < rowlen - 1)
 		{
-			if (check_spots(info->map, x , y))
+			if (check_spots(info->map, x, y))
 				return (1);
 			x++;
 		}
