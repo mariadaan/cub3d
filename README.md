@@ -32,7 +32,7 @@ Run one of the following commands to try different cub3D environments!
 ## Variable explanation
 
 ### MLX variables 
-	void	*mlx; *** // connection to the correct graphical system,holds the location of our  current MLX instance***
+	void	*mlx; *** // connection to the correct graphical system,holds the location of our  current MLX ***instance***
 	void	*img; *** // address of image ***
 	void	*win; *** // address of ***
 	char	*addr; *** // array of colors (length is width in pixels * bpp) ***
