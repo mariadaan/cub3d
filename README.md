@@ -67,22 +67,19 @@ Run one of the following commands to try different cub3D environments!
 	int map_y;
 
 	// length of ray from current position to next x or y-side
-	// x vanaf pos tot EERSTE verticale lijn op grid (eenmalige kortere afstand, daarna altijd zelfde)
+	// x from pos to FIRST vertical line on the grid (after first hit, distance will remain stable)
 	double side_dist_x;
-	// y vanaf pos tot EERSTE horizontale lijn op grid
+	// y from pos to FIRST horizontal line on the grid
 	double side_dist_y;
 
 	// distance the ray has to travel to go from 1 x-side to the next x-side, or from 1 y-side to the next y-side.
-	// vanaf side_dist_x tot volgende verticale lijn
+	// from side_dist_x till next vertical line
 	double delta_dist_x;
-	// vanaf side_dist_y tot volgende horizontale lijn
+	// from side_dist_y till next horizontal line
 	double delta_dist_y;
 
-	// lengte van de hele ray
+	// length of full ray
 	double perp_wall_dist;
-
-	// lengte van de hele ray
-	double perp_sprite_dist;
 
 	// what direction to step in x or y-direction (either +1 or -1, just to the next gridline)
 	int step_x;
@@ -90,9 +87,6 @@ Run one of the following commands to try different cub3D environments!
 
 	//was there a wall hit?
 	int hit;
-
-	//was there a sprite hit?
-	int hit_sprite;
 
 	//was a NS or a EW wall hit? (0 = x wall hit, 1 = y wall hit)
 	int side;
@@ -108,48 +102,3 @@ Run one of the following commands to try different cub3D environments!
 	int				x_tex; // x coordinate on the texture
 	double			y_tex; // y coordinate on the texture
 	double			y_tex_step; // y coordinate step size
-}		t_ray;
-
-typedef struct s_info
-{
-	char			*full_file;
-	int				x_size;
-	int				y_size;
-	char			*no_path;
-	char			*so_path;
-	char			*we_path;
-	char			*ea_path;
-	unsigned int	f_color;
-	unsigned int	c_color;
-	char			**map;
-	int				map_width;
-	int				map_height;
-	int				x_spawn;
-	int				y_spawn;
-	char			spawn_dir;
-	char			*start;
-}				t_info;
-
-typedef struct s_tex
-{
-	t_img			n_img;
-	t_img			e_img;
-	t_img			s_img;
-	t_img			w_img;
-	t_img			sprite_img;
-}				t_tex;
-
-typedef struct s_all {
-	int				press_release;
-	t_img			img;
-	t_ray			ray;
-	t_info			info;
-	t_tex			tex;
-}			t_all;
-
-typedef struct s_color {
-	int				r;
-	int				g;
-	int				b;
-	int				color;
-}				t_color;
