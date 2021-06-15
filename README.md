@@ -31,15 +31,15 @@ Run one of the following commands to try different cub3D environments!
 
 
 ## MLX variables 
-void	*mlx; // 
-void	*img;
-void	*win;
-char	*addr;
-int		bits_per_pixel;
-int		line_length; // in bytes (width / 4)
-int		endian;
-int		width; // in pixels
-int		height; // in pixels
+	void	*mlx; // 
+	void	*img;
+	void	*win;
+	char	*addr;
+	int		bits_per_pixel;
+	int		line_length; // in bytes (width / 4)
+	int		endian;
+	int		width; // in pixels
+	int		height; // in pixels
 
 ## Raycasting variables 
 typedef struct s_ray {
