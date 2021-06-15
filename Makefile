@@ -1,17 +1,17 @@
-NAME		=	cub
+NAME		=	cub3D
 
 SRCS		=	src/main.c \
-				src/parse.c \
-				src/parse_checks.c \
-				src/check_map.c \
-				src/hooks.c \
-				src/move.c \
-				src/utils.c \
-				src/color.c \
-				src/render.c \
-				src/raycast.c \
-				src/errors.c \
-				src/init.c
+				src/init.c \
+				src/parsing/check_map.c \
+				src/parsing/parse_checks.c \
+				src/parsing/parse.c \
+				src/raycasting/move.c \
+				src/raycasting/raycast.c \
+				src/raycasting/render.c \
+				src/utils/color.c \
+				src/utils/errors.c \
+				src/utils/hooks.c \
+				src/utils/utils.c
 
 OBJS		=	$(SRCS:.c=.o)
 
@@ -47,43 +47,43 @@ re: fclean all
 
 ray:
 	make
-	./cub maps/map.cub
+	./cub3D maps/map.cub
 
 jungle:
 	make
-	./cub maps/jungle.cub
+	./cub3D maps/jungle.cub
 
 jungle2:
 	make
-	./cub maps/jungle2.cub
+	./cub3D maps/jungle2.cub
 
 trip:
 	make
-	./cub maps/trip.cub
+	./cub3D maps/trip.cub
 
 map2:
 	make
-	./cub maps/map2.cub
+	./cub3D maps/map2.cub
 
 non:
 	make
-	./cub maps/mapss.cub
+	./cub3D maps/mapss.cub
 
 wrongarg:
 	make
-	./cub maps/mapss.cub hallo
+	./cub3D maps/mapss.cub hallo
 
 debug:
 	make
-	# ./cub maps/map.cub
-	./cub maps/valid_maps/valid_map_area_008.cub
+	# ./cub3D maps/map.cub
+	./cub3D maps/valid_maps/valid_map_area_008.cub
 
 invalid:
 	make
-	./cub maps/invalid_maps/invalid_map_area_014.cub
+	./cub3D maps/invalid_maps/invalid_map_area_014.cub
 
 invalid_res:
 	make
-	./cub maps/invalid_maps/invalid_res_000.cub
+	./cub3D maps/invalid_maps/invalid_res_000.cub
 
 .PHONY: all clean fclean re debug

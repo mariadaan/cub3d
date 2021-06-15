@@ -3,7 +3,6 @@
 /*
 	Saves X and Y render size as ints
 */
-
 int	parse_res(char *full_file, int *size, int pos)
 {
 	char	*line;
@@ -26,7 +25,6 @@ int	parse_res(char *full_file, int *size, int pos)
 /*
 	Saves rgb color as an unsigned int value
 */
-
 int	parse_color(char *full_file, unsigned int *color, char *id)
 {
 	char	*line;
@@ -49,7 +47,6 @@ int	parse_color(char *full_file, unsigned int *color, char *id)
 /*
 	Save map in 2d array
 */
-
 int	parse_map(t_info *info, char *full_file)
 {
 	int		start_index;
@@ -58,28 +55,29 @@ int	parse_map(t_info *info, char *full_file)
 
 	i = 0;
 	start_index = find_map(full_file);
-	if (start_index != -1)
+	if (start_index == -1)
+		return (error_msg("Invalid map area"));
+	info->start = full_file + start_index;
+	info->map = ft_split(info->start, '\n');
+	while (info->map[info->map_height])
+		info->map_height++;
+	while (i < info->map_height)
 	{
-		info->start = full_file + start_index;
-		info->map = ft_split(info->start, '\n');
-		while (info->map[info->map_height])
-			info->map_height++;
-		while (i < info->map_height)
-		{
-			width = ft_strlen(info->map[i]);
-			if (width > info->map_width)
-				info->map_width = width;
-			i++;
-		}
-		return (0);
+		width = ft_strlen(info->map[i]);
+		if (width > info->map_width)
+			info->map_width = width;
+		i++;
 	}
-	return (error_msg("Invalid map"));
+	if (check_spawn(info))
+		return (error_msg("Make sure there is one spawn position in map!"));
+	if (check_map(info))
+		return (error_msg("Map must be closed/surrounded by walls!"));
+	return (0);
 }
 
 /*
 	Saves path to texture as a string
 */
-
 int	parse_tex(t_info *info)
 {
 	info->no_path = create_line(info->full_file, "NO ");
@@ -97,7 +95,6 @@ int	parse_tex(t_info *info)
 	parts of the information in the cub file. This information is saved in the
 	t_info info struct.
 */
-
 int	parse_all(int fd, t_info *info)
 {
 	int	ret;
@@ -110,7 +107,6 @@ int	parse_all(int fd, t_info *info)
 		|| parse_color(info->full_file, &(info->f_color), "F ")
 		|| parse_color(info->full_file, &(info->c_color), "C ")
 		|| parse_map(info, info->full_file)
-		|| valid_map(info)
 		|| get_spawn_pos(info)
 		|| parse_tex(info))
 		return (1);

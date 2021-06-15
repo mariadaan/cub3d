@@ -7,7 +7,6 @@
 	Does the file exist? If yes, the file is parsed and all information is saved
 	in the info struct.
 */
-
 int	init_input(t_all *all, int argc, char *cub_file)
 {
 	int		fd;
@@ -35,7 +34,6 @@ int	init_input(t_all *all, int argc, char *cub_file)
 	Creates an image structure for every texture and saves them in t_tex tex.
 	In rect, information about the walls to be displayed will be saved later on.
 */
-
 int	init_textures(t_all *all)
 {
 	t_tex	tex;
@@ -58,7 +56,6 @@ int	init_textures(t_all *all)
 	Create the window in which the cub3d project will be shown and create an
 	image called img, that will be modified during the program.
 */
-
 int	init_mlx(t_all *all)
 {
 	t_img	img;
@@ -87,7 +84,6 @@ int	init_mlx(t_all *all)
 	const_rad can be modified to change rotation speed. Depending on the spawn
 	direction, player is rotated in the spawn_dir function.
 */
-
 int	init_raycaster(t_all *all)
 {
 	t_ray	ray;

@@ -3,7 +3,6 @@
 /*
 	Changes initial player direction if necessary
 */
-
 int	spawn_dir(t_all *all)
 {
 	double	radians;
@@ -24,7 +23,6 @@ int	spawn_dir(t_all *all)
 /*
 	Moves player position in map
 */
-
 int	move_player(t_all *all, double x, double y)
 {
 	if (all->info.map[(int)(all->ray.pos_x + x * all->ray.step_size)]
@@ -40,7 +38,6 @@ int	move_player(t_all *all, double x, double y)
 	Rotates player by angle in radians
 	(for example: 90° = π/2 rad)
 */
-
 int	rotate(t_all *all, double radians)
 {
 	double	old_dir_x;

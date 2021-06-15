@@ -1,30 +1,30 @@
-To do
 
-- Deze readme mooi maken
-- check_map.c fixen
-- teveel functies in parse.c
-- Sprites
-- bmp image
-- png inladen
-- key press en release verbeteren, nu niet smooth
+## cub3D
 
-- parse int functie protecten, resolutie checken beter
-- Wat voor type bestand is de texture image? PNG fixen
+# Usage
+1. Clone this repository
+   ```console
+   git clone https://github.com/mariadaan/cub3d.git
+   ```
+2. Make the executable by running make
+   ```console
+   make
+   ```
+3. Execute **cub3D** with map of your choice
+   ```console
+   ./cub3D filename.cub
+   ```
 
-- CHECK: In de goeie richting spawnen. Nu altijd N.
-- CHECK: Resolutie checken: max en min?
-- CHECK: Path checken: bestaat het wel?
-- CHECK: Kleuren checken: is elke waarde wel tussen 0 en 255
-- CHECK: Map checken: waar is de spawn positie en kan je vanaf daar de map "af" lopen?
+# See some example cub3D environments
+Run one of the following commands to try different cub3D environments! 
+- make jungle
+- make jungle2
+- make trip
+- make map
+- make map2
 
-
-- CHECK: The left and right arrow keys of the keyboard must allow you to look left and
-  right in the maze.
-- CHECK: The W, A, S and D keys must allow you to move the point of view through
-  the maze.
-- CHECK: Pressing ESC must close the window and quit the program cleanly.
-- CHECK: Clicking on the red cross on the window’s frame must close the window and
-  quit the program cleanly.
-- CHECK: If the declared screen size in the map is greater than the display resolution,
-  the window size will be set depending to the current display resolution.
-- CHECK: The use of images of the minilibX is strongly recommended.
+# Check behavior in invalid map cases
+- make invalid
+- make invalid_res
+- make wrongarg
+- make non

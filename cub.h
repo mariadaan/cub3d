@@ -90,11 +90,6 @@ typedef struct s_ray {
 	int				x_tex; //x coordinate on the texture
 	double			y_tex; //y coordinate on the texture
 	double			y_tex_step;
-
-	// double 			spriteX; //where exactly the sprite was hit
-	// int				x_sprite; //x coordinate on the sprite
-	// double			y_sprite; //y coordinate on the sprite
-	// double			y_sprite_step;
 }		t_ray;
 
 typedef struct s_info
@@ -106,7 +101,6 @@ typedef struct s_info
 	char			*so_path;
 	char			*we_path;
 	char			*ea_path;
-	// char			*s_path;
 	unsigned int	f_color;
 	unsigned int	c_color;
 	char			**map;
@@ -156,7 +150,6 @@ int				init_raycaster(t_all *all);
 /*
 	parse.c
 */
-
 int				parse_all(int fd, t_info *info);
 
 int				parse_res(char *full_file, int *size, int pos);
@@ -181,19 +174,19 @@ int				get_spawn_pos(t_info *info);
 /*
 	check_map.c
 */
-
 int				find_map(char *str);
 
-int				check_firstlast(t_info *info);
+int				check_row(char **map, int y_pos);
+
+int				check_firstlast(char **map, int height);
+
+int				check_spots(char **map, int x, int y);
 
 int				check_map(t_info *info);
-
-int				valid_map(t_info *info);
 
 /*
 	raycast.c
 */
-
 void			set_ray_pos(t_all *all, int x);
 
 void	set_ray_len(t_ray *ray);
@@ -205,7 +198,6 @@ void	set_projection(t_ray *ray, t_info *info);
 /*
 	render.c
 */
-
 int				draw_bg(t_all *all);
 
 int				set_tex(t_all *all, t_img wall_img);
@@ -217,7 +209,6 @@ int				draw_img(t_all *all);
 /*
 	hooks.c
 */
-
 int				key_pressed(int keycode, t_all *all);
 
 int				key_release(int keycode, t_all *all);
@@ -227,7 +218,6 @@ int				destroy_window(t_all *all);
 /*
 	move.c
 */
-
 int				spawn_dir(t_all *all);
 
 int				move_player(t_all *all, double x, double y);
@@ -238,7 +228,6 @@ int				rotate(t_all *all, double radius);
 /*
 	utils.c
 */
-
 int				show_img(t_all *all);
 
 int				file_to_img(t_img *img, char *filename);
@@ -254,7 +243,6 @@ void			print_info(t_info *info);
 /*
 	color.c
 */
-
 int				create_rgb(int r, int g, int b);
 
 int				get_r(int trgb);
@@ -268,7 +256,6 @@ int				gen_darker_color(int color, int factor);
 /*
 	printvar.c
 */
-
 int				printnum(char * name, int num);
 
 int				printfloat(char *name, float num);
@@ -284,7 +271,6 @@ int				printflco(char *name, double x, double y);
 /*
 	errors.c
 */
-
 void			red(void);
 
 void			green(void);

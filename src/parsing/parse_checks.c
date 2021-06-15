@@ -3,7 +3,6 @@
 /*
 	Checks whether resolution is valid and modifies it if necessary
 */
-
 int	check_res(t_all *all)
 {
 	int	x;
@@ -23,7 +22,6 @@ int	check_res(t_all *all)
 /*
 	Checks whether rgb color input is valid
 */
-
 int	check_rgb(char **split, t_color *color_s)
 {
 	int	i;
@@ -51,7 +49,6 @@ int	check_rgb(char **split, t_color *color_s)
 /*
 	Check if no or multiple spawn position in map
 */
-
 int	check_spawn(t_info *info)
 {
 	int	index;
@@ -69,7 +66,6 @@ int	check_spawn(t_info *info)
 	Finds N,S,E or W in map and save location as x and y value. Change the spawn
 	position in map to a so it is seen as open space.
 */
-
 int	get_spawn_pos(t_info *info)
 {
 	int	y_index;

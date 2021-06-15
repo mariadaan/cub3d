@@ -4,5 +4,9 @@ cub
 a.out
 a.out.dSYM
 cub3d_destroyer
+cub3D.dSYM
+cub3D_leaks_maps_tester
+cub3D_map_tester
 X11.h
 spark.c
+cub3D

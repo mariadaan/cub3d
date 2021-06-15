@@ -3,7 +3,6 @@
 	Simplified version of mlx_put_image_to_window that always places the image
 	in the upper left corner
 */
-
 int	show_img(t_all *all)
 {
 	mlx_put_image_to_window(&(all->img.mlx), all->img.win, all->img.img, 0, 0);
@@ -13,7 +12,6 @@ int	show_img(t_all *all)
 /*
 	Creates new img and saves xpm or png file into it
 */
-
 int	file_to_img(t_img *img, char *filename)
 {
 	img->mlx = mlx_init();
@@ -41,7 +39,6 @@ int	file_to_img(t_img *img, char *filename)
 	Change the color of a pixel in an image on the given x and y location by
 	altering the int color value on this location in img.addr
 */
-
 void	put_pixel(t_img *img, int x, int y, int color)
 {
 	char	*dst;
@@ -54,7 +51,6 @@ void	put_pixel(t_img *img, int x, int y, int color)
 	Change the color of the full width of the main image. Used for drawing the
 	background.
 */
-
 void	put_hor_full(t_all *all, int y, int color)
 {
 	int	i;
@@ -70,7 +66,6 @@ void	put_hor_full(t_all *all, int y, int color)
 /*
 	Checks whether a character is a valid part of the map borders
 */
-
 int	is_notmap(char c)
 {
 	if (!c)

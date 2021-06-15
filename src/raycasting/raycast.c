@@ -5,7 +5,6 @@
 	- Calculate ray position and direction
 	- Save which box of the map we're in
 */
-
 void	set_ray_pos(t_all *all, int x)
 {
 	all->ray.camera_x = 2 * x / (double)all->info.x_size - 1;
@@ -19,7 +18,6 @@ void	set_ray_pos(t_all *all, int x)
 	- Calculate length of ray from one x or y-side to next x or y-side
 	- Calculate step and initial sideDist
 */
-
 void	set_ray_len(t_ray *ray)
 {
 	ray->delta_dist_y = fabs(1 / ray->ray_dir_x);
@@ -52,7 +50,6 @@ void	set_ray_len(t_ray *ray)
 	- Jump to next map square in x-direction OR in y-direction
 	- Check if ray has hit a wall
 */
-
 void	perform_dda(t_all *all)
 {
 	while (all->ray.hit == 0)
@@ -79,7 +76,6 @@ void	perform_dda(t_all *all)
 	- Calculate height of line to draw on screen
 	- Calculate lowest and highest pixel to fill in current stripe
 */
-
 void	set_projection(t_ray *ray, t_info *info)
 {
 	if (ray->side == 0)
