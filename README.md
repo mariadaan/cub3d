@@ -33,14 +33,14 @@ Run one of the following commands to try different cub3D environments!
 
 ### MLX variables 
 	void	*mlx; // connection to the correct graphical system,holds the location of our current MLX instance
-	void	*img; // address of 
-	void	*win;
+	void	*img; // address of image
+	void	*win; // address of
 	char	*addr; // array of colors (length is width in pixels * bpp)
-	int		bits_per_pixel; // usually 4 bytes per pixel
-	int		line_length; // in bytes (width * bpp)
-	int		endian; // order of bytes
-	int		width; // in pixels
-	int		height; // in pixels
+	int	bits_per_pixel; // usually 4 bytes per pixel
+	int	line_length; // in bytes (width * bpp)
+	int	endian; // order of bytes
+	int	width; // in pixels
+	int	height; // in pixels
 
 ### Raycasting variables 
 	// x and y exact player position
