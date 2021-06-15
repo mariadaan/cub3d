@@ -9,8 +9,18 @@
 # include <fcntl.h>
 # include <stdio.h>
 # include "libft/libft.h"
-# include "keys.h"
 
+# define LROTATE 123
+# define RROTATE 124
+# define FORWARD 13
+# define BACKWARDS 1
+# define LEFT 0
+# define RIGHT 2
+# define ESC 53
+
+# define PRESS 2
+# define RELEASE 3
+# define DESTROY 17
 
 typedef struct s_img {
 	void			*mlx;
