@@ -15,7 +15,7 @@
    ./cub3D filename.cub
    ```
 
-## Some example cub3D environments
+### Some example cub3D environments
 Run one of the following commands to try different cub3D environments! 
 - make jungle
 - make jungle2
@@ -23,26 +23,26 @@ Run one of the following commands to try different cub3D environments!
 - make map
 - make map2
 
-## Behavior in invalid map cases
+### Behavior in invalid map cases
 - make invalid
 - make invalid_res
 - make wrongarg
 - make non
 
+## Variable explanation
 
-## MLX variables 
-	void	*mlx; // 
-	void	*img;
+### MLX variables 
+	void	*mlx; // connection to the correct graphical system,holds the location of our current MLX instance
+	void	*img; // address of 
 	void	*win;
-	char	*addr;
-	int		bits_per_pixel;
-	int		line_length; // in bytes (width / 4)
-	int		endian;
+	char	*addr; // array of colors (length is width in pixels * bpp)
+	int		bits_per_pixel; // usually 4 bytes per pixel
+	int		line_length; // in bytes (width * bpp)
+	int		endian; // order of bytes
 	int		width; // in pixels
 	int		height; // in pixels
 
-## Raycasting variables 
-typedef struct s_ray {
+### Raycasting variables 
 	// x and y exact player position
 	double pos_x;
 	double pos_y;
@@ -104,10 +104,10 @@ typedef struct s_ray {
 	int				draw_start; // start y coordinate on image
 	int				draw_end; // end y coordinate on image
 
-	double 			wall_x; //where exactly the wall was hit
-	int				x_tex; //x coordinate on the texture
-	double			y_tex; //y coordinate on the texture
-	double			y_tex_step;
+	double 			wall_x; // where exactly the wall was hit
+	int				x_tex; // x coordinate on the texture
+	double			y_tex; // y coordinate on the texture
+	double			y_tex_step; // y coordinate step size
 }		t_ray;
 
 typedef struct s_info
