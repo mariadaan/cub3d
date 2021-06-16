@@ -18,8 +18,7 @@ void	reset(void)
 int	error_msg(char *message)
 {
 	red();
-	printf("Error\n");
-	printf("%s\n\n", message);
+	printf("Error\n%s\n\n", message);
 	reset();
 	return (1);
 }

@@ -99,7 +99,6 @@ typedef struct s_tex
 }				t_tex;
 
 typedef struct s_all {
-	int				press_release;
 	t_img			img;
 	t_ray			ray;
 	t_info			info;

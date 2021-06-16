@@ -10,15 +10,12 @@
 int	init_input(t_all *all, int argc, char *cub_file)
 {
 	int		fd;
-	t_info	info;
 
 	if (argc != 2)
 		return (error_msg("Invalid argument\n"));
 	fd = open(cub_file, O_RDONLY);
 	if (fd == -1)
 		return (error_msg("Make sure cub file exists and path is correct\n"));
-	ft_bzero(&info, sizeof(t_info));
-	all->info = info;
 	if (parse_all(fd, &(all->info)))
 	{
 		free(all->info.no_path);
@@ -36,10 +33,6 @@ int	init_input(t_all *all, int argc, char *cub_file)
 */
 int	init_textures(t_all *all)
 {
-	t_tex	tex;
-
-	ft_bzero(&tex, sizeof(t_tex));
-	all->tex = tex;
 	if (file_to_img(&(all->tex.n_img), all->info.no_path)
 		|| file_to_img(&(all->tex.e_img), all->info.ea_path)
 		|| file_to_img(&(all->tex.s_img), all->info.so_path)
@@ -58,10 +51,6 @@ int	init_textures(t_all *all)
 */
 int	init_mlx(t_all *all)
 {
-	t_img	img;
-
-	ft_bzero(&img, sizeof(t_img));
-	all->img = img;
 	all->img.mlx = mlx_init();
 	if (!(all->img.mlx))
 		return (error_msg("Creating mlx pointer failed"));
@@ -86,10 +75,6 @@ int	init_mlx(t_all *all)
 */
 int	init_raycaster(t_all *all)
 {
-	t_ray	ray;
-
-	ft_bzero(&ray, sizeof(t_ray));
-	all->ray = ray;
 	all->ray.pos_x = all->info.y_spawn + 0.5;
 	all->ray.pos_y = all->info.x_spawn + 0.5;
 	all->ray.dir_x = -1;
