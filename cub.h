@@ -28,77 +28,44 @@ typedef struct s_img {
 	void			*win;
 	char			*addr;
 	int				bits_per_pixel;
-	int				line_length; // in bytes (width / 4)
+	int				line_length;
 	int				endian;
-	int				width; // in pixels
-	int				height; // in pixels
+	int				width;
+	int				height;
 }				t_img;
 
 typedef struct s_ray {
-	// x and y exact player position
-	double pos_x;
-	double pos_y;
 
-	// direction vector (point straight in front of player)
-	double dir_x;
-	double dir_y;
-
-	//the 2d raycaster version of camera plane
-	double plane_x;
-	double plane_y;
-
-	//x-coordinate in camera plane (factor to multiply plane coordinates with)
-	double camera_x;
-
-	// The ray position contains both info about in which square of the map we are, and where in that square we are
-	double ray_dir_x;
-	double ray_dir_y;
-
-	//which box of the map we're in (just the coordinate of the square, not where in the square)
-	int map_x;
-	int map_y;
-
-	// length of ray from current position to next x or y-side
-	// x vanaf pos tot EERSTE verticale lijn op grid (eenmalige kortere afstand, daarna altijd zelfde)
-	double side_dist_x;
-	// y vanaf pos tot EERSTE horizontale lijn op grid
-	double side_dist_y;
-
-	// distance the ray has to travel to go from 1 x-side to the next x-side, or from 1 y-side to the next y-side.
-	// vanaf side_dist_x tot volgende verticale lijn
-	double delta_dist_x;
-	// vanaf side_dist_y tot volgende horizontale lijn
-	double delta_dist_y;
-
-	// lengte van de hele ray
-	double perp_wall_dist;
-
-	// lengte van de hele ray
-	double perp_sprite_dist;
-
-	// what direction to step in x or y-direction (either +1 or -1, just to the next gridline)
-	int step_x;
-	int step_y;
-
-	//was there a wall hit?
-	int hit;
-
-	//was there a sprite hit?
-	int hit_sprite;
-
-	//was a NS or a EW wall hit? (0 = x wall hit, 1 = y wall hit)
-	int side;
-
-	double step_size; // constant value in squares
-	double const_rad; // constant value in radians
-
-	int				line_height; // real wall height in pixels
-	int				draw_start; // start y coordinate on image
-	int				draw_end; // end y coordinate on image
-
-	double 			wall_x; //where exactly the wall was hit
-	int				x_tex; //x coordinate on the texture
-	double			y_tex; //y coordinate on the texture
+	double			pos_x;
+	double			pos_y;
+	double			dir_x;
+	double			dir_y;
+	double			plane_x;
+	double			plane_y;
+	double			camera_x;
+	double			ray_dir_x;
+	double			ray_dir_y;
+	int				map_x;
+	int				map_y;
+	double			side_dist_x;
+	double			side_dist_y;
+	double			delta_dist_x;
+	double			delta_dist_y;
+	double			perp_wall_dist;
+	double			perp_sprite_dist;
+	int				step_x;
+	int				step_y;
+	int				hit;
+	int				hit_sprite;
+	int				side;
+	double			step_size;
+	double			const_rad;
+	int				line_height;
+	int				draw_start;
+	int				draw_end;
+	double 			wall_x;
+	int				x_tex;
+	double			y_tex;
 	double			y_tex_step;
 }		t_ray;
 

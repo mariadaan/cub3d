@@ -94,11 +94,11 @@ Run one of the following commands to try different cub3D environments!
 	double	step_size; // constant value in squares
 	double	const_rad; // constant value in radians
 
-	int				line_height; // real wall height in pixels
-	int				draw_start; // start y coordinate on image
-	int				draw_end; // end y coordinate on image
+	int	line_height; // real wall height in pixels
+	int	draw_start; // start y coordinate on image
+	int	draw_end; // end y coordinate on image
 
-	double				wall_x; // where exactly the wall was hit
-	int				x_tex; // x coordinate on the texture
-	double			y_tex; // y coordinate on the texture
-	double			y_tex_step; // y coordinate step size
+	double	wall_x; // where exactly the wall was hit
+	int	x_tex; // x coordinate on the texture
+	double	y_tex; // y coordinate on the texture
+	double	y_tex_step; // y coordinate step size
