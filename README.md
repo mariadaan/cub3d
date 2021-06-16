@@ -22,6 +22,8 @@ Run one of the following commands to try different cub3D environments!
 - make trip
 - make map
 - make map2
+![Alt text](/pics/jungle.png "Jungle")
+![Alt text](/pics/trip.png "Trip")
 
 ### Behavior in invalid map cases
 - make invalid
