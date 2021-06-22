@@ -15,6 +15,7 @@ int	main(int argc, char *argv[])
 {
 	t_all	all;
 
+	ft_bzero(&all, sizeof(all));
 	if (init_input(&all, argc, argv[1])
 		|| init_textures(&all)
 		|| init_mlx(&all)

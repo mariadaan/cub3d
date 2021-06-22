@@ -99,6 +99,7 @@ typedef struct s_tex
 }				t_tex;
 
 typedef struct s_all {
+	int				press_release;
 	t_img			img;
 	t_ray			ray;
 	t_info			info;
@@ -126,18 +127,18 @@ int				init_raycaster(t_all *all);
 /*
 	parse.c
 */
-int				parse_all(int fd, t_info *info);
-
 int				parse_res(char *full_file, int *size, int pos);
-
-int				parse_tex(t_info *info);
 
 int				parse_color(char *full_file, unsigned int *color, char *id);
 
 int				parse_map(t_info *info, char *full_file);
 
+int				parse_tex(t_info *info);
+
+int				parse_all(int fd, t_info *info);
+
 /*
-	parse_checks.c
+	check_info.c
 */
 int				check_res(t_all *all);
 
@@ -165,7 +166,7 @@ int				check_map(t_info *info);
 */
 void			set_ray_pos(t_all *all, int x);
 
-void	set_ray_len(t_ray *ray);
+void			set_ray_len(t_ray *ray);
 
 void			perform_dda(t_all *all);
 void	set_projection(t_ray *ray, t_info *info);
