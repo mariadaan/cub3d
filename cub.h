@@ -169,7 +169,8 @@ void			set_ray_pos(t_all *all, int x);
 void			set_ray_len(t_ray *ray);
 
 void			perform_dda(t_all *all);
-void	set_projection(t_ray *ray, t_info *info);
+
+void			set_projection(t_ray *ray, t_info *info);
 
 
 /*
@@ -215,7 +216,7 @@ void			put_hor_full(t_all *all, int y, int color);
 
 int				is_notmap(char c);
 
-void			print_info(t_info *info);
+int				free_all(t_info *info, int stage);
 
 /*
 	color.c
@@ -229,21 +230,6 @@ int				get_g(int trgb);
 int				get_b(int trgb);
 
 int				gen_darker_color(int color, int factor);
-
-/*
-	printvar.c
-*/
-int				printnum(char * name, int num);
-
-int				printfloat(char *name, float num);
-
-int				printstr(char *name, char *str);
-
-int				printchar(char *name, char c);
-
-int				printco(char *name, int x, int y);
-
-int				printflco(char *name, double x, double y);
 
 /*
 	errors.c

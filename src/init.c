@@ -17,13 +17,7 @@ int	init_input(t_all *all, int argc, char *cub_file)
 	if (fd == -1)
 		return (error_msg("Make sure cub file exists and path is correct\n"));
 	if (parse_all(fd, &(all->info)))
-	{
-		free(all->info.no_path);
-		free(all->info.so_path);
-		free(all->info.we_path);
-		free(all->info.ea_path);
 		return (1);
-	}
 	return (0);
 }
 
@@ -37,7 +31,7 @@ int	init_textures(t_all *all)
 		|| file_to_img(&(all->tex.e_img), all->info.ea_path)
 		|| file_to_img(&(all->tex.s_img), all->info.so_path)
 		|| file_to_img(&(all->tex.w_img), all->info.we_path))
-		return (1);
+		return (free_all(&(all->info), 0));
 	free(all->info.no_path);
 	free(all->info.so_path);
 	free(all->info.we_path);
@@ -53,9 +47,15 @@ int	init_mlx(t_all *all)
 {
 	all->img.mlx = mlx_init();
 	if (!(all->img.mlx))
+	{
+		free_2darray(all->info.map);
 		return (error_msg("Creating mlx pointer failed"));
+	}
 	if (check_res(all))
+	{
+		free_2darray(all->info.map);
 		return (error_msg("Resolution too big for screen!\n"));
+	}
 	all->img.win = mlx_new_window(all->img.mlx, all->info.x_size,
 			all->info.y_size, "Maria's cub3d");
 	all->img.img = mlx_new_image(all->img.mlx, all->info.x_size,

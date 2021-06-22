@@ -1,7 +1,7 @@
 #include "cub.h"
 
 /*
-	closes window and frees map
+	Closes window and frees map
 */
 
 int	destroy_window(t_all *all)

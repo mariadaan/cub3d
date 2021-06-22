@@ -75,3 +75,15 @@ int	is_notmap(char c)
 	else
 		return (0);
 }
+
+int	free_all(t_info *info, int stage)
+{
+	if (stage)
+		free(info->full_file);
+	free(info->no_path);
+	free(info->so_path);
+	free(info->we_path);
+	free(info->ea_path);
+	free_2darray(info->map);
+	return (1);
+}

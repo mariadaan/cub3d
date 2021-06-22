@@ -36,6 +36,10 @@ Run one of the following commands to try different cub3D environments!
 - make wrongarg
 - make non
 
+   ```console
+   valgrind --log-file="deze"  --leak-check=full  ./cub3D maps/jungle.cub
+   ```
+
 ## Variable explanation
 
 ### MLX variables 

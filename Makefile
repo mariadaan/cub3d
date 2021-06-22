@@ -22,7 +22,7 @@ MLX			=	libmlx.a
 MLXDIR		=	./mlx/
 
 CC			=	gcc
-CFLAGS		=	-fsanitize=address -Wall -Wextra -Werror
+CFLAGS		=	-Wall #-fsanitize=address -Wall -Wextra -Werror
 
 all: $(NAME)
 
@@ -52,6 +52,10 @@ ray:
 jungle:
 	make
 	./cub3D maps/jungle.cub
+
+nontex:
+	make
+	./cub3D maps/nontex.cub
 
 jungle2:
 	make

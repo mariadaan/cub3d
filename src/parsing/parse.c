@@ -109,7 +109,7 @@ int	parse_all(int fd, t_info *info)
 		|| parse_map(info, info->full_file)
 		|| get_spawn_pos(info)
 		|| parse_tex(info))
-		return (1);
+		return (free_all(info, 1));
 	free(info->full_file);
 	success_msg("Parsing successful!");
 	return (0);
