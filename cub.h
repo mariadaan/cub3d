@@ -106,12 +106,12 @@ typedef struct s_all {
 	t_tex			tex;
 }			t_all;
 
-typedef struct s_color {
-	int				r;
-	int				g;
-	int				b;
-	int				color;
-}				t_color;
+// typedef struct s_color {
+// 	int				r;
+// 	int				g;
+// 	int				b;
+// 	int				color;
+// }				t_color;
 
 /*
 	init.c

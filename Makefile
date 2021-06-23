@@ -13,6 +13,8 @@ SRCS		=	src/main.c \
 				src/utils/hooks.c \
 				src/utils/utils.c
 
+HEADER		=	cub.h
+
 OBJS		=	$(SRCS:.c=.o)
 
 LIBFT		=	libft.a
@@ -26,7 +28,7 @@ CFLAGS		=	-Wall #-fsanitize=address -Wall -Wextra -Werror
 
 all: $(NAME)
 
-$(NAME): $(OBJS)
+$(NAME): $(OBJS) $(HEADER)
 	make -C ./libft/
 	make -C $(MLXDIR)
 	$(CC) $(CFLAGS) $(LIBFTDIR)$(LIBFT) $(OBJS) -Llibft -Lmlx -lmlx -lz -framework OpenGL -framework Appkit -o $(NAME)
