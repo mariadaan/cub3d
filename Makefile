@@ -11,6 +11,7 @@ SRCS		=	src/main.c \
 				src/utils/color.c \
 				src/utils/errors.c \
 				src/utils/hooks.c \
+				src/utils/utils_mlx.c \
 				src/utils/utils.c
 
 HEADER		=	cub.h
@@ -50,6 +51,10 @@ re: fclean all
 ray:
 	make
 	./cub3D maps/map.cub
+
+residential:
+	make
+	./cub3D maps/residential.cub
 
 jungle:
 	make

@@ -27,6 +27,8 @@ Run one of the following commands to try different cub3D environments!
 - make jungle
 ![Alt text](/pics/jungle.png "Jungle")
 
+- make huisjes
+
 - make jungle2
 
 - make map

@@ -1,5 +1,9 @@
 #include "cub.h"
 
+/*
+	Error message printing functions
+*/
+
 void	red(void)
 {
 	printf("\033[1;31m");
