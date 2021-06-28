@@ -41,10 +41,6 @@ Run one of the following commands to try different cub3D environments!
 - make wrongarg
 - make non
 
-   ```console
-   valgrind --log-file="deze"  --leak-check=full  ./cub3D maps/jungle.cub
-   ```
-
 ## Variable explanation
 
 ### MLX variables 
@@ -118,3 +114,8 @@ Run one of the following commands to try different cub3D environments!
 	int	x_tex; // x coordinate on the texture
 	double	y_tex; // y coordinate on the texture
 	double	y_tex_step; // y coordinate step size
+
+### Memleak check
+```console
+valgrind --log-file="deze"  --leak-check=full  ./cub3D maps/jungle.cub
+```
