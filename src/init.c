@@ -81,8 +81,14 @@ int	init_raycaster(t_all *all)
 	all->ray.dir_y = 0;
 	all->ray.plane_x = 0;
 	all->ray.plane_y = 0.66;
-	all->ray.step_size = 0.3;
-	all->ray.const_rad = M_PI / 12;
+	all->ray.step_size = 0.1;
+	all->ray.const_rad = M_PI / 48;
+	all->ray.forward = 0;
+	all->ray.backwards = 0;
+	all->ray.left = 0;
+	all->ray.right = 0;
+	all->ray.rot_left = 0;
+	all->ray.rot_right = 0;
 	spawn_dir(all);
 	return (0);
 }

@@ -6,7 +6,7 @@
    ```console
    git clone https://github.com/mariadaan/cub3d.git
    ```
-2. Make the executable by running make
+2. Create the executable by running make
    ```console
    make
    ```

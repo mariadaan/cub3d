@@ -64,6 +64,12 @@ typedef struct s_ray {
 	int				x_tex;
 	double			y_tex;
 	double			y_tex_step;
+	int				forward;
+	int				backwards;
+	int				left;
+	int				right;
+	int				rot_left;
+	int				rot_right;
 }		t_ray;
 
 typedef struct s_info
@@ -163,13 +169,14 @@ int				draw_img(t_all *all);
 	hooks.c			Key hook functions
 */
 int				key_pressed(int keycode, t_all *all);
-int				key_release(int keycode, t_all *all);
+int				key_released(int keycode, t_all *all);
 int				destroy_window(t_all *all);
 
 /*
 	move.c			Move player functions
 */
 int				spawn_dir(t_all *all);
+int				check_move(t_all *all);
 int				move_player(t_all *all, double x, double y);
 int				rotate(t_all *all, double radius);
 
