@@ -10,3 +10,4 @@ cub3D_map_tester
 X11.h
 spark.c
 cub3D
+libmlx.a
