@@ -2,9 +2,7 @@
 # define CUB_H
 
 # include "mlx/mlx.h"
-# include <unistd.h>
 # include <stdlib.h>
-# include <string.h>
 # include <math.h>
 # include <fcntl.h>
 # include <stdio.h>

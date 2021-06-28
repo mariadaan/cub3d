@@ -14,7 +14,10 @@ int	parse_res(char *full_file, int *size, int pos)
 	split = ft_split(line, ' ');
 	free(line);
 	if (!(split[1]))
+	{
+		free_2darray(split);
 		return (error_msg("Please provide both x and y render size"));
+	}
 	*size = ft_atoi(split[pos]);
 	free_2darray(split);
 	if (*size < 1 || *size < 1)
@@ -37,7 +40,11 @@ int	parse_color(char *full_file, unsigned int *color, char *id)
 		return (error_msg("No rgb value found"));
 	split = ft_split(line, ',');
 	if (check_rgb(split, &color_s))
+	{
+		free_2darray(split);
+		free(line);
 		return (1);
+	}
 	free_2darray(split);
 	free(line);
 	*color = create_rgb(color_s.r, color_s.g, color_s.b);

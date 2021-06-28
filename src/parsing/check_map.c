@@ -12,7 +12,7 @@ int	find_map(char *full_file)
 	check = 1;
 	while (full_file[i] && i > 0)
 	{
-		if (!(ft_inset("10NEWS \n", full_file[i])))
+		if (!(ft_inset("102NEWS \n", full_file[i])))
 			check = 0;
 		i--;
 		if (full_file[i] == '\n' && full_file[i - 1] == '\n' && check == 1)
@@ -33,7 +33,7 @@ int	check_row(char **map, int y_pos)
 	rowlen = ft_strlen(map[y_pos]);
 	while (x < rowlen)
 	{
-		if (ft_inset("0NESW", map[y_pos][x]))
+		if (ft_inset("02NESW", map[y_pos][x]))
 			return (1);
 		x++;
 	}
@@ -52,8 +52,8 @@ int	check_firstlast(char **map, int height)
 	while (y < height)
 	{
 		rowlen = ft_strlen(map[y]);
-		if (ft_inset("0NESW", map[y][0])
-			|| ft_inset("0NESW", map[y][rowlen - 1]))
+		if (ft_inset("02NESW", map[y][0])
+			|| ft_inset("02NESW", map[y][rowlen - 1]))
 			return (1);
 		y++;
 	}
@@ -65,7 +65,7 @@ int	check_firstlast(char **map, int height)
 */
 int	check_spots(char **map, int x, int y)
 {
-	if (ft_inset("0NESW", map[y][x]) &&
+	if (ft_inset("02NESW", map[y][x]) &&
 				(is_notmap(map[y - 1][x]) ||
 				is_notmap(map[y + 1][x]) ||
 				is_notmap(map[y][x - 1]) ||
