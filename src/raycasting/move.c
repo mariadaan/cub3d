@@ -48,12 +48,18 @@ int	move_player(t_all *all, double x, double y)
 {
 	if (all->info.map[(int)(all->ray.pos_x + x * all->ray.step_size)]
 		[(int)(all->ray.pos_y)] == '0')
-		all->ray.pos_x += x * all->ray.step_size;
+	{
+		draw_img(all);
+		show_img(all);
+		all->ray.pos_x += x  * (all->ray.step_size - 0.01);
+	}
 	if (all->info.map[(int)(all->ray.pos_x)][(int)
 		(all->ray.pos_y + y * all->ray.step_size)] == '0')
-		all->ray.pos_y += y * all->ray.step_size;
-	draw_img(all);
-	show_img(all);
+	{
+		draw_img(all);
+		show_img(all);
+		all->ray.pos_y += y * (all->ray.step_size - 0.01);
+	}
 	return (0);
 }
 

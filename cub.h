@@ -49,11 +49,9 @@ typedef struct s_ray {
 	double			delta_dist_x;
 	double			delta_dist_y;
 	double			perp_wall_dist;
-	double			perp_sprite_dist;
 	int				step_x;
 	int				step_y;
 	int				hit;
-	int				hit_sprite;
 	int				side;
 	double			step_size;
 	double			const_rad;

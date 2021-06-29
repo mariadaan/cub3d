@@ -23,7 +23,6 @@ void	set_ray_len(t_ray *ray)
 	ray->delta_dist_y = fabs(1 / ray->ray_dir_x);
 	ray->delta_dist_x = fabs(1 / ray->ray_dir_y);
 	ray->hit = 0;
-	ray->hit_sprite = 0;
 	if (ray->ray_dir_x < 0)
 	{
 		ray->step_x = -1;
@@ -84,6 +83,7 @@ void	set_projection(t_ray *ray, t_info *info)
 	else
 		ray->perp_wall_dist = (ray->map_y - ray->pos_y
 				+ (1 - ray->step_y) / 2) / ray->ray_dir_y;
+	// printfloat("walldist", ray->perp_wall_dist);
 	ray->line_height = (int)(info->y_size / ray->perp_wall_dist);
 	ray->draw_start = -ray->line_height / 2 + info->y_size / 2;
 	if (ray->draw_start < 0)
