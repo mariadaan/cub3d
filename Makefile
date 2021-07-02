@@ -56,6 +56,10 @@ residential:
 	make
 	./cub3D maps/residential.cub
 
+huisjes:
+	make
+	./cub3D maps/huisjes.cub
+
 jungle:
 	make
 	./cub3D maps/jungle.cub
