@@ -80,12 +80,8 @@ int	draw_tex(t_all *all, t_img wall_img, int x)
 int	draw_img(t_all *all)
 {
 	int	x;
-	// static int count = 0;
 
 	draw_bg(all);
-	// count++;
-	// ft_putnbr_fd(count, 1);
-	// write(1, " ", 1);
 	x = 0;
 	while (x < all->info.x_size)
 	{

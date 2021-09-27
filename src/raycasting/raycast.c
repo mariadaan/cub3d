@@ -83,7 +83,6 @@ void	set_projection(t_ray *ray, t_info *info)
 	else
 		ray->perp_wall_dist = (ray->map_y - ray->pos_y
 				+ (1 - ray->step_y) / 2) / ray->ray_dir_y;
-	// printfloat("walldist", ray->perp_wall_dist);
 	ray->line_height = (int)(info->y_size / ray->perp_wall_dist);
 	ray->draw_start = -ray->line_height / 2 + info->y_size / 2;
 	if (ray->draw_start < 0)
