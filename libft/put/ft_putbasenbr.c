@@ -6,11 +6,11 @@
 /*   By: mdaan <mdaan@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/03/16 14:52:22 by mdaan         #+#    #+#                 */
-/*   Updated: 2021/03/18 19:29:05 by mdaan         ########   odam.nl         */
+/*   Updated: 2021/09/28 21:06:09 by mdaan         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../libft.h"
 
 void	ft_putbasenbr(unsigned int num, int base)
 {

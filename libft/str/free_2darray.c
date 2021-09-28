@@ -1,4 +1,4 @@
-#include "libft.h"
+#include "../libft.h"
 
 char	**free_2darray(char **array)
 {

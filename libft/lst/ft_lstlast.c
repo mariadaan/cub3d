@@ -6,11 +6,11 @@
 /*   By: mdaan <mdaan@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/31 16:14:06 by mdaan         #+#    #+#                 */
-/*   Updated: 2021/03/18 19:23:36 by mdaan         ########   odam.nl         */
+/*   Updated: 2021/09/28 21:06:01 by mdaan         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../libft.h"
 
 /*
 **	Returns the last element of the list.

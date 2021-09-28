@@ -6,11 +6,11 @@
 /*   By: mdaan <mdaan@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/11/01 22:30:10 by mdaan         #+#    #+#                 */
-/*   Updated: 2020/11/05 13:14:01 by mdaan         ########   odam.nl         */
+/*   Updated: 2021/09/28 21:06:17 by mdaan         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../libft.h"
 
 char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
 {

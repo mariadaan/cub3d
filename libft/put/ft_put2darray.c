@@ -1,4 +1,4 @@
-#include "libft.h"
+#include "../libft.h"
 
 void	ft_put2darray(char **array, int height)
 {

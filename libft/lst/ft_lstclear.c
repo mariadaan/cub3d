@@ -6,11 +6,11 @@
 /*   By: mdaan <mdaan@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/11/01 22:29:43 by mdaan         #+#    #+#                 */
-/*   Updated: 2020/11/05 16:18:49 by mdaan         ########   odam.nl         */
+/*   Updated: 2021/09/28 21:05:58 by mdaan         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../libft.h"
 
 /*
 **	Deletes and frees the given element and every successor of that element,

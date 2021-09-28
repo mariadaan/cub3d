@@ -6,11 +6,11 @@
 /*   By: mdaan <mdaan@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/11/02 12:58:22 by mdaan         #+#    #+#                 */
-/*   Updated: 2020/11/03 16:08:37 by mdaan         ########   odam.nl         */
+/*   Updated: 2021/09/28 21:05:57 by mdaan         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../libft.h"
 
 /*
 **	Adds the element ’new’ at the beginning of the list.

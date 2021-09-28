@@ -6,11 +6,11 @@
 /*   By: mdaan <mdaan@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/11/01 16:50:44 by mdaan         #+#    #+#                 */
-/*   Updated: 2020/11/05 15:33:00 by mdaan         ########   odam.nl         */
+/*   Updated: 2021/09/28 21:06:00 by mdaan         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../libft.h"
 
 /*
 **	Takes as a parameter an element and frees the

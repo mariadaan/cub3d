@@ -6,11 +6,11 @@
 /*   By: mdaan <mdaan@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/31 15:59:19 by mdaan         #+#    #+#                 */
-/*   Updated: 2021/03/18 19:23:52 by mdaan         ########   odam.nl         */
+/*   Updated: 2021/09/28 21:06:02 by mdaan         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../libft.h"
 
 /*
 **	Counts the number of elements in a list.

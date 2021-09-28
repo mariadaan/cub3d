@@ -1,4 +1,4 @@
-#include "libft.h"
+#include "../libft.h"
 
 /*
 	Returns: first index of c in str
