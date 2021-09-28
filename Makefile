@@ -25,20 +25,20 @@ MLX			=	libmlx.a
 MLXDIR		=	./mlx/
 
 CC			=	gcc
-CFLAGS		=	-Wall #-fsanitize=address -Wall -Wextra -Werror
+CFLAGS		=	-Wall -Wextra -Werror
+MLXFLAGS	=	-Llibft -Lmlx -lmlx -lz -framework OpenGL -framework Appkit
 
 all: $(NAME)
 
 $(NAME): $(OBJS) $(HEADER)
 	make -C ./libft/
 	make -C $(MLXDIR)
-	$(CC) $(CFLAGS) $(LIBFTDIR)$(LIBFT) $(OBJS) -Llibft -Lmlx -lmlx -lz -framework OpenGL -framework Appkit -o $(NAME)
+	$(CC) $(CFLAGS) $(LIBFTDIR)$(LIBFT) $(OBJS) $(MLXFLAGS) -o $(NAME)
 
 %.o: %.c
 	$(CC) -c $(CFLAGS) -Imlx -c $< -o $@
 
 clean:
-	# find src -name "*.o" -type f -delete
 	rm -f $(OBJS)
 	make clean -C $(MLXDIR)
 
@@ -90,7 +90,6 @@ wrongarg:
 
 debug:
 	make
-	# ./cub3D maps/map.cub
 	./cub3D maps/valid_maps/valid_map_area_008.cub
 
 invalid:
