@@ -19,7 +19,9 @@
 Run one of the following commands to try different cub3D environments! 
 
 - make residential
-![Alt text](/pics/residential.png "Residential")
+![Alt text](/pics/cub3d_gifje.mov "Residential")
+
+<!-- ![Alt text](/pics/residential.png "Residential") -->
 
 - make trip
 ![Alt text](/pics/trip.png "Trip")
@@ -40,6 +42,9 @@ Run one of the following commands to try different cub3D environments!
 - make invalid_res
 - make wrongarg
 - make non
+
+## How it works
+When t
 
 ## Variable explanation
 

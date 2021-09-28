@@ -40,7 +40,6 @@ int	check_move(t_all *all)
 	return (1);
 }
 
-
 /*
 	Moves player position in map
 */
@@ -51,7 +50,7 @@ int	move_player(t_all *all, double x, double y)
 	{
 		draw_img(all);
 		show_img(all);
-		all->ray.pos_x += x  * (all->ray.step_size - 0.01);
+		all->ray.pos_x += x * (all->ray.step_size - 0.01);
 	}
 	if (all->info.map[(int)(all->ray.pos_x)][(int)
 		(all->ray.pos_y + y * all->ray.step_size)] == '0')
