@@ -139,5 +139,5 @@ The hook functions that are called in main make sure that any key press or key r
 
 ### Memleak check
 ```console
-valgrind --log-file="deze"  --leak-check=full  ./cub3D maps/jungle.cub
+valgrind --log-file="memleak_logs" ./cub3D maps/jungle.cub
 ```
