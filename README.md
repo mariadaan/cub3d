@@ -21,10 +21,7 @@ Run one of the following commands to try different cub3D environments!
 - make residential
 <p align="center">
 <img src="/pics/trim.gif" alt="animated" />
-<!-- ![Alt text](/pics/cub.gif "Residential") -->
 </p>
-
-<!-- ![Alt text](/pics/residential.png "Residential") -->
 
 - make trip
 ![Alt text](/pics/trip.png "Trip")
@@ -47,7 +44,24 @@ Run one of the following commands to try different cub3D environments!
 - make non
 
 ## How it works
-When t
+When you run the cub3d program, multiple functions are called
+
+1. **init_input**: Checks user input. Has an argument with the name of the cub file been given?
+	Does the file exist? If yes, the file will be parsed.
+2. **parse_all**: Saves cub file in one long string and calls other functions (**parse_res**, 			**parse_color**, **parse_map**, **get_spawn_pos** and **parse_tex**) to parse all
+	parts of the information in the cub file. This information is saved in the
+	t_info info struct. 
+2. **init_textures**: Creates an image structure for every texture and saves them in t_tex tex with 	**file_to_img**.
+3. **init_mlx**: Create the window in which the cub3d project will be shown and create an
+	image called img, that will be modified during the program. Also checks whether resolution is valid and modifies it if necessary in **check_res**. 
+4. **init_raycaster**: Set the values that are used by the raycaster algorithm in render.c to the
+	correct starting values. step_size can be modified to change walking speed.
+	const_rad can be modified to change rotation speed. Depending on the spawn
+	direction, player is rotated in the **spawn_dir** function.
+5. **draw_img**: Draws background using **draw_bg**. Loops over vertical lines to be drawn in image, 	does raycasting calculations for every line (**set_ray_pos**, **set_ray_len**, **perform_dda** 		and **set_projection**), and places the textures on the walls (**draw_tex**).
+6. **show_img**: Place the rendered image on the window so it can be shown. 
+
+The hook functions that are called in main make sure that any key press or key release is constantly checked for. When a key has been pressed, **check_move** moves the player position in the map. After this, **draw_img** and **show_img** will be called again to update the image that is shown in the window. This keeps happening until the key is released. When the key is released, moving will stop and the image will not be updated until a key is pressed again. When the esc button or the red cross in the upper left corner is pressed, the program will free all allocated memory and quit the program.
 
 ## Variable explanation
 

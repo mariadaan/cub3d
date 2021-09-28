@@ -23,7 +23,6 @@ int	init_input(t_all *all, int argc, char *cub_file)
 
 /*
 	Creates an image structure for every texture and saves them in t_tex tex.
-	In rect, information about the walls to be displayed will be saved later on.
 */
 int	init_textures(t_all *all)
 {
