@@ -20,7 +20,7 @@ Run one of the following commands to try different cub3D environments!
 
 - make residential
 <p align="center">
-<img src="/pics/cub.gif" alt="animated" />
+<img src="/pics/trim.gif" alt="animated" />
 <!-- ![Alt text](/pics/cub.gif "Residential") -->
 </p>
 
