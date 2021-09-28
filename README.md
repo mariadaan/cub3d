@@ -19,7 +19,7 @@
 Run one of the following commands to try different cub3D environments! 
 
 - make residential
-![Alt text](/pics/cub3d_gifje.mov "Residential")
+![Alt text](/pics/cub.gif "Residential")
 
 <!-- ![Alt text](/pics/residential.png "Residential") -->
 
