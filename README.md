@@ -44,7 +44,7 @@ Run one of the following commands to try different cub3D environments!
 - make non
 
 ## How it works
-When you run the cub3d program, multiple functions are called
+When you run the cub3d program, the following functions are called from the main.
 
 1. **init_input**: Checks user input. Has an argument with the name of the cub file been given?
 	Does the file exist? If yes, the file will be parsed.
