@@ -20,7 +20,7 @@ This project’s objectives:
    ```console
    make
    ```
-3. Execute **cub3D** with map of your choice
+3. Execute **cub3D** with map of your choice (example maps are in the maps folder, use maps/map.cub)
    ```console
    ./cub3D filename.cub
    ```

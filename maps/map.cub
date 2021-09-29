@@ -1,12 +1,12 @@
-   R 20000    1000
+   R 1200    600
 
 
 
 
       NO ./textures/brick.xpm
-      EA ./textures/diertjes.xpm
-      SO ./textures/plantdonker.xpm
-  WE ./textures/wood.xpm
+      EA ./textures/brick.xpm
+      SO ./textures/brick.xpm
+  WE ./textures/brick.xpm
       S ./sprites/tiger.png
 
      F    49, 79, 49

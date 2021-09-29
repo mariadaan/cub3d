@@ -12,7 +12,8 @@ int	draw_bg(t_all *all)
 	color = all->info.c_color;
 	while (y < all->info.y_size / 2)
 	{
-		if (y % (all->info.y_size / 200) == 0)
+		if (all->info.y_size / 200 == 0
+			|| y % (all->info.y_size / 200) == 0)
 			color = gen_darker_color(color, 1);
 		put_hor_full(all, y, color);
 		y++;

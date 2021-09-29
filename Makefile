@@ -48,7 +48,7 @@ fclean: clean
 
 re: fclean all
 
-ray:
+map:
 	make
 	./cub3D maps/map.cub
 
