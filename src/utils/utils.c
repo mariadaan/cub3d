@@ -1,4 +1,4 @@
-#include "cub.h"
+#include "../../cub.h"
 
 /*
 	Change the color of the full width of the main image. Used for drawing the

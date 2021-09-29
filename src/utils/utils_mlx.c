@@ -1,4 +1,4 @@
-#include "cub.h"
+#include "../../cub.h"
 
 // Just some mlx functions, but better
 

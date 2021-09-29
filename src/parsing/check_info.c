@@ -1,4 +1,4 @@
-#include "../cub.h"
+#include "../../cub.h"
 
 /*
 	Checks whether resolution is valid and modifies it if necessary

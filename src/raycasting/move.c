@@ -1,4 +1,4 @@
-#include "cub.h"
+#include "../../cub.h"
 
 /*
 	Changes initial player direction if necessary

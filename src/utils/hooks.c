@@ -1,4 +1,4 @@
-#include "cub.h"
+#include "../../cub.h"
 
 /*
 	Closes window and frees map

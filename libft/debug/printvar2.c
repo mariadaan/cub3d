@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include "../libft/libft.h"
+#include "../libft.h"
 
 int	printco(char *name, int x, int y)
 {

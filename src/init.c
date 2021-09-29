@@ -1,4 +1,4 @@
-#include "cub.h"
+#include "../cub.h"
 
 // INITIALIZATION FUNCTIONS
 
