@@ -25,7 +25,7 @@ MLX			=	libmlx.a
 MLXDIR		=	./mlx/
 
 CC			=	gcc
-CFLAGS		=	-Wall -Wextra -Werror
+CFLAGS		=	-Wall -Wextra -Werror -I .
 MLXFLAGS	=	-Llibft -Lmlx -lmlx -lz -framework OpenGL -framework Appkit
 
 all: $(NAME)
